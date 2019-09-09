@@ -10,6 +10,7 @@ import java.util.Date;
 public class Car{
 	private Integer carID;
 	private Integer vehicleID;
+	private Integer vehicleAge;//车龄
 	private String mileage;
 	private String model;
 	private String presentPrice;
