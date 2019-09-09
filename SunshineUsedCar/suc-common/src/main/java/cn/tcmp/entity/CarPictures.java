@@ -7,7 +7,7 @@ import lombok.Data;
  */
 
 @Data
-public class Carpictures{
+public class CarPictures {
 	private Integer carPicturesID;
 	private String carPicturesURL;
 	private Integer carID;

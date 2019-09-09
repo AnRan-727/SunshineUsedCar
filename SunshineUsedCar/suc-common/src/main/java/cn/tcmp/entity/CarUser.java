@@ -6,7 +6,7 @@ import lombok.Data;
  * caruser  generated at 2019-09-09 10:35:03 by: eric
  */
 @Data
-public class Caruser{
+public class CarUser {
 	private Integer userID;
 	private String userName;
 	private String userPassWord;
