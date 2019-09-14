@@ -14,5 +14,17 @@ public class toControlelr {
     public String to(){
         return "qianDuan/index";
     }
+    @RequestMapping("login")
+    public String login(){
+        return "houtai/login";
+    }
+    @RequestMapping("index")
+    public String index(){
+        return "houtai/index";
+    }
+    @RequestMapping("welcome")
+    public String welcome(){
+        return "houtai/welcome";
+    }
 
 }
