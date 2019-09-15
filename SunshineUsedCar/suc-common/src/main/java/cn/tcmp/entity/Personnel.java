@@ -7,14 +7,14 @@ import lombok.Data;
  */
 @Data
 public class Personnel{
-	private Integer personnelID;
-	private String personnelPhone;
-	private String personnelName;
-	private String personnelPassWord;
-	private String personnelEmail;
-	private String personnelAddress;
-	private String personnelIDCard;
-	private String personnelGender;
+	private Integer personnelID;//id
+	private String personnelPhone;//工作人员手机号
+	private String personnelName;//工作人员姓名
+	private String personnelPassWord;//工作人员密码
+	private String personnelEmail;//工作人员邮箱
+	private String personnelAddress;//工作人员地址
+	private String personnelIDCard;//工作人员身份证号
+	private String personnelGender;//工作人员性别
 
 
 }
