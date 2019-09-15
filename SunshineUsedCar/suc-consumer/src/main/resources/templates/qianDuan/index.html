@@ -13,7 +13,21 @@
 <script type="text/javascript" src="script/eg_top_search.js"></script>
 <script type="text/javascript" src="script/city.js"></script>
 <script type="text/javascript" src="script/snncar.js"></script>
-<script type="text/javascript" src="script/jquery.SuperSlide.2.1.1.js"></script> 
+<script type="text/javascript" src="script/jquery.SuperSlide.2.1.1.js"></script>
+  <style>
+    .input-val {
+      width: 60%;
+      height: 32px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+    #canvas {
+      vertical-align: middle;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    }
+  </style>
 <!--导航登陆网页版下拉-->
 <script type="text/javascript">
 $(function () {
@@ -37,10 +51,10 @@ $(function () {
 <!--下拉导航关闭-->
 <script type="text/javascript">
 $(function () {
- $('.menu-mb i').click(function() { 
+ $('.menu-mb i').click(function() {
    $(".navigation-mb-list").slideDown(300);
- }); 
- $('.navigation-mb-list .list-close-btn').click(function() { 
+ });
+ $('.navigation-mb-list .list-close-btn').click(function() {
    $(".navigation-mb-list").slideUp(300);
  });
 });
@@ -51,7 +65,7 @@ $(function () {
 	var scroll_heitht = $('body').offset().top;
 	var isShow = true;
 	$(window).scroll(function () {
-       if ($(window).scrollTop() > scroll_heitht && isShow) {
+       if ($(window).scrollTop() > scroll_heitht&&isShow) {
 			 $('.stress-search-box').slideDown(200);
        }else{
 		   $('.stress-search-box').slideUp(200);
@@ -67,8 +81,12 @@ $(function () {
 <body>
 <div class="egc-top">
   <div class="nav-cent">
-    <div class="top-r"> <a href="#" id="b-regist">注册</a>|<a href="#" id="b-login" class="b-login">登陆</a> </div>
-    <div class="top-l">全国统一客服热线：400-877-9288</div>
+      <div class="top-r">
+          <a href="#" id="b-regist">注册</a>
+          |
+          <a href="#" id="b-login" class="b-login">登陆</a>
+      </div>
+    <div class="top-l">全国统一客服热线：17600000142</div>
     <div class="clear_fix"></div>
   </div>
 </div>
@@ -137,7 +155,7 @@ $(function () {
   </div>
 </div>
 <!--banner广告-->
-<div class="banner"> 
+<div class="banner">
   <!--左侧买卖车-->
   <div class="mainmenu">
     <div class="sel-area">
@@ -218,7 +236,7 @@ $(function () {
 				i = $(this).offset().top,									//当前元素滑过距离窗口多少像素
 				item = $(this).children('.item-list').height(),				//下拉菜单子类内容容器的高度
 				sort = $('.all-sort-list').height();						//父类分类列表容器的高度
-			
+
 			if ( item < sort ){												//如果子类的高度小于父类的高度
 				if ( eq == 0 ){
 					$(this).children('.item-list').css('top', (i-h));
@@ -235,7 +253,7 @@ $(function () {
 				} else {
 					$(this).children('.item-list').css('top', 0);
 				}
-			}	
+			}
 
 			$(this).addClass('hover');
 			$(this).children('.item-list').css('display','block');
@@ -248,7 +266,7 @@ $(function () {
 			$(this).parent().parent().removeClass('hover');
 			$(this).parent().hide();
 		});
-	</script> 
+	</script>
       <!--我要买车-->
       <div class="buy-tit">我要买车</div>
       <div class="sell-car-box">
@@ -266,10 +284,10 @@ $(function () {
   <div class="menu_r">
     <div class="flexslider">
       <ul class="slides">
-        <li style="background-image:url(images/1.jpg);"></li>
-        <li style="background-image:url(images/2.jpg);"></li>
-        <li style="background-image:url(images/3.jpg);"></li>
-        <li style="background-image:url(images/4.jpg);"></li>
+        <li style="background-image:url(/images/1.jpg);"></li>
+        <li style="background-image:url(/images/2.jpg);"></li>
+        <li style="background-image:url(/images/3.jpg);"></li>
+        <li style="background-image:url(/images/4.jpg);"></li>
       </ul>
     </div>
     <div class="clear_fix"></div>
@@ -317,7 +335,7 @@ $(document).ready(function(){
 		$('.flex-direction-nav').fadeOut();
 		})
 });
-</script> 
+</script>
 <!--特色频道-->
 <div class="clear_fix"></div>
 <div class="special_sun">
@@ -727,7 +745,7 @@ $(document).ready(function(){
         </div>
       </div>
     </div>
-    
+
     <!--媒体报道-->
     <div class="r-news">
       <div class="kTit">
@@ -801,17 +819,17 @@ $(function(){
 		},200);
 	});
 });
-</script> 
-<script type="text/javascript" src="script/3c-menu.js"></script> 
+</script>
+<script type="text/javascript" src="script/3c-menu.js"></script>
 
-<script type="text/javascript" src="script/index.js"></script> 
-<script type="text/javascript" src="script/address.js"></script> 
+<script type="text/javascript" src="script/index.js"></script>
+<script type="text/javascript" src="script/address.js"></script>
 <script type="text/javascript" src="script/lg_reg.js"></script>
 <script type="text/javascript">
 $(function(){
 
 	$("#sjld").sjld("#shenfen","#chengshi");
-	
+
 });
 </script>
 <!--会员登录和注册弹出框开始-->
@@ -820,59 +838,60 @@ $(function(){
     <div class="p-tab"> <a>会员登录<i></i></a><a>会员注册<i></i></a> </div>
     <div class="p-detail">
       <div class="p-dl">
-        <form onsubmit="return check();" enctype="multipart/form-data" method="post" name="form" id="form">
+        <form action="" method="post" name="form" id="loginform">
           <ul class="login-items">
-            <li>
-              <label>用户名(手机号)</label>
-              <input class="input" type="text" value="" maxlength="32"  name="username" placeholder="请输入您的手机号">
-            </li>
-            <li>
-              <label>密码</label>
-              <input class="input" type="password" value="" maxlength="16"  name="password">
-            </li>
+            <li><label>用户名(手机号)</label> <input class="input" type="text"
+                                               value="" id="loginUsername" maxlength="32" name="userPhone"
+                                               placeholder="请输入您的手机号"></li>
+            <li><label>密码</label> <input class="input" type="password"
+                                         id="loginPassword" maxlength="16" name="userPassWord"></li>
           </ul>
           <div class="login-check">
-            <input type="checkbox" name="checkbox" style=" width:auto;" />
-            <label>记住我</label>
-            <a href="Meet/editPass">忘记登录密码？</a> </div>
+            <input type="checkbox" name="checkbox" style="width: auto;" /> <label>记住我</label>
+            <a href="Meet/editPass">忘记登录密码？</a>
+          </div>
           <div class="login-button">
             <input type="hidden" value="" name="carid" class="ordercarid" />
-            <input type="hidden" value="" name="carstatus" class="orderstatus" />
-            <input type="button"  value="登&nbsp;&nbsp;&nbsp;&nbsp;陆" class="fM" onclick="$('#form').submit()" />
+            <input type="hidden" value="" name="carstatus"
+                   class="orderstatus" /> <input type="button"
+                                                 value="登&nbsp;&nbsp;&nbsp;&nbsp;陆" class="fM" onclick="denglu()" />
           </div>
           <!---校验-->
-         <p class="sell-phone-error" style="display:block;">请填写正确的手机号码</p>
+          <p class="sell-phone-error" style="display: block;"
+             id="logintishi"></p>
         </form>
       </div>
       <div class="p-dl">
-        <form class="registForm" onsubmit="return regcheck();" enctype="multipart/form-data" method="post" name="reg" id="reg">
+        <form action="" id="zhucheform" class="registForm" method="post"
+              name="reg">
           <ul class="login-items">
             <li class="clearfix">
-              <input class="input" name="mobile" id="mobile" type="text" value="" placeholder="手机号码（登录帐号）">
-            </li>
+              <input class="input" name="userPhone"
+                                        id="phone" type="text" value="" placeholder="手机号码（登录帐号）">
+              <input class="input" type="hidden" name="quanxian"
+                     id="quanxian" value="0"></li>
             <li class="clearfix">
-              <input class="input left" type="text" value=""  name="verify" placeholder="输入验证码" style="width:100px;" />
-              <div id="send"><a href="#" class="send_code right">获取验证码</a></div>
-            </li>
-            <li class="clearfix">
-              <input class="input" type="text" value=""  name="realname" placeholder="姓名">
-            </li>
-            <li class="clearfix sex">
-              <input type="radio" checked="" name="gender" value="M" />
-              男&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="radio" name="gender" value="F" />
-              女 </li>
-            <li class="clearfix">
-              <input id="" class="input" type="password" name="password" value="" placeholder="输入密码（六位字符）">
-            </li>
+              <input type="text" value="" placeholder="请输入验证码（不区分大小写）" name="verify" style="width:51%;" class="input left">
+              <div id="send">
+                <canvas id="canvas" class="send_code right"></canvas>
+              </div></li>
+            <li class="clearfix"><input class="input" type="text"
+                                        id="zhuchename" name="realName" placeholder="姓名"></li>
+            <li class="clearfix sex"><input type="radio" name="userGender"
+                                            value="男" /> 男&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
+                                                                                          name="userGender" value="女" /> 女</li>
+            <li class="clearfix"><input class="input" type="password"
+                                        name="userPassWord" id="zhuchepassword" placeholder="输入密码（六位字符）"></li>
+
           </ul>
           <div class="login-button">
             <input type="hidden" value="" name="carid" class="ordercarid" />
-            <input type="hidden" value="" name="carstatus" class="orderstatus" />
-            <input type="button"  value="立即注册" class="fM" onclick="$('#reg').submit()" />
+            <input type="hidden" value="" name="carstatus"
+                   class="orderstatus" /> <input type="button" value="立即注册"
+                                                 class="fM" />
           </div>
          <!---校验-->
-         <p class="sell-phone-error" style="display:block;">请填写正确的手机号码</p>
+          <p class="sell-phone-error" style="display: block;" id="tishi"></p>
         </form>
       </div>
     </div>
@@ -908,15 +927,209 @@ $(function(){
 				<img src="images/foot03/zfew.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
 			</a>
 		</li>
-	
-	
-	
+
+
+
 	</ul>
 </div>
+
+
+<script>
+    $(function(){
+        var show_num = [];
+        draw(show_num);
+        $("#canvas").on('click',function(){
+            draw(show_num);
+        })
+        $(".fM").on('click',function(){
+            var val = $("input[name='verify']").val().toLowerCase();
+            var num = show_num.join("");
+            if(val==''){
+                $("#tishi").html("请输入验证码");
+            }else if(val == num){
+                zhuche();
+                $(".input-val").val('');
+                // draw(show_num);
+            }else{
+                $("#tishi").html('验证码错误！请重新输入！');
+                $(".input-val").val('');
+                // draw(show_num);
+            }
+        })
+    })
+    //生成并渲染出验证码图形
+    function draw(show_num) {
+        var canvas_width=$('#canvas').width();
+        var canvas_height=$('#canvas').height();
+        var canvas = document.getElementById("canvas");//获取到canvas的对象，演员
+        var context = canvas.getContext("2d");//获取到canvas画图的环境，演员表演的舞台
+        canvas.width = canvas_width;
+        canvas.height = canvas_height;
+        var sCode = "a,b,c,d,e,f,g,h,i,j,k,m,n,p,q,r,s,t,u,v,w,x,y,z,A,B,C,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0";
+        var aCode = sCode.split(",");
+        var aLength = aCode.length;//获取到数组的长度
+        for (var i = 0; i < 4; i++) { //这里的for循环可以控制验证码位数（如果想显示6位数，4改成6即可）
+            var j = Math.floor(Math.random() * aLength);//获取到随机的索引值
+            // var deg = Math.random() * 30 * Math.PI / 180;//产生0~30之间的随机弧度
+            var deg = Math.random() - 0.5; //产生一个随机弧度
+            var txt = aCode[j];//得到随机的一个内容
+            show_num[i] = txt.toLowerCase();
+            var x = 10 + i * 20;//文字在canvas上的x坐标
+            var y = 20 + Math.random() * 8;//文字在canvas上的y坐标
+            context.font = "bold 23px 微软雅黑";
+            context.translate(x, y);
+            context.rotate(deg);
+            context.fillStyle = randomColor();
+            context.fillText(txt, 0, 0);
+            context.rotate(-deg);
+            context.translate(-x, -y);
+        }
+        for (var i = 0; i <= 5; i++) { //验证码上显示线条
+            context.strokeStyle = randomColor();
+            context.beginPath();
+            context.moveTo(Math.random() * canvas_width, Math.random() * canvas_height);
+            context.lineTo(Math.random() * canvas_width, Math.random() * canvas_height);
+            context.stroke();
+        }
+        for (var i = 0; i <= 30; i++) { //验证码上显示小点
+            context.strokeStyle = randomColor();
+            context.beginPath();
+            var x = Math.random() * canvas_width;
+            var y = Math.random() * canvas_height;
+            context.moveTo(x, y);
+            context.lineTo(x + 1, y + 1);
+            context.stroke();
+        }
+    }
+    //得到随机的颜色值
+    function randomColor() {
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+</script>
+
+
+
+
 <!--leftsead end-->
 
 <script type="text/javascript">
-$(document).ready(function(){
+    /*注册跳转加验证  */
+    function zhuche() {
+
+        var phone = $("#phone").val();
+        if (!(/^1[34578]\d{9}$/.test(phone))) {
+            $("#tishi").html("手机号码有误，请重填");
+            return false;
+        } else {
+            $("#tishi").html("");
+        }
+
+        var yanzhengma =$("#yanzhengma").val;
+        if(yanzhengma ==''){
+            $("#tishi").html("验证码不能为空");
+        }else {
+            $("#tishi").html("");
+        }
+        if(yanzhengma != 235235){
+            $("#tishi").html("验证码错误");
+        }else {
+            $("#tishi").html("");
+        }
+
+        var username = $("#zhuchename").val();
+        if (username == null || username == '') {
+            $("#tishi").html("姓名不能为空");
+            return false;
+        } else {
+            $("#tishi").html("");
+        }
+
+        var sex = $('input:radio[name="userGender"]:checked').val();
+        if (sex == null) {
+            $("#tishi").html("性别不能为空，请您选择");
+            return false;
+        } else {
+            $("#tishi").html("");
+        }
+
+        var password = $("#zhuchepassword").val();
+        if (password.length < 4) {
+            $("#tishi").html("密码不能小于四位，请重新输入");
+            return false;
+        } else {
+            $("#tishi").html("");
+        }
+        var data = $("#zhucheform").serialize();
+
+        $.post("/carUser/doZhucheController",data,function (result) {
+            alert(result);
+            if(result.eq("注册失败!")){
+                $("#tishi").html(result);
+            }else{
+                alert("注册成功!");
+            }
+        })
+
+
+
+    }
+    /*登录跳转和验证  */
+    function denglu() {
+        var loginUsername = $("#loginUsername").val();
+        var loginPassword = $("#loginPassword").val();
+        if (loginUsername == null || loginUsername == '') {
+            $("#logintishi").html("用户名不能为空，请重新输入");
+            return false;
+        } else {
+            $("#logintishi").html("");
+        }
+        if (loginPassword.length < 4) {
+            $("#logintishi").html("密码不能小于四位，请重新输入");
+            return false;
+        } else {
+            $("#logintishi").html("");
+        }
+            var data=$("#loginform").serialize();
+            $.post('/carUser/login',data,function (result) {
+                if(result.errorcode =='0000'){
+                    alert("登录成功");
+                    //获取到服务器端给客户端的token
+                    var token=result.data.token;
+                    //获取生成token的时间
+                    var genTime=result.data.genTime;
+                    alert(token);
+                    //
+                    document.cookie="token="+token;
+                    document.cookie="genTime="+genTime;
+                }else {
+                    alert("登录失败");
+                }
+            });
+    }
+
+        /*手机ajax验证  */
+        $("#phone").focus(function() {
+            $("#tishi").html("");
+        }).blur(function() {
+            var phone = $("#phone").val();
+            $.post("ajaxUserphoneController", {
+                "phone" : phone
+            }, function(returnData, status) {
+                if ("success" == status) {
+                    if (!returnData) {
+                        $("#tishi").html("手机号可以注册！");
+                    } else {
+                        $("#tishi").html("手机号已注册，不能重复注册！");
+                    }
+                }
+
+            }, "json")
+        });
+
+    $(document).ready(function(){
 
 	$("#leftsead a").hover(function(){
 		if($(this).prop("className")=="youhui"){
@@ -924,9 +1137,9 @@ $(document).ready(function(){
 		}else{
 			$(this).children("img.hides").show();
 			$(this).children("img.shows").hide();
-			$(this).children("img.hides").animate({marginRight:'0px'},'slow'); 
+			$(this).children("img.hides").animate({marginRight:'0px'},'slow');
 		}
-	},function(){ 
+	},function(){
 		if($(this).prop("className")=="youhui"){
 			$(this).children("img.hides").hide('slow');
 		}else{

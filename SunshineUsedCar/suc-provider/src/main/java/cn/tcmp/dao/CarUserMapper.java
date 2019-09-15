@@ -15,10 +15,11 @@ public interface CarUserMapper {
     //用户是否存在
     CarUser existCarUser(String userPhone);
 
+    //客户个人信息
+    CarUser detailCarUser(Integer userID);
+
     //客户注册
     int carUserRegister(CarUser carUser);
 
-    //客户个人信息
-    CarUser detailCarUser(Integer id);
 
 }
