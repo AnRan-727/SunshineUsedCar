@@ -12,12 +12,14 @@ import java.util.List;
 public interface CarQicheMapper {
 
     //查询所有的车辆品牌
-    @Select(value = "SELECT * FROM vehicle WHERE parentID =-1 ")
+    @Select(value = "SELECT * FROM vehicle WHERE parentID =-1 limit 10")
     List<Vehicle> queryAllVehicle();
+
     //根据品牌查询该车辆下属车系
     @Select(value ="SELECT * FROM vehicle WHERE parentID=(SELECT vehicleID FROM vehicle WHERE vehicleID=#{vehicleID})")
     List<Vehicle> queryVehicleByVehicleName(@Param("vehicleID") Integer vehicleID);
+
     //根据汽车的品牌,车系,价格,车型等模糊查询汽车信息
-    PageQiche<CarVO> queryPageCarVo(Car car, Integer pageNum, Integer pageSize);
+    List<CarVO> queryPageCarVo(Car car);
 
 }

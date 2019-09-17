@@ -18,6 +18,7 @@ import java.util.Date;
 @Data
 public class CarVO {
 	private Integer carID;
+	private String pinpaiID;;
 	private String vehicleID;
 	private Integer vehicleAge;//车龄
 	private String mileage;

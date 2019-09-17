@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 public class Car implements Serializable {
 	private Integer carID;
+	private Integer pinpaiID;
 	private Integer vehicleID;
 	private Integer vehicleAge;//车龄
 	private String mileage;
