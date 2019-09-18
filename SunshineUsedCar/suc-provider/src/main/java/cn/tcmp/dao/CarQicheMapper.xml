@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.CarQicheMapper">
+
+    <select id="queryPageCarVo" parameterType="Car" resultType="CarVO">
+
+        SELECT c.carID ,
+        (SELECT vehicleName FROM vehicle WHERE vehicleID=c.pinpaiID)pinpaiID,
+        (SELECT vehicleName FROM vehicle WHERE vehicleID=c.vehicleID)vehicleID
+        ,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE
+        ' AND valueID=typeID) typeID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='GEARBOX' AND valueID=gearboxID) gearboxID,
+        c.displacement,
+        (SELECT valueName FROM datadictionary WHERE typeCode='EMISSION' AND valueID=emissionID) emissionID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='FUEL' AND valueID=fuelID) fuelID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COLOR' AND valueID=colorID) colorID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COUNTRY' AND valueID=countryID) countryID,
+        topCity,placingTime,yearlyTime,insuranceTime,superValue,urgentSale,newCar,transitive,personnelID,subordinateName,vehicleage,
+        (SELECT carPicturesURL FROM carpictures WHERE carID=c.carID LIMIT 1) carPicturesURL
+        FROM car c
+        <where>
+
+              <if test="pinpaiID !=null and pinpaiID !=-1">pinpaiID=#{pinpaiID}</if>
+              <if test="vehicleID !=null and vehicleID !=-1"> and vehicleID=#{vehicleID}</if>
+
+
+          </where>
+
+    </select>
+
+
+
+</mapper>
