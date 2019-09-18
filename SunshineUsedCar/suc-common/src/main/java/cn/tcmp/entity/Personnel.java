@@ -17,6 +17,6 @@ public class Personnel implements Serializable {
 	private String personnelAddress;//工作人员地址
 	private String personnelIDCard;//工作人员身份证号
 	private String personnelGender;//工作人员性别
-
+	private String personnelDate;//工作人员入职时间
 
 }
