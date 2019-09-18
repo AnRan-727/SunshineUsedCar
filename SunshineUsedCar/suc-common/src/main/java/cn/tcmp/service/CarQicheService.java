@@ -15,6 +15,15 @@ public interface CarQicheService {
     PageQiche<CarVO> queryPageCarVo(Car car,Integer pageNum,Integer pageSize);
     //根据品牌查询该车辆下属车系
     List<Vehicle> queryVehicleByVehicleName(Integer vehicleID);
+
+    //查询全部车系
+    List<Vehicle> queryAllVehiclebyChexi();
+    //查询根据车辆品牌查询车辆信息
+    List<CarVO> qeuryCarByVehicleChexiname(String  vehicleName);
+    //模糊查询车辆票品牌
+    List<Vehicle> queryVehicleByVehicleName2(String vehicleName);
+    //根据品牌id查询品牌名称
+    Vehicle detailVehicleById(Integer vehicleId);
     /*
     //按照分页查询全部汽车信息
     //查询全部的汽车信息

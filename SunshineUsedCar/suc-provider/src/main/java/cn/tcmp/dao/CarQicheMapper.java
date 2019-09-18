@@ -22,4 +22,21 @@ public interface CarQicheMapper {
     //根据汽车的品牌,车系,价格,车型等模糊查询汽车信息
     List<CarVO> queryPageCarVo(Car car);
 
+    //查询全部车系
+    @Select(value = "select * from vehicle where parentID!=-1")
+    List<Vehicle> queryAllVehiclebyChexi();
+
+    //查询根据车辆品牌查询车辆信息
+    List<CarVO> qeuryCarByVehicleChexiname(@Param("vehicleName") String  vehicleName);
+
+    //模糊查询车辆票品牌
+    @Select(value = "select * from vehicle where parentID=-1 and vehicleName like CONCAT('%',#{vehicleName},'%')")
+    List<Vehicle> queryVehicleByVehicleName2(@Param("vehicleName") String vehicleName);
+
+    //根据品牌id查询品牌名称
+    @Select(value = "select vehicleName from vehicle where vehicleId=#{vehicleId}")
+    Vehicle detailVehicleById(@Param("vehicleId") Integer vehicleId);
+
+
+
 }

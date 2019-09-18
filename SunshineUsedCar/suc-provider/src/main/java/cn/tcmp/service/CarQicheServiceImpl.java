@@ -5,16 +5,15 @@ import cn.tcmp.entity.Car;
 import cn.tcmp.entity.Vehicle;
 import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
+import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Service
 public class CarQicheServiceImpl implements CarQicheService {
-    @Resource
+    @Autowired
     private CarQicheMapper mapper;
     @Override
     public List<Vehicle> queryAllVehicle() {
@@ -45,4 +44,27 @@ public class CarQicheServiceImpl implements CarQicheService {
     public List<Vehicle> queryVehicleByVehicleName(Integer vehicleID) {
         return mapper.queryVehicleByVehicleName(vehicleID);
     }
+
+    @Override
+    public List<Vehicle> queryAllVehiclebyChexi() {
+        return mapper.queryAllVehiclebyChexi();
+    }
+
+    @Override
+    public List<CarVO> qeuryCarByVehicleChexiname(String vehicleName) {
+        return mapper.qeuryCarByVehicleChexiname(vehicleName);
+    }
+
+    @Override
+    public List<Vehicle> queryVehicleByVehicleName2(String vehicleName) {
+        List<Vehicle> vehicles = mapper.queryVehicleByVehicleName2(vehicleName);
+        return vehicles;
+    }
+
+    @Override
+    public Vehicle detailVehicleById(Integer vehicleId) {
+        return mapper.detailVehicleById(vehicleId);
+    }
+
+
 }

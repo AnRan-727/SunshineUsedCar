@@ -1,4 +1,5 @@
 package cn.tcmp.vo;
+import cn.tcmp.entity.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,7 +45,7 @@ public class CarVO {
 	private Integer personnelID;
 	private String subordinateName;
 	private String cheleiID;
-
+	private Vehicle vehicle;
 
 
 }

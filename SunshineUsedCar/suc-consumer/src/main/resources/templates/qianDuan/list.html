@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -175,13 +175,23 @@ $(function () {
         </div>
       </div>
       <span class="common-bg city-logo"></span> </div>
-    <div class="sea">
-      <div class="egc-sea-box">
-        <input type="text" class="sea-ipt-txt" placeholder="搜索您想要的车" />
-        <a href="#" class="search-btn">搜索</a> </div>
-    </div>
-    <div class="hot-phone"> <i></i> <span class="js-change-phone">400-877-9288</span> </div>
-  </div>
+      <div class="sea">
+          <form action="" class="Byname1" method="post">
+              <div class="egc-sea-box">
+                  <input type="text"  autocomplete="off" class="sea-ipt-txt" oninput="guanzhengfang()" placeholder="搜索您想要的车" name="vehicleName"  />
+                  <a href="javascript:void(0)" class="search-btn" id="sousuo1">搜索</a>
+
+              </div >
+              <div style="position: absolute;z-index: 3"  id="zhangsan">
+
+              </div>
+
+          </form>
+      </div>
+      <div class="hot-phone">
+          <i></i> <span class="js-change-phone">17600000142</span>
+      </div>
+
 </div>
 <ul class="navmenu">
   <li class="active"><a href="index.html">首页</a><span></span></li>
@@ -212,14 +222,14 @@ $(function () {
 <div class="clear_fix"></div>
 <!--所在位置-->
 <div class="crumbp"> <a href="#">首页</a> <em>&gt;</em> <span>个人二手车</span> </div>
-<div class="mainbox"> 
+<div class="mainbox">
   <!--搜索条件-->
   <div class="comfilter-bd">
     <div class="filterBox">
       <dl class="fliter-bd clearfix">
         <dt>品牌：</dt>
-        <dd class="clickBrandWidget"> <a class="on" href="#">不限</a> <a  class="" href="#" title="大众二手车"> 大众 </a> <a  class="" href="#" title="奔腾二手车"> 奔腾 </a> <a  class="" href="#" title="现代二手车"> 现代 </a> <a  class="" href="#" title="丰田二手车"> 丰田 </a> <a  class="" href="#" title="奥迪二手车"> 奥迪 </a> <a  class="" href="#" title="日产二手车"> 日产 </a> <a  class="" href="#" title="五菱二手车"> 五菱 </a> <a  class="" href="#" title="福特二手车"> 福特 </a> <a  class="" href="#" title="铃木二手车"> 铃木 </a> <a  class="" href="#" title="马自达二手车"> 马自达 </a> <a  class="" href="#" title="比亚迪二手车"> 比亚迪 </a> <a  class="" href="#" title="本田二手车"> 本田 </a> <a  class="" href="#" title="奇瑞二手车"> 奇瑞 </a> <a  class="" href="#" title="吉利二手车"> 吉利 </a> <a  class="" href="#" title="雪佛兰二手车"> 雪佛兰 </a> <a  class="" href="#" title="东风风行二手车"> 东风风行 </a> <a  class="" href="#" title="起亚二手车"> 起亚 </a> <a  class="" href="#" title="哈弗二手车"> 哈弗 </a> 
-          <!--品牌全部--> 
+        <dd class="clickBrandWidget"> <a class="on" href="#">不限</a> <a  class="" href="#" title="大众二手车"> 大众 </a> <a  class="" href="#" title="奔腾二手车"> 奔腾 </a> <a  class="" href="#" title="现代二手车"> 现代 </a> <a  class="" href="#" title="丰田二手车"> 丰田 </a> <a  class="" href="#" title="奥迪二手车"> 奥迪 </a> <a  class="" href="#" title="日产二手车"> 日产 </a> <a  class="" href="#" title="五菱二手车"> 五菱 </a> <a  class="" href="#" title="福特二手车"> 福特 </a> <a  class="" href="#" title="铃木二手车"> 铃木 </a> <a  class="" href="#" title="马自达二手车"> 马自达 </a> <a  class="" href="#" title="比亚迪二手车"> 比亚迪 </a> <a  class="" href="#" title="本田二手车"> 本田 </a> <a  class="" href="#" title="奇瑞二手车"> 奇瑞 </a> <a  class="" href="#" title="吉利二手车"> 吉利 </a> <a  class="" href="#" title="雪佛兰二手车"> 雪佛兰 </a> <a  class="" href="#" title="东风风行二手车"> 东风风行 </a> <a  class="" href="#" title="起亚二手车"> 起亚 </a> <a  class="" href="#" title="哈弗二手车"> 哈弗 </a>
+          <!--品牌全部-->
           <span class="brand-all z30"> <em data-role="show">全部<i></i></em>
           <div data-role="otherBrand" class="otherbrand" style="display: none;">
             <div class="o-b-box"><span class="arrow"><s></s></span>
@@ -287,8 +297,8 @@ $(function () {
               </ul>
             </div>
           </div>
-          </span> 
-          <!--品牌全部--> 
+          </span>
+          <!--品牌全部-->
         </dd>
       </dl>
       <dl class="fliter-bd clearfix">
@@ -439,7 +449,7 @@ $(function () {
 		</dd>
 	</dl>
       </div>
-     
+
     </div>
     <div class="sel-menu clearfix">
       <p class="sel-p">当前筛选&gt;</p>
@@ -562,8 +572,8 @@ $(function () {
     <div class="cent"> Copyright © 2016-2017, snncar.com,All Rights Reserved 皖ICP备16022456号-1</div>
   </div>
 </div>
-<script type="text/javascript" src="script/3c-menu.js"></script> 
-<script type="text/javascript" src="script/lg_reg.js"></script> 
+<script type="text/javascript" src="script/3c-menu.js"></script>
+<script type="text/javascript" src="script/lg_reg.js"></script>
 <!--会员登录和注册弹出框开始-->
 <div id="popBox">
   <div class="popCont"> <a class="p_closed">关闭</a>
@@ -624,7 +634,7 @@ $(function () {
     </div>
   </div>
 </div>
-<!--会员登录和注册弹出框结束--> 
+<!--会员登录和注册弹出框结束-->
 <script>
 $(function(){
 	var t=null,$this,i=0;
@@ -637,9 +647,9 @@ $(function(){
 			$(this).find(".otherbrand").hide();
 		}
 	});
-	
+
 });
-</script> 
+</script>
 <script type="text/javascript">
 $(".hoverWidget").each(function() {
 				$(this).mouseenter(function() {
@@ -678,9 +688,9 @@ $(".hoverWidget").each(function() {
 				<img src="images/foot03/zfew.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
 			</a>
 		</li>
-	
-	
-	
+
+
+
 	</ul>
 </div><!--leftsead end-->
 
@@ -694,9 +704,9 @@ $(document).ready(function(){
 		}else{
 			$(this).children("img.hides").show();
 			$(this).children("img.shows").hide();
-			$(this).children("img.hides").animate({marginRight:'0px'},'slow'); 
+			$(this).children("img.hides").animate({marginRight:'0px'},'slow');
 		}
-	},function(){ 
+	},function(){
 		if($(this).prop("className")=="youhui"){
 			$(this).children("img.hides").hide('slow');
 		}else{
@@ -723,10 +733,11 @@ $(function(){
 	})
 
     loadSecondVehicle();
-    
-    
+
+
 })
 // 加载车系
+/*
  function loadSecondVehicle() {
      $.post("ajaxLoadCarQiche",function (result) {
             //清空容器
@@ -736,9 +747,76 @@ $(function(){
             })
             $().html(html);
      })
- }
-
+ }*/
 
 </script>
+    <!--品牌模糊下拉框显示查询 -->
+    <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <script type="text/javascript">
+
+        $(function(){
+            $("#sousuo1").click(
+                function() {
+                    $(".Byname1").attr("action",
+                        "QiCheOrPinPaiController").submit();
+                })
+            $("input[name='chexiname']").focus(function(){
+                $("#zhangsan").show();
+            })
+            $("input[name='chexiname']").blur(function(){
+                $("#zhangsan").hide();
+            })
+            /* $("#sousuo1").mouseover(function(){
+                var zhi = $(this).html();
+                alert(zhi);
+            }) */
+        })
+
+
+
+
+        function guanzhengfang(){
+            var vehicleName = $.trim($("input[name='vehicleName']").val());
+
+            if(vehicleName==""){
+                $("#zhangsan").hide();
+            }else{
+                $("#zhangsan").show();
+
+                $.ajax({
+                    type:"get",
+                    url:"ajaxQueryCarChepinpaiByVehicalname",
+                    data:{"vehicleName":vehicleName},
+                    success:function(returnData){
+                        var zhi = returnData;
+                        $("#zhangsan").html("");
+                        html = "<ul style='z-index: 5;position: absolute; background-color:rgba(144,144,144,0.15) ' >";
+                        $.each(zhi, function(index,item){
+                            html +="<span onmouseover='selectli("+item.vehicleId+")'><li style='width:300px; height:25px;cursor:pointer;padding:0px 0px 0px 10px;line-height:25px;' >"+item.vehicleName+"</li></span>";
+                        })
+                        html +="</ul>";
+                        $("#zhangsan").html(html);
+                    }
+
+                });
+
+            }
+        }
+        function selectli(vehicleId){
+
+            $.ajax({
+                type:"get",
+                url:"ajaxQueryChexiByChexiidController",
+                data:{"vehicleId":vehicleId},
+                success:function(returnData){
+                    var zhi = returnData.vehicleName;
+                    $("input[name='vehicleName']").val(zhi);
+                }
+            });
+        }
+
+
+    </script>
+
 </body>
 </html>
