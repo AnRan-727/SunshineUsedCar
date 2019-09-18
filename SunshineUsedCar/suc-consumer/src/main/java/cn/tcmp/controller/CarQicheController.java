@@ -24,6 +24,13 @@ public class CarQicheController {
     private CarQicheService carQicheService;
 
     /**
+     * 搜索跳转
+     */
+    @RequestMapping("toListQiche")
+    public String toListQiche() {
+        return "qianDuan/list";
+    }
+    /**
      * 查询全的车的ajax方法 （关）
      * @param car 查询条件
      * @param pageNum 分页当前页
