@@ -7,14 +7,14 @@ import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class CarQicheServiceImpl implements CarQicheService {
-    @Autowired
+    @Resource
     private CarQicheMapper mapper;
     @Override
     public List<Vehicle> queryAllVehicle() {

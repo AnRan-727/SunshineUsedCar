@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tcmp.dao.CarQicheMapper">
 
-    <select id="queryPageCarVo" parameterType="Car" resultType="CarVO">
+    <select id="queryPageCarVo" parameterType="cn.tcmp.entity.Car" resultType="cn.tcmp.vo.CarVO">
 
         SELECT c.carID ,
         (SELECT vehicleName FROM vehicle WHERE vehicleID=c.pinpaiID)pinpaiID,
