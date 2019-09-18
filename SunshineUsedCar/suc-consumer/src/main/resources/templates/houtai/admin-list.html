@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
         <title>
-            阳光成单系统
+            阳光二手车系统
         </title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -11,7 +11,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
-        <link rel="stylesheet" href="./css/x-admin.css" media="all">
+        <link rel="stylesheet" href="/houtai/css/x-admin.css" media="all">
     </head>
     <body>
         <div class="x-nav">
@@ -22,7 +22,7 @@
             </span>
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
         </div>
-        <div class="x-body">
+        <div class="x-body" align="center">
             <form class="layui-form x-center" action="" style="width:80%">
                 <div class="layui-form-pane" style="margin-top: 15px;">
                   <div class="layui-form-item">
@@ -53,19 +53,22 @@
                             ID
                         </th>
                         <th>
-                            登录名
+                            工作人员姓名
                         </th>
                         <th>
-                            手机
+                            工作人员性别
                         </th>
                         <th>
-                            邮箱
+                            工作人员手机
                         </th>
                         <th>
-                            角色
+                            工作人员邮箱
                         </th>
                         <th>
-                            加入时间
+                            工作人员地址
+                        </th>
+                        <th>
+                            工作人员身份证号
                         </th>
                         <th>
                             状态
@@ -76,28 +79,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="personnel:${perList.list}" th:object="${personnel}">
                         <td>
                             <input type="checkbox" value="1" name="">
                         </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            admin
-                        </td>
-                        <td >
-                            13671989456
-                        </td>
-                        <td >
-                            826096331@qq.com
-                        </td>
-                        <td >
-                            超级管理员
-                        </td>
-                        <td>
-                            2017-01-01 11:11:42
-                        </td>
+                        <td th:text="*{personnelID}"></td>
+                        <td th:text="*{personnelName}"></td>
+                        <td th:text="*{personnelGender}"></td>
+                        <td th:text="*{personnelPhone}"></td>
+                        <td th:text="*{personnelEmail}"></td>
+                        <td th:text="*{personnelAddress}"></td>
+                        <td th:text="*{personnelIDCard}"></td>
                         <td class="td-status">
                             <span class="layui-btn layui-btn-normal layui-btn-mini">
                                 已启用
@@ -119,11 +111,19 @@
                     </tr>
                 </tbody>
             </table>
-
+            <div>
+                <ul>
+                    <li><a href=""><span>&lt;</span></a></li>
+                    <li th:each="no:${perList.navigatepageNums}" th:class="${perList.pageNumber ==no}?'active':''">
+                        <a href="#" th:text="${no}" th:on="${no}"></a>
+                    </li>
+                    <li><a href=""><span>&gt;</span></a></li>
+                </ul>
+            </div>
             <div id="page"></div>
         </div>
-        <script src="./lib/layui/layui.js" charset="utf-8"></script>
-        <script src="./js/x-layui.js" charset="utf-8"></script>
+        <script src="/houtai/lib/layui/layui.js" charset="utf-8"></script>
+        <script src="/houtai/js/x-layui.js" charset="utf-8"></script>
         <script>
             layui.use(['laydate','element','laypage','layer'], function(){
                 $ = layui.jquery;//jquery

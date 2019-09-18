@@ -14,11 +14,12 @@ public class toControlelr {
     public String to(){
         return "qianDuan/index";
     }
-    @RequestMapping("login")
+
+    @RequestMapping("tologin")
     public String login(){
         return "houtai/login";
     }
-    @RequestMapping("index")
+    @RequestMapping("toindex")
     public String index(){
         return "houtai/index";
     }
@@ -27,4 +28,16 @@ public class toControlelr {
         return "houtai/welcome";
     }
 
+    @RequestMapping("admin-role")
+    public String adminrole(){
+        return "houtai/admin-role";
+    }
+    @RequestMapping("admin-cate")
+    public String admincate(){
+        return "houtai/admin-cate";
+    }
+    @RequestMapping("admin-rule")
+    public String adminrule(){
+        return "houtai/admin-rule";
+    }
 }
