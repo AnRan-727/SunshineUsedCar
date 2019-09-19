@@ -17,6 +17,16 @@ public class PageUtils<T> implements Serializable {
     private Integer pageCount;
     //分页完的集合
     private List<T> list;
+    //所有导航页号
+    private int[] navigatepageNums;
+
+    public int[] getNavigatepageNums() {
+        return navigatepageNums;
+    }
+
+    public void setNavigatepageNums(int[] navigatepageNums) {
+        this.navigatepageNums = navigatepageNums;
+    }
 
     public PageUtils() {
     }
