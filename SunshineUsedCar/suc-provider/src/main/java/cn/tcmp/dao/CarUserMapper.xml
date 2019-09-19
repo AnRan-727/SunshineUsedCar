@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.tcmp.dao.CarUserMapper">
-
     <!--客户登录-->
     <select id="carUserLogin" resultType="cn.tcmp.entity.CarUser" parameterType="cn.tcmp.entity.CarUser">
         select * from `caruser`
@@ -30,4 +29,22 @@
                 #{userPhone},
                 #{userGender})
     </insert>
+    <update id="updateCarUser" parameterType="cn.tcmp.entity.CarUser">
+        UPDATE `caruser`
+        <set>
+            <if test="realName != null and realName != ''">
+                `realName` = #{realName}
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                ,`userEmail` = #{userEmail}
+            </if>
+            <if test="userGender != null and userGender != ''">
+                ,`userGender` = #{userGender}
+            </if>
+            <if test="userPassWord != null and userPassWord != ''">
+                `userPassWord` = #{userPassWord}
+            </if>
+        </set>
+        WHERE `userID` = #{userID}
+    </update>
 </mapper>

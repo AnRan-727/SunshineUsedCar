@@ -22,7 +22,7 @@ import java.util.Date;
  */
 @Service
 public class TokenServiceImpl implements TokenService {
-
+ 
     @Autowired
     private RedisUtil redisUtil;
 
@@ -69,7 +69,7 @@ public class TokenServiceImpl implements TokenService {
     public Integer saveToken(String token, CarUser user) {
         //user->json
         String json = JSON.toJSONString(user);
-        redisUtil.setRedisTemplate(token,json,Common.TOKEN_TIMEOUT);
+        redisUtil.set(token,json,Common.TOKEN_TIMEOUT);
         return 1;
     }
 
@@ -77,7 +77,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public Boolean checkToken(String token, String userAgent) {
         //1. 通过入参token查询Redis中是否有符合的记录
-        Object userJson = redisUtil.getRedisTemplate(token);
+        Object userJson = redisUtil.get(token);
         if (null == userJson) {
             return false;
         }
@@ -100,7 +100,7 @@ public class TokenServiceImpl implements TokenService {
             tokenDto.setErrorcode(Common.CODE_03);
             return tokenDto;
         }
-        redisUtil.deleteRedis(token);
+        redisUtil.delete(token);
         tokenDto.setErrorcode(Common.CODE_SUCCESS);
         return tokenDto;
     }
@@ -136,7 +136,7 @@ public class TokenServiceImpl implements TokenService {
             return tokenDto;
         }
         //2. 生成新的token
-        String userJson = redisUtil.getRedisTemplate(token)+"";
+        String userJson = redisUtil.get(token)+"";
         CarUser user = JSON.parseObject(userJson, CarUser.class);
         String newToken = createToken(userAgent, user);
         //3. 将新的token保存到redis中
@@ -150,7 +150,7 @@ public class TokenServiceImpl implements TokenService {
         tokenDto.setData(data);
         tokenDto.setErrorcode(Common.CODE_SUCCESS);
         //5. 老token延迟2分钟失效
-        redisUtil.setRedisTemplate(token,userJson,Common.TOKEN_LONG_TIME);
+        redisUtil.set(token,userJson,Common.TOKEN_LONG_TIME);
 
         return tokenDto;
     }

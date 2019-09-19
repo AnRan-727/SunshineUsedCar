@@ -21,5 +21,6 @@ public interface CarUserMapper {
     //客户注册
     int carUserRegister(CarUser carUser);
 
-
+    //修改个人信息
+    int updateCarUser(CarUser carUser);
 }

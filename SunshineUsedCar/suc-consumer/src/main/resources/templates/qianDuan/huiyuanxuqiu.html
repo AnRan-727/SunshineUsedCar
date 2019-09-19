@@ -1,19 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://xmlns.jcp.org/jsf/html">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>阳光好车</title>
-<link rel="stylesheet" type="text/css" href="css/base.css"/>
-<link rel="stylesheet" type="text/css" href="css/home.css"/>
-<link rel="stylesheet" type="text/css" href="css/hurst.css"/>
-<link rel="stylesheet" type="text/css" href="city/city.css">
-<script type="text/javascript" src="script/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="script/home_ban.js"></script>
-<script type="text/javascript" src="script/eg_top_search.js"></script>
-<script type="text/javascript" src="script/city.js"></script>
-<script type="text/javascript" src="script/snncar.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/css/home.css"/>
+<link rel="stylesheet" type="text/css" href="/css/hurst.css"/>
+<link rel="stylesheet" type="text/css" href="/city/city.css">
+<script type="text/javascript" src="/script/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/script/home_ban.js"></script>
+<script type="text/javascript" src="/script/eg_top_search.js"></script>
+<script type="text/javascript" src="/script/city.js"></script>
+<script type="text/javascript" src="/script/snncar.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.navmenu li').hover(function(){
@@ -141,15 +141,15 @@ $(function () {
 <body>
 <div class="egc-top">
   <div class="nav-cent">
-    <div class="top-r"> <a href="#" id="b-regist">朱先生</a>|<a href="#" id="b-login" class="b-login">退出</a> </div>
+    <div class="top-r"> <a th:href="@{/carUser/toCarUserInfo(userID=${carUser.userID})}" th:text="${carUser.realName}"></a>|<a href="/carUser/logout" id="b-login" class="b-login">退出</a> </div>
     <div class="top-l">全国统一客服热线：400-877-9288</div>
     <div class="clear_fix"></div>
   </div>
 </div>
 <div class="navigation">
   <div class="nav-cent">
-    <div class="logo"><a href="index.html"><img src="images/logo.png" width="240" /></a></div>
-    <div class="city"> <span id="DY_site_name" class="red city-name Left">合肥</span>
+    <div class="logo"><a href="/"><img src="/images/logo.png" width="240" /></a></div>
+    <div class="city" style="display: none"> <span id="DY_site_name" class="red city-name Left">合肥</span>
       <div id="JS_hide_city_menu_11" class="city-select cut_handdler Left"> <a href="javascript:void(0);" class="common-bg selector">切换城市</a>
         <div id="JS_header_city_bar_box" class="hide_city_group">
           <div class="hideMap">
@@ -185,7 +185,7 @@ $(function () {
   </div>
 </div>
 <ul class="navmenu">
-  <li class="active"><a href="index.html">首页</a><span></span></li>
+  <li class="active"><a href="/">首页</a><span></span></li>
   <li><a href="list.html">我要买车</a><span></span></li>
   <li><a href="wymc.html">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
@@ -196,8 +196,8 @@ $(function () {
   <div class="stress-close"><a href="javascript:;"></a></div>
   <div class="nav-cents">
     <ul>
-      <li class="logo"><a href="index.html"><img src="images/logo.png"  width="180"/></a></li>
-      <li><a href="index.html">首页</a></li>
+      <li class="logo"><a href="/"><img src="/images/logo.png"  width="180"/></a></li>
+      <li><a href="/">首页</a></li>
       <li><a href="list.html">我要买车</a></li>
       <li><a href="wymc.html">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
@@ -216,23 +216,26 @@ $(function () {
 		<div class="meb-cont clearfix mainbox">
 			<div class="meb-nav fl dInline">
 				<ul class="clearfix">
-					<li class="on"><a href="会员中心首页.html">会员中心</a></li>
+					<li class="on"><a th:href="@{/carUser/toCarUserInfo(userID=${carUser.userID})}">会员中心</a></li>
                     <li><a href="会员中心_我的需求.html">我的需求</a></li>
-                    <li><a href="会员中心_账户管理.html">账户管理</a></li>				
+                    <li><a th:href="@{/carUser/toHuiYuanZhangHu(userID=${carUser.userID})}">账户管理</a></li>
                 </ul>
 			</div>
 			<div class="meb-right fr dInline">
 				<div class="mr-top">
     <div class="mr-top-div clearfix">
         <span class="fl">
-            <img src="images/photo.png">
+            <img src="/images/photo.png">
         </span>
-        <div class="mr-infor fl dInline">
-            <h2>中午好，尊敬的会员 <b>朱先生</b></h2>
-            <p>
-                手机：15138911875   邮箱：  |  [ <a href="#">管理账户信息</a> ]
-            </p>
-        </div>
+      <div class="mr-infor fl dInline">
+        <h2>中午好，尊敬的会员 <b th:text="${carUser.realName}"></b></h2>
+        <p>
+          手机：<b th:text="${carUser.userPhone}"></b>&nbsp;
+          邮箱：<b th:if="${carUser.userEmail == null}"><a th:href="@{/carUser/toHuiYuanZhangHu(userID=${carUser.userID})}">添加邮箱</a></b>
+          <b th:if="${carUser.userEmail != null}" th:text="${carUser.userEmail}"></b>
+        </p>
+        <p>[ <a th:href="@{/carUser/toHuiYuanZhangHu(userID=${carUser.userID})}">管理账户信息</a> ]</p>
+      </div>
     </div>
 </div>
 				<div class="mr-detail">
@@ -242,7 +245,7 @@ $(function () {
 					<div class="me-box">
                         <div class="me-dl" style="display: block;">
 							<div class="me-one" id="me-four">
-								<ul class="cs-list"><li class="clearfix" style="position: relative;">	<span class="carImg fl dInline"><a href="#" target="_blank"><div class="car_bg"> </div>		<img src="images/carinfor1.jpg" onerror="this.src='images/carinfor1.jpg'" width="300"></a>	</span>	<div class="carTxt fr dInline">		<h2><a href="#" target="_blank">奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型</a></h2>		<p>			<span>上牌时间：2014-06</span> 			<span>行驶里程：0.8万公里</span>			<span>排量：2.0T</span>			<span>排放标准：</span>		</p>		<div class="price clearfix" style="margin:5px 0;">			<div class="fl dInline pNum">				<font>一口价</font><br>				<span class="num nBlue">28.2				</span><font> 万元</font>			 </div>			<span class="num1 fl" style="height:43px;padding-top:10px;"><em>新车价：40.14万元(含40140元购置税)</em><br>				为您节省：11.94万元 				<input type="hidden" class="CarValue_287" value="{img:'/',id:'224',price:'28.2',status:'',title:'奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型',url:'#'}">			</span>		</div>		<div class="cs_bt clearfix">			<a href="#" class="cs-q">立即抢订</a>			<a href="javascript:void(0)" onclick="delNeedThis('287')">取消收藏</a>		</div>	</div></li></ul><div class="hPages">    </div>							</div>
+								<ul class="cs-list"><li class="clearfix" style="position: relative;">	<span class="carImg fl dInline"><a href="#" target="_blank"><div class="car_bg"> </div>		<img src="/images/carinfor1.jpg" onerror="this.src='images/carinfor1.jpg'" width="300"></a>	</span>	<div class="carTxt fr dInline">		<h2><a href="#" target="_blank">奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型</a></h2>		<p>			<span>上牌时间：2014-06</span> 			<span>行驶里程：0.8万公里</span>			<span>排量：2.0T</span>			<span>排放标准：</span>		</p>		<div class="price clearfix" style="margin:5px 0;">			<div class="fl dInline pNum">				<font>一口价</font><br>				<span class="num nBlue">28.2				</span><font> 万元</font>			 </div>			<span class="num1 fl" style="height:43px;padding-top:10px;"><em>新车价：40.14万元(含40140元购置税)</em><br>				为您节省：11.94万元 				<input type="hidden" class="CarValue_287" value="{img:'/',id:'224',price:'28.2',status:'',title:'奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型',url:'#'}">			</span>		</div>		<div class="cs_bt clearfix">			<a href="#" class="cs-q">立即抢订</a>			<a href="javascript:void(0)" onclick="delNeedThis('287')">取消收藏</a>		</div>	</div></li></ul><div class="hPages">    </div>							</div>
 						</div>
 					</div>
 				</div>
@@ -261,13 +264,13 @@ $(function () {
         </div>
         <div class="items">
           <div class="tit"><i class="icon-angle-right"></i>客服中心</div>
-          <div class="con"> <a href="abut.html">网站合作</a> <a href="about.html">关于我们</a> <a href="contact.html">联系我们</a> </div>
+          <div class="con"> <a href="abut.html">网站合作</a> <a href="about.html">关于我们</a> <a href="/contact.html">联系我们</a> </div>
         </div>
         <div class="items">
           <div class="tit"><i class="icon-angle-right"></i>购车指南</div>
           <div class="con"> <a href="#">购车帮助</a></div>
         </div>
-        <div class="app-section"> <img class="js-delayed-img"  src="images/f_wx.jpg">
+        <div class="app-section"> <img class="js-delayed-img"  src="/images/f_wx.jpg">
           <div class="title">扫码关注微信</div>
           <p> 随时随地，秒杀好车<br />
             优质个人二手车 </p>
@@ -289,8 +292,8 @@ $(function () {
     <div class="cent"> Copyright © 2016-2017, snncar.com,All Rights Reserved 皖ICP备16022456号-1</div>
   </div>
 </div>
-<script type="text/javascript" src="script/3c-menu.js"></script> 
-<script type="text/javascript" src="script/lg_reg.js"></script> 
+<script type="text/javascript" src="/script/3c-menu.js"></script> 
+<script type="text/javascript" src="/script/lg_reg.js"></script> 
 <!--会员登录和注册弹出框开始-->
 <div id="popBox">
   <div class="popCont"> <a class="p_closed">关闭</a>

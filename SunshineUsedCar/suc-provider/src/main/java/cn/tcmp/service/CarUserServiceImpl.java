@@ -6,6 +6,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 
+import javax.annotation.Resource;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +17,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 @Service
 public class CarUserServiceImpl implements CarUserService {
 
-    @Autowired
+    @Resource
     private CarUserMapper carUserMapper;
 
     //用户登录
@@ -40,6 +42,12 @@ public class CarUserServiceImpl implements CarUserService {
     @Override
     public CarUser detailCarUser(Integer id) {
         return carUserMapper.detailCarUser(id);
+    }
+
+    //修改用户信息
+    @Override
+    public int updateCarUser(CarUser carUser) {
+        return carUserMapper.updateCarUser(this.md5Encryption(carUser));
     }
 
 

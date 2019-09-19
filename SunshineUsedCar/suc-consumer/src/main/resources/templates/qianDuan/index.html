@@ -1,19 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://xmlns.jcp.org/jsf/html">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>阳光好车</title>
-<link rel="stylesheet" type="text/css" href="css/base.css"/>
-<link rel="stylesheet" type="text/css" href="css/home.css"/>
-<link rel="stylesheet" type="text/css" href="city/city.css">
-<script type="text/javascript" src="script/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="script/home_ban.js"></script>
-<script type="text/javascript" src="script/eg_top_search.js"></script>
-<script type="text/javascript" src="script/city.js"></script>
-<script type="text/javascript" src="script/snncar.js"></script>
-<script type="text/javascript" src="script/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/css/home.css"/>
+<script type="text/javascript" src="/script/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/script/home_ban.js"></script>
+<script type="text/javascript" src="/script/eg_top_search.js"></script>
+<script type="text/javascript" src="/script/city.js"></script>
+<script type="text/javascript" src="/script/snncar.js"></script>
+<script type="text/javascript" src="/script/jquery.SuperSlide.2.1.1.js"></script>
   <style>
     .input-val {
       width: 60%;
@@ -77,14 +76,20 @@ $(function () {
 	   });
 });
 </script>
+  <script type="text/javascript" src="/script/login-out.js"></script>
 </head>
 <body>
 <div class="egc-top">
   <div class="nav-cent">
       <div class="top-r">
+        <span th:if="${carUserName} == null">
           <a href="#" id="b-regist">注册</a>
-          |
           <a href="#" id="b-login" class="b-login">登陆</a>
+        </span>
+        <span th:if="${carUserName} != null">
+          您好:<a th:href="@{/carUser/toCarUserInfo(userID=${carUserName.userID})}" class="carUserName" style="color: #0c7fd1;" th:text="${carUserName.realName}"></a>
+          <a href="/carUser/logout">注销</a>
+        </span>
       </div>
     <div class="top-l">全国统一客服热线：17600000142</div>
     <div class="clear_fix"></div>
@@ -92,8 +97,8 @@ $(function () {
 </div>
 <div class="navigation">
   <div class="nav-cent">
-    <div class="logo"><a href="index.html"><img src="images/logo.png" width="240" /></a></div>
-    <div class="city"> <span id="DY_site_name" class="red city-name Left">合肥</span>
+    <div class="logo"><a href="/"><img src="/images/logo.png" width="240" /></a></div>
+    <div class="city" style="display: none"> <span id="DY_site_name" class="red city-name Left">合肥</span>
       <div id="JS_hide_city_menu_11" class="city-select cut_handdler Left"> <a href="javascript:void(0);" class="common-bg selector">切换城市</a>
         <div id="JS_header_city_bar_box" class="hide_city_group">
           <div class="hideMap">
@@ -129,7 +134,7 @@ $(function () {
   </div>
 </div>
 <ul class="navmenu">
-  <li class="active"><a href="index.html">首页</a><span></span></li>
+  <li class="active"><a href="/">首页</a><span></span></li>
   <li><a href="list.html">我要买车</a><span></span></li>
   <li><a href="wymc.html">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
@@ -140,8 +145,8 @@ $(function () {
   <div class="stress-close"><a href="javascript:;"></a></div>
   <div class="nav-cents">
     <ul>
-      <li class="logo"><a href="index.html"><img src="images/logo.png"  width="180"/></a></li>
-      <li><a href="index.html">首页</a></li>
+      <li class="logo"><a href="/"><img src="/images/logo.png"  width="180"/></a></li>
+      <li><a href="/">首页</a></li>
       <li><a href="list.html">我要买车</a></li>
       <li><a href="wymc.html">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
@@ -343,38 +348,38 @@ $(document).ready(function(){
   <div class="active-banner fl"> <a href="#">
     <h2><font color="#f79630">259项</font>全面检测</h2>
     <p>严苛检测标准，无事故</p>
-    <img src="images/sun_banner.jpg"> </a> </div>
+    <img src="/images/sun_banner.jpg"> </a> </div>
   <div class="active-blocks fr">
     <ul>
       <li class="li_01"><a href="list.html" title="实用代步车" target="_blank">
         <p class="title">实用代步车</p>
         <p class="content">驾驭想象 聆听声音</p>
-        <div class="pic"><img src="images/car1.jpg" alt="保值车型"></div>
+        <div class="pic"><img src="/images/car1.jpg" alt="保值车型"></div>
         </a></li>
       <li class="li_02"><a href="list.html" title="5-8万能买啥" target="_blank">
         <p class="title">5-8万能买啥</p>
         <p class="content">驾有所值，动气强劲</p>
-        <div class="pic"><img src="images/201601221218531455.jpg" alt="5-8万能买啥"></div>
+        <div class="pic"><img src="/images/201601221218531455.jpg" alt="5-8万能买啥"></div>
         </a></li>
       <li class="li_03"><a href="list.html" title="12-16万能买啥" target="_blank">
         <p class="title">12-16万能买啥</p>
         <p class="content">风范，与自由同行</p>
-        <div class="pic"><img src="images/201601221218599350.jpg" alt="12-16万能买啥"></div>
+        <div class="pic"><img src="/images/201601221218599350.jpg" alt="12-16万能买啥"></div>
         </a></li>
       <li class="li_04"><a href="list.html" title="奥迪车库" target="_blank">
         <p class="title">奥迪车库</p>
         <p class="content">奥迪—— Audi</p>
-        <div class="pic"><img src="images/201601221432247622.jpg" alt="奥迪车库"></div>
+        <div class="pic"><img src="/images/201601221432247622.jpg" alt="奥迪车库"></div>
         </a></li>
       <li class="li_05"><a href="list.html" title="大众车库" target="_blank">
         <p class="title">大众车库</p>
         <p class="content">大众 — Volkswagen</p>
-        <div class="pic"><img src="images/201601221219156607.jpg" alt="大众车库"></div>
+        <div class="pic"><img src="/images/201601221219156607.jpg" alt="大众车库"></div>
         </a></li>
       <li class="li_06"><a href="list.html" title="岂止于大" target="_blank">
         <p class="title">岂止于大</p>
         <p class="content">我所钟爱的7座SUV</p>
-        <div class="pic"><img src="images/201601221219239104.jpg" alt="岂止于大"></div>
+        <div class="pic"><img src="/images/201601221219239104.jpg" alt="岂止于大"></div>
         </a></li>
     </ul>
   </div>
@@ -446,42 +451,42 @@ $(document).ready(function(){
     <div id="divs2_0">
       <ul class="carList">
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
@@ -492,42 +497,42 @@ $(document).ready(function(){
     <div id="divs2_1" style="display: none;">
       <ul class="carList">
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="#" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
@@ -538,42 +543,42 @@ $(document).ready(function(){
     <div id="divs2_2" style="display: none;">
       <ul class="carList">
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="#" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
@@ -584,42 +589,42 @@ $(document).ready(function(){
     <div id="divs2_3" style="display: none;">
       <ul class="carList">
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="#" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
@@ -630,42 +635,42 @@ $(document).ready(function(){
     <div id="divs2_4" style="display: none;">
       <ul class="carList">
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
           </div>
         </li>
         <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
+          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
             <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
             <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
             <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
@@ -684,24 +689,24 @@ $(document).ready(function(){
         <h2>加盟故事</h2>
       </div>
       <div class="slide">
-        <div class="hd"> <a class="prev"><img src="images/in_l.png"/></a>
+        <div class="hd"> <a class="prev"><img src="/images/in_l.png"/></a>
           <ul>
             <li>1</li>
             <li>2</li>
             <li>3</li>
           </ul>
-          <a class="next"><img src="images/in_r.png"/></a></div>
+          <a class="next"><img src="/images/in_r.png"/></a></div>
         <div class="bd">
           <ul>
             <li >
-              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="images/car2.jpg" /> </a>
+              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="/images/car2.jpg" /> </a>
                 <div class="joininfor">
                   <h4>当漂移车手  遇见限量A8</h4>
                   <p>今年的明星车辆、全省唯一一辆橙色奥迪A8L，他的买家是一位身份特殊的勇士，一位知名的...</p>
                   <div align="right"> <a href="#" class="cMore">查看详情</a> </div>
                 </div>
               </div>
-              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="images/car2.jpg" /> </a>
+              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="/images/car2.jpg" /> </a>
                 <div class="joininfor">
                   <h4>青藏川藏   曲水流觞</h4>
                   <p>在2年的发展历程中，与很多朋友结下了缘分，这些朋友大多成为了我们的车主和会员，他们有着不...</p>
@@ -710,14 +715,14 @@ $(document).ready(function(){
               </div>
             </li>
             <li >
-              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="images/car2.jpg" /> </a>
+              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="/images/car2.jpg" /> </a>
                 <div class="joininfor">
                   <h4>当漂移车手  遇见限量A8</h4>
                   <p>今年的明星车辆、全省唯一一辆橙色奥迪A8L，他的买家是一位身份特殊的勇士，一位知名的...</p>
                   <div align="right"> <a href="newsinfor.html" class="cMore">查看详情</a> </div>
                 </div>
               </div>
-              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="images/car2.jpg" /> </a>
+              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="/images/car2.jpg" /> </a>
                 <div class="joininfor">
                   <h4>青藏川藏   曲水流觞</h4>
                   <p>在2年的发展历程中，与很多朋友结下了缘分，这些朋友大多成为了我们的车主和会员，他们有...</p>
@@ -726,14 +731,14 @@ $(document).ready(function(){
               </div>
             </li>
             <li >
-              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="images/car2.jpg" /> </a>
+              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="/images/car2.jpg" /> </a>
                 <div class="joininfor">
                   <h4>当漂移车手  遇见限量A8</h4>
                   <p>今年的明星车辆、全省唯一一辆橙色奥迪A8L，他的买家是一位身份特殊的勇士，一位知名的专业...</p>
                   <div align="right"> <a href="newsinfor.html" class="cMore">查看详情</a> </div>
                 </div>
               </div>
-              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="images/car2.jpg" /> </a>
+              <div class="bd-dl"> <a href="newsinfor.html" class="aImg"> <img src="/images/car2.jpg" /> </a>
                 <div class="joininfor">
                   <h4>青藏川藏   曲水流觞</h4>
                   <p>在2年的发展历程中，与很多朋友结下了缘分，这些朋友大多成为了我们的车主和会员，他们...</p>
@@ -775,13 +780,13 @@ $(document).ready(function(){
         </div>
         <div class="items">
           <div class="tit"><i class="icon-angle-right"></i>客服中心</div>
-          <div class="con"> <a href="abut.html">网站合作</a> <a href="about.html">关于我们</a> <a href="contact.html">联系我们</a> </div>
+          <div class="con"> <a href="abut.html">网站合作</a> <a href="about.html">关于我们</a> <a href="/contact.html">联系我们</a> </div>
         </div>
         <div class="items">
           <div class="tit"><i class="icon-angle-right"></i>购车指南</div>
           <div class="con"> <a href="#">购车帮助</a></div>
         </div>
-        <div class="app-section"> <img class="js-delayed-img"  src="images/f_wx.jpg">
+        <div class="app-section"> <img class="js-delayed-img"  src="/images/f_wx.jpg">
           <div class="title">扫码关注微信</div>
           <p> 随时随地，秒杀好车<br />
             优质个人二手车 </p>
@@ -820,11 +825,12 @@ $(function(){
 	});
 });
 </script>
-<script type="text/javascript" src="script/3c-menu.js"></script>
+<script type="text/javascript" src="/script/3c-menu.js"></script>
 
-<script type="text/javascript" src="script/index.js"></script>
-<script type="text/javascript" src="script/address.js"></script>
-<script type="text/javascript" src="script/lg_reg.js"></script>
+<script type="text/javascript" src="/script/index.js"></script>
+<script type="text/javascript" src="/script/address.js"></script>
+<script type="text/javascript" src="/script/lg_reg.js"></script>
+
 <script type="text/javascript">
 $(function(){
 
@@ -832,6 +838,9 @@ $(function(){
 
 });
 </script>
+
+
+
 <!--会员登录和注册弹出框开始-->
 <div id="popBox">
   <div class="popCont"> <a class="p_closed">关闭</a>
@@ -847,7 +856,6 @@ $(function(){
                                          id="loginPassword" maxlength="16" name="userPassWord"></li>
           </ul>
           <div class="login-check">
-            <input type="checkbox" name="checkbox" style="width: auto;" /> <label>记住我</label>
             <a href="Meet/editPass">忘记登录密码？</a>
           </div>
           <div class="login-button">
@@ -867,7 +875,7 @@ $(function(){
           <ul class="login-items">
             <li class="clearfix">
               <input class="input" name="userPhone"
-                                        id="phone" type="text" value="" placeholder="手机号码（登录帐号）">
+                                        id="phone" type="tel" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')" value="" onblur="Userphone()" onfocus="focusHtml" placeholder="手机号码（登录帐号）">
               <input class="input" type="hidden" name="quanxian"
                      id="quanxian" value="0"></li>
             <li class="clearfix">
@@ -902,29 +910,29 @@ $(function(){
 	<ul>
 	     <li>
 			<a id="top_btn">
-				<img src="images/foot03/ll06.png" width="47" height="49" class="hides"/>
-				<img src="images/foot03/l06.png" width="47" height="49" class="shows" />
+				<img src="/images/foot03/ll06.png" width="47" height="49" class="hides"/>
+				<img src="/images/foot03/l06.png" width="47" height="49" class="shows" />
 			</a>
 		</li>
 
 		<li>
 			<a href="">
-				<img src="images/foot03/ll03.png"  width="47" height="49" class="hides"/>
-				<img src="images/foot03/l03.png" width="47" height="49" class="shows" />
+				<img src="/images/foot03/ll03.png"  width="47" height="49" class="hides"/>
+				<img src="/images/foot03/l03.png" width="47" height="49" class="shows" />
 			</a>
 		</li>
 
 		<li>
 			<a href="">
-					<img src="images/foot03/ll02.png" width="166" height="49" class="hides"/>
-				<img src="images/foot03/l04.png" width="47" height="49" class="shows" />
+					<img src="/images/foot03/ll02.png" width="166" height="49" class="hides"/>
+				<img src="/images/foot03/l04.png" width="47" height="49" class="shows" />
 			</a>
 		</li>
 
 		<li>
 			<a class="youhui">
-				<img src="images/foot03/l02.png" width="47" height="49" class="shows" />
-				<img src="images/foot03/zfew.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
+				<img src="/images/foot03/l02.png" width="47" height="49" class="shows" />
+				<img src="/images/foot03/zfew.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
 			</a>
 		</li>
 
@@ -933,223 +941,31 @@ $(function(){
 	</ul>
 </div>
 
-
-<script>
-    $(function(){
-        var show_num = [];
-        draw(show_num);
-        $("#canvas").on('click',function(){
-            draw(show_num);
-        })
-        $(".fM").on('click',function(){
-            var val = $("input[name='verify']").val().toLowerCase();
-            var num = show_num.join("");
-            if(val==''){
-                $("#tishi").html("请输入验证码");
-            }else if(val == num){
-                zhuche();
-                $(".input-val").val('');
-                // draw(show_num);
-            }else{
-                $("#tishi").html('验证码错误！请重新输入！');
-                $(".input-val").val('');
-                // draw(show_num);
-            }
-        })
-    })
-    //生成并渲染出验证码图形
-    function draw(show_num) {
-        var canvas_width=$('#canvas').width();
-        var canvas_height=$('#canvas').height();
-        var canvas = document.getElementById("canvas");//获取到canvas的对象，演员
-        var context = canvas.getContext("2d");//获取到canvas画图的环境，演员表演的舞台
-        canvas.width = canvas_width;
-        canvas.height = canvas_height;
-        var sCode = "a,b,c,d,e,f,g,h,i,j,k,m,n,p,q,r,s,t,u,v,w,x,y,z,A,B,C,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0";
-        var aCode = sCode.split(",");
-        var aLength = aCode.length;//获取到数组的长度
-        for (var i = 0; i < 4; i++) { //这里的for循环可以控制验证码位数（如果想显示6位数，4改成6即可）
-            var j = Math.floor(Math.random() * aLength);//获取到随机的索引值
-            // var deg = Math.random() * 30 * Math.PI / 180;//产生0~30之间的随机弧度
-            var deg = Math.random() - 0.5; //产生一个随机弧度
-            var txt = aCode[j];//得到随机的一个内容
-            show_num[i] = txt.toLowerCase();
-            var x = 10 + i * 20;//文字在canvas上的x坐标
-            var y = 20 + Math.random() * 8;//文字在canvas上的y坐标
-            context.font = "bold 23px 微软雅黑";
-            context.translate(x, y);
-            context.rotate(deg);
-            context.fillStyle = randomColor();
-            context.fillText(txt, 0, 0);
-            context.rotate(-deg);
-            context.translate(-x, -y);
-        }
-        for (var i = 0; i <= 5; i++) { //验证码上显示线条
-            context.strokeStyle = randomColor();
-            context.beginPath();
-            context.moveTo(Math.random() * canvas_width, Math.random() * canvas_height);
-            context.lineTo(Math.random() * canvas_width, Math.random() * canvas_height);
-            context.stroke();
-        }
-        for (var i = 0; i <= 30; i++) { //验证码上显示小点
-            context.strokeStyle = randomColor();
-            context.beginPath();
-            var x = Math.random() * canvas_width;
-            var y = Math.random() * canvas_height;
-            context.moveTo(x, y);
-            context.lineTo(x + 1, y + 1);
-            context.stroke();
-        }
-    }
-    //得到随机的颜色值
-    function randomColor() {
-        var r = Math.floor(Math.random() * 256);
-        var g = Math.floor(Math.random() * 256);
-        var b = Math.floor(Math.random() * 256);
-        return "rgb(" + r + "," + g + "," + b + ")";
-    }
-</script>
-
-
-
-
 <!--leftsead end-->
 
 <script type="text/javascript">
-    /*注册跳转加验证  */
-    function zhuche() {
-
-        var phone = $("#phone").val();
-        if (!(/^1[34578]\d{9}$/.test(phone))) {
-            $("#tishi").html("手机号码有误，请重填");
-            return false;
-        } else {
-            $("#tishi").html("");
-        }
-
-        var yanzhengma =$("#yanzhengma").val;
-        if(yanzhengma ==''){
-            $("#tishi").html("验证码不能为空");
-        }else {
-            $("#tishi").html("");
-        }
-        if(yanzhengma != 235235){
-            $("#tishi").html("验证码错误");
-        }else {
-            $("#tishi").html("");
-        }
-
-        var username = $("#zhuchename").val();
-        if (username == null || username == '') {
-            $("#tishi").html("姓名不能为空");
-            return false;
-        } else {
-            $("#tishi").html("");
-        }
-
-        var sex = $('input:radio[name="userGender"]:checked').val();
-        if (sex == null) {
-            $("#tishi").html("性别不能为空，请您选择");
-            return false;
-        } else {
-            $("#tishi").html("");
-        }
-
-        var password = $("#zhuchepassword").val();
-        if (password.length < 4) {
-            $("#tishi").html("密码不能小于四位，请重新输入");
-            return false;
-        } else {
-            $("#tishi").html("");
-        }
-        var data = $("#zhucheform").serialize();
-
-        $.post("/carUser/doZhucheController",data,function (result) {
-            alert(result);
-            if(result.eq("注册失败!")){
-                $("#tishi").html(result);
-            }else{
-                alert("注册成功!");
-            }
-        })
-
-
-
-    }
-    /*登录跳转和验证  */
-    function denglu() {
-        var loginUsername = $("#loginUsername").val();
-        var loginPassword = $("#loginPassword").val();
-        if (loginUsername == null || loginUsername == '') {
-            $("#logintishi").html("用户名不能为空，请重新输入");
-            return false;
-        } else {
-            $("#logintishi").html("");
-        }
-        if (loginPassword.length < 4) {
-            $("#logintishi").html("密码不能小于四位，请重新输入");
-            return false;
-        } else {
-            $("#logintishi").html("");
-        }
-            var data=$("#loginform").serialize();
-            $.post('/carUser/login',data,function (result) {
-                if(result.errorcode =='0000'){
-                    alert("登录成功");
-                    //获取到服务器端给客户端的token
-                    var token=result.data.token;
-                    //获取生成token的时间
-                    var genTime=result.data.genTime;
-                    alert(token);
-                    //
-                    document.cookie="token="+token;
-                    document.cookie="genTime="+genTime;
-                }else {
-                    alert("登录失败");
-                }
-            });
-    }
-
-        /*手机ajax验证  */
-        $("#phone").focus(function() {
-            $("#tishi").html("");
-        }).blur(function() {
-            var phone = $("#phone").val();
-            $.post("ajaxUserphoneController", {
-                "phone" : phone
-            }, function(returnData, status) {
-                if ("success" == status) {
-                    if (!returnData) {
-                        $("#tishi").html("手机号可以注册！");
-                    } else {
-                        $("#tishi").html("手机号已注册，不能重复注册！");
-                    }
-                }
-
-            }, "json")
-        });
 
     $(document).ready(function(){
 
-	$("#leftsead a").hover(function(){
-		if($(this).prop("className")=="youhui"){
-			$(this).children("img.hides").show();
-		}else{
-			$(this).children("img.hides").show();
-			$(this).children("img.shows").hide();
-			$(this).children("img.hides").animate({marginRight:'0px'},'slow');
-		}
-	},function(){
-		if($(this).prop("className")=="youhui"){
-			$(this).children("img.hides").hide('slow');
-		}else{
-			$(this).children("img.hides").animate({marginRight:'-143px'},'slow',function(){$(this).hide();$(this).next("img.shows").show();});
-		}
-	});
+        $("#leftsead a").hover(function(){
+            if($(this).prop("className")=="youhui"){
+                $(this).children("img.hides").show();
+            }else{
+                $(this).children("img.hides").show();
+                $(this).children("img.shows").hide();
+                $(this).children("img.hides").animate({marginRight:'0px'},'slow');
+            }
+        },function(){
+            if($(this).prop("className")=="youhui"){
+                $(this).children("img.hides").hide('slow');
+            }else{
+                $(this).children("img.hides").animate({marginRight:'-143px'},'slow',function(){$(this).hide();$(this).next("img.shows").show();});
+            }
+        });
 
-	$("#top_btn").click(function(){if(scroll=="off") return;$("html,body").animate({scrollTop: 0}, 600);});
+        $("#top_btn").click(function(){if(scroll=="off") return;$("html,body").animate({scrollTop: 0}, 600);});
 
-});
+    });
 </script>
 </body>
 </html>

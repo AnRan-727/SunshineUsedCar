@@ -22,4 +22,7 @@ public interface CarUserService {
     //客户个人信息
     CarUser detailCarUser(Integer id);
 
+    //修改个人信息
+    int updateCarUser(CarUser carUser);
+
 }
