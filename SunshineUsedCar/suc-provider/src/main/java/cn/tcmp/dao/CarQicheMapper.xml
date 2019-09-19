@@ -5,18 +5,16 @@
 <mapper namespace="cn.tcmp.dao.CarQicheMapper">
     <resultMap id="carvoMap" type="cn.tcmp.vo.CarVO" autoMapping="true">
         <id property="carID" column="carID"></id>
-        <association property="vehical" resultMap="vehicalMap"></association>
+        <association property="vehicle" resultMap="vehicalMap"></association>
     </resultMap>
     <resultMap id="vehicalMap" type="cn.tcmp.entity.Vehicle" autoMapping="true">
         <id property="vehicleID" column="vehicleID"></id>
     </resultMap>
+
     <!--根据条件查询车辆信息-->
     <select id="queryPageCarVo" parameterType="cn.tcmp.entity.Car" resultType="cn.tcmp.vo.CarVO">
-
         SELECT c.carID ,
-        (SELECT vehicleName FROM vehicle WHERE vehicleID=c.pinpaiID)pinpaiID,
-        (SELECT vehicleName FROM vehicle WHERE vehicleID=c.vehicleID)vehicleID
-        ,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        v1.vehicleName pinpaiID,v2.vehicleName vehicleID,c.mileage,c.model,c.presentPrice,c.originalPrice,
         (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE
         ' AND valueID=typeID) typeID,
         (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
@@ -28,22 +26,17 @@
         (SELECT valueName FROM datadictionary WHERE typeCode='COUNTRY' AND valueID=countryID) countryID,
         topCity,placingTime,yearlyTime,insuranceTime,superValue,urgentSale,newCar,transitive,personnelID,subordinateName,vehicleage,
         (SELECT carPicturesURL FROM carpictures WHERE carID=c.carID LIMIT 1) carPicturesURL
-        FROM car c
-        <where>
-
-              <if test="pinpaiID !=null and pinpaiID !=-1">pinpaiID=#{pinpaiID}</if>
+        FROM car c,vehicle v1,vehicle v2
+        WHERE
+        c.vehicleID=v2.vehicleID AND c.pinpaiID=v1.vehicleID
+              <if test="pinpaiID !=null and pinpaiID !=-1"> and pinpaiID=#{pinpaiID}</if>
               <if test="vehicleID !=null and vehicleID !=-1"> and vehicleID=#{vehicleID}</if>
 
-
-          </where>
-
     </select>
-    <!--根据车系名称模糊查询车辆信息-->
+    <!--根据品牌 车系名称模糊查询车辆信息-->
     <select id="qeuryCarByVehicleChexiname" parameterType="String" resultMap="carvoMap">
         SELECT c.carID ,
-        (SELECT vehicleName FROM vehicle WHERE vehicleID=c.pinpaiID)pinpaiID,
-        (SELECT vehicleName FROM vehicle WHERE vehicleID=c.vehicleID)vehicleID
-        ,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        v1.vehicleName pinpaiID,v2.vehicleName vehicleID,c.mileage,c.model,c.presentPrice,c.originalPrice,
         (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE
         ' AND valueID=typeID) typeID,
         (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
@@ -55,11 +48,11 @@
         (SELECT valueName FROM datadictionary WHERE typeCode='COUNTRY' AND valueID=countryID) countryID,
         topCity,placingTime,yearlyTime,insuranceTime,superValue,urgentSale,newCar,transitive,personnelID,subordinateName,vehicleage,
         (SELECT carPicturesURL FROM carpictures WHERE carID=c.carID LIMIT 1) carPicturesURL
-        FROM car c,vehicle v
+        FROM car c,vehicle v1,vehicle v2
         WHERE
-        c.vehicleID=v.vehicleID
-            <if test="vehicleName !=null  and vehicleName !=-1">
-                AND v.vehicleName LIKE CONCAT('%',#{vehicleName},'%')
+        c.pinpaiID=v1.vehicleID AND c.vehicleID=v2.vehicleID
+            <if test="vehicleName !=null">
+                AND v1.vehicleName LIKE CONCAT('%',#{vehicleName},'%')
             </if>
 
         order  by presentPrice desc

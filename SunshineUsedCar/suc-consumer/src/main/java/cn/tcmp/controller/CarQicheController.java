@@ -9,6 +9,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,9 +51,16 @@ public class CarQicheController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "ajaxLoadCarQiche", method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
+    @RequestMapping(value = "ajaxLoadCarQiche", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
     public String ajaxLoadCarQiche(){
         List<Vehicle> vehicles = carQicheService.queryAllVehicle();
+        return JSON.toJSONString(vehicles);
+    }
+    //查询相对应的车系
+    @ResponseBody
+    @RequestMapping(value = "ajaxLoadCarQicheChexi", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
+    public String ajaxLoadCarQicheChexi(Integer data){
+        List<Vehicle> vehicles = carQicheService.queryVehicleByVehicleName(data);
         return JSON.toJSONString(vehicles);
     }
     /**
@@ -74,6 +82,23 @@ public class CarQicheController {
     public Vehicle ajaxQueryCarByVehicleId(Integer vehicleID) {
         Vehicle vehicle = carQicheService.detailVehicleById(vehicleID);
         return vehicle;
+    }
+    /**
+     * 搜索查询并在页面上显示
+     * @return
+     */
+    @RequestMapping("doQueryListCheche")
+    public String doQueryListChe(String vehicleName, Model model) {
+        System.err.println("++++++++++++++传过来的车系名字"+vehicleName);
+        List<CarVO> carVOS = carQicheService.qeuryCarByVehicleChexiname(vehicleName);
+        for (CarVO c : carVOS) {
+            System.err.println("++++++++++++++"+c.getPinpaiID());
+            System.err.println("++++++++++++++"+c.getVehicleID());
+            System.err.println("++++++++++++++"+c.getVehicle());
+        }
+
+        model.addAttribute("carlist",carVOS);
+        return "qianDuan/list";
     }
 
 
