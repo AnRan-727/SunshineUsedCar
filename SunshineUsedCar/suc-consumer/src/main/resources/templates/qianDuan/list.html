@@ -13,6 +13,8 @@
 <script type="text/javascript" src="script/eg_top_search.js"></script>
 <script type="text/javascript" src="script/city.js"></script>
 <script type="text/javascript" src="script/snncar.js"></script>
+
+
 <script type="text/javascript">
 $(function(){
 	$('.navmenu li').hover(function(){
@@ -531,12 +533,13 @@ $(function () {
     </div>
     <div class="sel-menu clearfix">
       <p class="sel-p">当前筛选&gt;</p>
-      <a href="#"  class="sel-a">大众</a> <a href="#"  class="sel-reset">重置</a>
-      <p class="sel-p">共为您找到<b>508</b>辆好车</p>
+        <a href="#"  class="sel-a">大众</a>
+        <a href="#"  class="sel-reset">重置</a>
+      <p class="sel-p">共为您找到<b><span th:text="${carlist.total}"></span></b>辆好车</p>
     </div>
   </div>
   <div class="seqBox clearfix">
-    <p class="fr seqtype">共找到<b>3430</b>辆 </p>
+    <p class="fr seqtype">共找到<b><span th:text="${carlist.total}"></span></b>辆 </p>
     <ul class="sequen">
       <li class="first"><a href="#" >默认排序</a></li>
       <li> <a href="#" title="" >最新发布 </a> </li>
@@ -563,42 +566,63 @@ $(function () {
       </li>
     </ul>
   </div>
-    <ul class="carList">
-        <c:forEach items="${qiche.list}" var="qiche">
-            <li class="tiao">
-                <div class='list-infoBox'>
-                    <a
-                            title='${qiche.pinpai.pinpainame} ${qiche.chexing.xinghaoname} ${qiche.chexi.chexiname} <c:if test="${qiche.biansu eq 2}">自动</c:if><c:if test="${qiche.biansu eq 1}">手动</c:if> '
-                            target='_top' class='imgtype'
-                            href='QiCheController.controller?id=${qiche.id}'> <img
-                            width='290' height='194'
-                            src='${pageContext.request.contextPath }${qiche.tupian[0].tupianurl}'
-                            alt='${qiche.pinpai.pinpainame} ${qiche.chexing.xinghaoname} ${qiche.chexi.chexiname} <c:if test="${qiche.biansu eq 2}">自动</c:if><c:if test="${qiche.biansu eq 1}">手动</c:if> '></a>
-                    <p class='infoBox'>
-                        <a
-                                title='${qiche.pinpai.pinpainame} ${qiche.chexing.xinghaoname} ${qiche.chexi.chexiname} <c:if test="${qiche.biansu eq 2}">自动</c:if><c:if test="${qiche.biansu eq 1}">手动</c:if> '
-                                href='QiCheController.controller?id=${qiche.id}' target='_blank'
-                                class='info-title'>${qiche.pinpai.pinpainame}
-                            ${qiche.chexing.xinghaoname} ${qiche.chexi.chexiname} <c:if
-                                    test="${qiche.biansu eq 2}">自动</c:if>
-                            <c:if test="${qiche.biansu eq 1}">手动</c:if>
+    <!--显示信息-->
+    <ul class="carList" >
+
+            <li class="tiao" th:each="item:${carlist.list}">
+                <div class='list-infoBox'  >
+                    <a title="${item.model}" target="_blank" class="imgtype" href="infor.html">
+                        <img width="290" height="194" src="images/carimg.jpg" alt="${item.model}">
+                    </a>
+                    <p class="infoBox">
+                        <a  title="${item.model}" href="infor.html" target="_blank" class="info-title">
+                            <span th:text="${item.model}"></span>
                         </a>
                     </p>
-                    <p class='fc-gray'>
-                        <span class='tag-gray'>${qiche.guishudi.guishudiname}</span> <span
-                            class=''>${qiche.shangpairiqi}上牌</span> <em class='shuxian'>|</em>
-                        行驶${qiche.licheng}万公里
+                    <p class="fc-gray">
+                        <span class="tag-gray" th:text="${item.topCity}"></span>
+                        <span class="" th:text="${#dates.format(item.placingTime,'yyyy-MM-dd')}"></span>
+                        <em class="shuxian">|</em> 行驶
+                        <span th:text="${item.mileage}"></span>
                     </p>
-                    <p class='priType-s'>
-							<span> <i class='fc-org priType'> ${qiche.jiage}万 </i>
-							</span>
+                    <p class="priType-s">
+                        <span>
+                            <i class="fc-org priType"> <span th:text="${item.presentPrice}"></span> </i>
+                        </span> <s><span th:text="${item.originalPrice}"></span></s>
                     </p>
                 </div>
             </li>
-        </c:forEach>
+
     </ul>
 </div>
-<div class="pages"> <a class="on" href="30/p/1.html">1</a><a class="" href="30/p/2.html">2</a><a class="" href="30/p/3.html">3</a><a class="" href="30/p/4.html">4</a><a class="" href="30/p/5.html">5</a> <a href="30/p/2.html">&gt;&gt;</a> <a href="30/p/6.html">6</a> </div>
+    <!--分页-->
+<div class="pages">
+    <a href="javascript:void(0)" th:no="1"   class="fenye">首页</a>
+    <a href="javascript:void(0)" th:no="${carlist.pageNum-1}"  class="fenye">上一页</a>
+    [<span th:text="${carlist.pageNum}"></span>/<span th:text="${carlist.pages}"></span>]
+    <a href="javascript:void(0)" th:no="${carlist.pageNum+1}" class="fenye">下一页</a>
+    <a href="javascript:void(0)" th:no="${carlist.pages}" class="fenye">尾页</a>
+    <input type="hidden" name="haha" >
+</div>
+    <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+    <script th:inline="javascript">
+        $(function () {
+            $(".fenye").click(function () {
+                var pageNum = $(this).attr("no");
+                if(pageNum <= 0){
+                    pageNum = 1;
+                }
+                var zong = $("input[name='haha']").val();
+                if(pageNum>=zong){
+                    pageNum = zong
+                }
+
+                // $.post("","pageNum="+pageNum,function(resutl){})
+
+            });
+        })
+
+    </script>
 <div class="clear_fix"></div>
 <!--底部-->
 <div class="ftWrap">
@@ -814,7 +838,7 @@ $(function(){
                     var vehicleName=$(".Byname1 input[name='v1.vehicleName']").val();
                     alert(vehicleName);
 
-                    location.href="doQueryListCheche?vehicleName="+vehicleName;
+                    location.href="doQueryListCheche?pageNum=1&&vehicleName="+vehicleName;
                 })
             $("input[name='v1.vehicleName']").focus(function(){
                 $("#zhangsan").show();

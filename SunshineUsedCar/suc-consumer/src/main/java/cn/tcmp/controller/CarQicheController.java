@@ -88,18 +88,25 @@ public class CarQicheController {
      * @return
      */
     @RequestMapping("doQueryListCheche")
-    public String doQueryListChe(String vehicleName, Model model) {
+    public String doQueryListChe(String vehicleName,Integer pageNum,Integer pageSize, Model model) {
         System.err.println("++++++++++++++传过来的车系名字"+vehicleName);
-        List<CarVO> carVOS = carQicheService.qeuryCarByVehicleChexiname(vehicleName);
-        for (CarVO c : carVOS) {
-            System.err.println("++++++++++++++"+c.getPinpaiID());
-            System.err.println("++++++++++++++"+c.getVehicleID());
-            System.err.println("++++++++++++++"+c.getVehicle());
+        if (pageNum == null) {
+                pageNum=1;
         }
+        if (pageSize == null) {
+            pageSize=8;
+        }
+        PageQiche<CarVO> pageQiche = carQicheService.qeuryCarByVehicleChexiname(vehicleName, pageNum, pageSize);
+        System.err.println(pageQiche);
 
-        model.addAttribute("carlist",carVOS);
+        model.addAttribute("carlist",pageQiche);
         return "qianDuan/list";
     }
 
+
+    @RequestMapping("tocheshi")
+    public String tocheshi(){
+        return "qianDuan/cheshiyemian";
+    }
 
 }

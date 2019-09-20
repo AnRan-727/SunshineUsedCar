@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<div class="sea">
+    <form action="" class="Byname1" method="post" id="ss1">
+        <div class="egc-sea-box">
+            <input type="text"  autocomplete="off" class="sea-ipt-txt" oninput="guanzhengfang()" placeholder="搜索您想要的车" name="v1.vehicleName"  />
+            <a href="javascript:void(0)" class="search-btn" id="sousuo1">搜索</a>
+
+        </div >
+        <div style="position: absolute;z-index: 3"  id="zhangsan">
+
+        </div>
+
+    </form>
+</div>
+<!--品牌模糊下拉框显示查询 -->
+<script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#sousuo1").click(
+            function() {
+                var vehicleName=$(".Byname1 input[name='v1.vehicleName']").val();
+                alert(vehicleName);
+
+                location.href="doQueryListCheche?pageNum=1&&vehicleName="+vehicleName;
+            })
+        $("input[name='v1.vehicleName']").focus(function(){
+            $("#zhangsan").show();
+        })
+        $("input[name='v1.vehicleName']").blur(function(){
+            $("#zhangsan").hide();
+        })
+
+    })
+
+</script>
+
+    </body>
+</html>

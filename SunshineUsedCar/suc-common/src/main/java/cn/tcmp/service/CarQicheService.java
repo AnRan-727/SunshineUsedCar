@@ -19,7 +19,7 @@ public interface CarQicheService {
     //查询全部车系
     List<Vehicle> queryAllVehiclebyChexi();
     //查询根据车辆品牌查询车辆信息
-    List<CarVO> qeuryCarByVehicleChexiname(String  vehicleName);
+    PageQiche<CarVO> qeuryCarByVehicleChexiname(String  vehicleName,Integer pageNum,Integer pageSize);
     //模糊查询车辆票品牌
     List<Vehicle> queryVehicleByVehicleName2(String vehicleName);
     //根据品牌id查询品牌名称

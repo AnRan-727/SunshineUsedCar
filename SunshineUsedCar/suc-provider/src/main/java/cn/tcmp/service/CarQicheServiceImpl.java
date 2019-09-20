@@ -26,17 +26,18 @@ public class CarQicheServiceImpl implements CarQicheService {
             pageNum = 1;
         }
         if(null == pageSize){
-            pageSize = 6;
+            pageSize = 8;
         }
         PageHelper.startPage(pageNum, pageSize);
         List<CarVO> carVOS = mapper.queryPageCarVo(car);
         PageInfo<CarVO> pageInfo = new PageInfo<>(carVOS);
         PageQiche<CarVO> pageQiche = new PageQiche<>();
-        pageQiche.setListF(pageInfo.getList());
+        pageQiche.setTotal(pageInfo.getTotal());
+        pageQiche.setList(pageInfo.getList());
         pageQiche.setNavigtepageNumbers(pageInfo.getNavigatepageNums());
-        pageQiche.setPageNumF(pageInfo.getPageNum());
-        pageQiche.setPagesF(pageInfo.getPages());
-        pageQiche.setPageSizeF(pageInfo.getPageSize());
+        pageQiche.setPageNum(pageInfo.getPageNum());
+        pageQiche.setPages(pageInfo.getPages());
+        pageQiche.setPageSize(pageInfo.getPageSize());
         return pageQiche;
     }
 
@@ -51,9 +52,26 @@ public class CarQicheServiceImpl implements CarQicheService {
     }
 
     @Override
-    public List<CarVO> qeuryCarByVehicleChexiname(String vehicleName) {
-        return mapper.qeuryCarByVehicleChexiname(vehicleName);
+    public PageQiche<CarVO> qeuryCarByVehicleChexiname(String vehicleName, Integer pageNum, Integer pageSize) {
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        if(null == pageSize){
+            pageSize = 8;
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<CarVO> carVOS = mapper.qeuryCarByVehicleChexiname(vehicleName);
+        PageInfo<CarVO> pageInfo = new PageInfo<>(carVOS);
+        PageQiche<CarVO> pageQiche = new PageQiche<>();
+        pageQiche.setTotal(pageInfo.getTotal());
+        pageQiche.setList(pageInfo.getList());
+        pageQiche.setNavigtepageNumbers(pageInfo.getNavigatepageNums());
+        pageQiche.setPageNum(pageInfo.getPageNum());
+        pageQiche.setPages(pageInfo.getPages());
+        pageQiche.setPageSize(pageInfo.getPageSize());
+        return pageQiche;
     }
+
 
     @Override
     public List<Vehicle> queryVehicleByVehicleName2(String vehicleName) {

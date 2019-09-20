@@ -21,7 +21,7 @@ import java.util.Date;
 public class CarVO implements Serializable {
 	private Integer carID;
 	private String pinpaiID;
-	private String vehicleID;
+	private String vehicleIDsss;
 	private Integer vehicleAge;//车龄
 	private String mileage;
 	private String model;
