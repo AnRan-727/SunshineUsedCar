@@ -38,6 +38,12 @@ public class toControlelr {
     }
     @RequestMapping("admin-rule")
     public String adminrule(){
+
         return "houtai/admin-rule";
+    }
+
+    @RequestMapping("admin-add")
+    public String adminadd(){
+        return "houtai/admin-add";
     }
 }

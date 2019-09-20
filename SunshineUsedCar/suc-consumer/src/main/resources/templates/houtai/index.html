@@ -11,6 +11,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
   <link rel="stylesheet" th:href="@{/houtai/css/x-admin.css}">
+  <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -43,7 +45,7 @@
                         </a>
                         </li> -->
         <li class="layui-nav-item"><img src="/houtai/images/logo.png" class="layui-circle" style="border: 2px solid #A9B7B7;" width="35px" alt=""></li>
-        <li class="layui-nav-item"> <a href="javascript:;">admin</a>
+        <li class="layui-nav-item"> <a href="javascript:;" id="admin">admin</a>
           <dl class="layui-nav-child">
             <!-- 二级菜单 -->
             <dd><a href="">个人信息</a></dd>
@@ -162,5 +164,10 @@
 </div>
 <script src="/houtai/lib/layui/layui.js" charset="utf-8"></script>
 <script src="/houtai/js/x-admin.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+    })
+</script>
 </body>
 </html>
