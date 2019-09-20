@@ -11,8 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageQiche<T> implements Serializable {
-    private Integer pageNumF, pageSizeF, pagesF;
-    private List<T> listF;
+    private Integer pageNum, pageSize, pages;
+    private long total;
+    private List<T> list;
     private int[] navigtepageNumbers;
 
 }

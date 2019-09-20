@@ -36,9 +36,8 @@
     <!--根据品牌 车系名称模糊查询车辆信息-->
     <select id="qeuryCarByVehicleChexiname" parameterType="String" resultMap="carvoMap">
         SELECT c.carID ,
-        v1.vehicleName pinpaiID,v2.vehicleName vehicleID,c.mileage,c.model,c.presentPrice,c.originalPrice,
-        (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE
-        ' AND valueID=typeID) typeID,
+        v1.vehicleName pinpaiID,v2.vehicleName vehicleIDsss,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE' AND valueID=typeID) typeID,
         (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
         (SELECT valueName FROM datadictionary WHERE typeCode='GEARBOX' AND valueID=gearboxID) gearboxID,
         c.displacement,
@@ -51,7 +50,7 @@
         FROM car c,vehicle v1,vehicle v2
         WHERE
         c.pinpaiID=v1.vehicleID AND c.vehicleID=v2.vehicleID
-            <if test="vehicleName !=null">
+            <if test="vehicleName !=null and vehicleName!=''">
                 AND v1.vehicleName LIKE CONCAT('%',#{vehicleName},'%')
             </if>
 
