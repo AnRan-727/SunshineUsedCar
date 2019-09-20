@@ -17,6 +17,8 @@ public class Common {
     public static final String CODE_04="0004";
     //token失效的时间
     public static final Integer TOKEN_TIMEOUT=1*30*60;
+    //redis失效时间
+    public static final Integer REDIS_TIMEOUT=2*60*1000;
     //token的重置时间
     public static final Integer TOKEN_RESET_TIME=90*60*1000;
     //老token延迟2分钟

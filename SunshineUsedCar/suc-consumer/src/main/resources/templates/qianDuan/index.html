@@ -60,6 +60,31 @@ $(function () {
 </script>
 
 <script type="text/javascript">
+
+    window.onload=pinpaiUL();
+
+    function pinpaiUL(){
+        $.post("/index/queryVehicle",function(result){
+            //获取品牌的Map集合 并遍历
+            var pinpai = result[1];
+            $.each(pinpai,function (key,value) {
+                //遍历Map中的value>>List集合
+                //把首字母品牌放进去
+
+                $("#youDian").append("<dl class='fore"+ key +"'><dt><a href='javascript:'>"+key+"</a></dt><dd id='dd"+key+"'></dd></dl>");
+
+                $.each(value,function (i,val) {
+                    console.log("val>>"+val);
+                    //把8个品牌放到ul里
+                    if(val.vehicleID <= 8){
+                        $("#pinPaiUL").append("<li><a href='javascript:'>"+val.vehicleName+"</a></li>");
+                    }
+                    $("#dd"+key).append("<em><a href=''>"+val.vehicleName+"</a></em>");
+                })
+            })
+        })
+    }
+
 $(function () {
 	var scroll_heitht = $('body').offset().top;
 	var isShow = true;
@@ -91,7 +116,7 @@ $(function () {
           <a href="/carUser/logout">注销</a>
         </span>
       </div>
-    <div class="top-l">全国统一客服热线：17600000142</div>
+    <div class="top-l">全国统一客服热线：176-00000-142</div>
     <div class="clear_fix"></div>
   </div>
 </div>
@@ -130,12 +155,12 @@ $(function () {
         <input type="text" class="sea-ipt-txt" placeholder="搜索您想要的车" />
         <a href="#" class="search-btn">搜索</a> </div>
     </div>
-    <div class="hot-phone"> <i></i> <span class="js-change-phone">400-877-9288</span> </div>
+    <div class="hot-phone"> <i></i> <span class="js-change-phone">176-00000-142</span> </div>
   </div>
 </div>
 <ul class="navmenu">
   <li class="active"><a href="/">首页</a><span></span></li>
-  <li><a href="list.html">我要买车</a><span></span></li>
+  <li><a href="/toListQiche">我要买车</a><span></span></li>
   <li><a href="wymc.html">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
   <li><a href="#">我要加盟</a><span></span></li>
@@ -147,9 +172,10 @@ $(function () {
     <ul>
       <li class="logo"><a href="/"><img src="/images/logo.png"  width="180"/></a></li>
       <li><a href="/">首页</a></li>
-      <li><a href="list.html">我要买车</a></li>
+      <li><a href="/toListQiche">我要买车</a></li>
       <li><a href="wymc.html">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
+      <li><a href="/index/queryVehicle">测试</a></li>
       <li><a href="#">我要加盟</a></li>
     </ul>
     <div class="seas">
@@ -169,37 +195,17 @@ $(function () {
         <div class="item">
           <h3>
             <div class="border"><a href="">品牌</a></div>
-            <ul>
-              <li><a href="#">大众</a></li>
-              <li><a href="#">宝马</a></li>
-              <li><a href="#">奥迪</a></li>
-              <li><a href="#">丰田</a></li>
-              <li><a href="#">日产</a></li>
-              <li><a href="#">奔驰</a></li>
-              <li><a href="#">本田</a></li>
-              <li><a href="#">别克</a></li>
-              <li><a href="#">福特</a></li>
+            <ul id="pinPaiUL">
+              <!--<li><a href="#">大众</a></li>-->
             </ul>
           </h3>
           <div class="item-list clearfix" style="top: 0px; display: none;">
             <div class="close">x</div>
-            <div class="subitem">
-              <dl class="fore1">
+            <div class="subitem" id="youDian">
+              <!--<dl class="fore0">
                 <dt><a href="#">A</a></dt>
                 <dd><em><a href="#">Alpina</a></em><em><a href="#">阿斯顿马丁</a></em><em><a href="#">奥迪</a></em></dd>
-              </dl>
-              <dl class="fore2">
-                <dt><a href="#">B</a></dt>
-                <dd><em><a href="#">巴博斯</a></em><em><a href="#">宝骏</a></em><em><a href="#">宝马</a></em><em><a href="#">保时捷</a></em><em><a href="#">北京</a></em><em><a href="#">北汽</a></em><em><a href="#">奔驰</a></em><em><a href="#">奔腾</a></em><em><a href="#">本田</a></em><em><a href="#">比亚迪</a></em><em><a href="#">标致</a></em><em><a href="#">别克</a></em><em><a href="#">宾利</a></em><em><a href="#">宝沃</a></em></dd>
-              </dl>
-              <dl class="fore3">
-                <dt><a href="#">C</a></dt>
-                <dd><em><a href="#">昌河</a></em><em><a href="#">传祺</a></em><em><a href="#">长安</a></em><em><a href="#">长安商用</a></em><em><a href="#">长城</a></em><em><a href="#">长丰</a></em></dd>
-              </dl>
-              <dl class="fore4">
-                <dt><a href="#">D</a></dt>
-                <dd><em><a href="#">DS</a></em><em><a href="#">大发</a></em><em><a href="#">大通</a></em><em><a href="#">大众</a></em><em><a href="#">道奇</a></em><em><a href="#">帝豪</a></em><em><a href="#">东风</a></em><em><a href="#">东风风度</a></em><em><a href="#">东风小康</a></em><em><a href="#">东南</a></em></dd>
-              </dl>
+              </dl>-->
             </div>
           </div>
         </div>
@@ -793,7 +799,7 @@ $(document).ready(function(){
         </div>
         <div class="items last">
           <div class="tel">
-            <h1>400-877-9288</h1>
+            <h1>176-00000-142</h1>
             <p>周一至周日 8:00-18:00</p>
             <p>免费咨询(咨询、建议、投诉)</p>
             <a href="#" class="kf"><i class="kf-icon"></i>在线客服</a> </div>
@@ -856,7 +862,7 @@ $(function(){
                                          id="loginPassword" maxlength="16" name="userPassWord"></li>
           </ul>
           <div class="login-check">
-            <a href="Meet/editPass">忘记登录密码？</a>
+            <a href="toGetPass">忘记登录密码？</a>
           </div>
           <div class="login-button">
             <input type="hidden" value="" name="carid" class="ordercarid" />

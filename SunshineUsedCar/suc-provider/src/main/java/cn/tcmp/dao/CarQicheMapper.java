@@ -22,7 +22,7 @@ public interface CarQicheMapper {
     //根据汽车的品牌,车系,价格,车型等模糊查询汽车信息
     List<CarVO> queryPageCarVo(Car car);
 
-    //查询全部车系
+    //查询全系部车
     @Select(value = "select * from vehicle where parentID!=-1")
     List<Vehicle> queryAllVehiclebyChexi();
 

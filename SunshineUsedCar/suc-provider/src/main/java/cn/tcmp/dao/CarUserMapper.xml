@@ -47,4 +47,15 @@
         </set>
         WHERE `userID` = #{userID}
     </update>
+    <update id="updateUserPhone" parameterType="cn.tcmp.entity.CarUser">
+        UPDATE `caruser`
+        set `userPassWord` = #{userPassWord}
+        WHERE 1 = 1
+              <if test="userPhone != '' and userPhone != null">
+                  and `userPhone` = #{userPhone}
+              </if>
+            <if test="userEmail != '' and userEmail != null">
+                  and `userEmail` = #{userEmail}
+            </if>
+    </update>
 </mapper>

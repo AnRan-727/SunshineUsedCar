@@ -42,6 +42,12 @@ public class toControlelr {
         return "qianDuan/index";
     }
 
+    //去找回密码页面
+    @RequestMapping(value = "toGetPass")
+    public String toGetPass(){
+        return "qianDuan/getpass";
+    }
+
     @RequestMapping("tologin")
     public String login(){
         return "houtai/login";

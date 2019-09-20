@@ -50,6 +50,13 @@ public class CarUserServiceImpl implements CarUserService {
         return carUserMapper.updateCarUser(this.md5Encryption(carUser));
     }
 
+    //根据手机号或邮箱修改密码
+    @Override
+    public Integer updateUserPhone(CarUser carUser) {
+
+        return carUserMapper.updateUserPhone(this.md5Encryption(carUser));
+    }
+
 
     //MD5加密密码
     private CarUser md5Encryption(CarUser carUser) {

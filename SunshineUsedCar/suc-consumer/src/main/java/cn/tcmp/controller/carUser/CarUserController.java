@@ -4,11 +4,12 @@ import cn.tcmp.dto.DataDto;
 import cn.tcmp.dto.TokenDto;
 import cn.tcmp.entity.CarUser;
 import cn.tcmp.service.CarUserService;
+import cn.tcmp.service.CreatRedisService;
+import cn.tcmp.service.MailService;
 import cn.tcmp.service.TokenService;
 import cn.tcmp.util.Common;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,6 +35,10 @@ public class CarUserController {
     private CarUserService carUserService;
     @Reference
     private TokenService tokenService;
+    @Reference
+    private CreatRedisService redisService;
+    @Reference
+    private MailService mailService;
 
     //注册
     @RequestMapping("doZhucheController")
@@ -190,6 +196,43 @@ public class CarUserController {
         return "qianDuan/huiyuanzhongxin";
     }
 
+    //发送邮箱验证码
+    @RequestMapping(value = "getCode")
+    @ResponseBody
+    public String getCode(String email){
+        //生成激活码
+        String uuid = UUID.randomUUID().toString();
+        //去掉“-”符号
+        uuid = uuid.replaceAll("-", "");
+        uuid = uuid.substring(0,6);
+        System.err.println("uuid>>>>>>>"+uuid);
+        if(email != null){
 
+            redisService.set("uuid",uuid,Common.REDIS_TIMEOUT);
+        }
+        //uuid发送邮箱
+        mailService.sendHtmlMail(email,"尊敬的客户您好:","您的激活码是:"+uuid);
+
+        return "请在两分钟内输入验证码";
+    }
+
+    //验证邮箱验证码
+    @RequestMapping(value = "testing")
+    @ResponseBody
+    public String testing(CarUser carUser){
+        //从redis获取uuid
+        String uuid = redisService.get("uuid").toString();
+        System.out.println("验证邮箱>>>>>>"+uuid+">>>>"+carUser.getCode()+">>>>"+carUser);
+        //判断输入uuid是否正确
+        if(!uuid.equals(carUser.getCode())){
+
+            redisService.delete("uuid");
+            this.getCode(carUser.getUserEmail());
+            return "验证码输入错误,已重新发送邮件!请输入!";
+        }
+        Integer num = carUserService.updateUserPhone(carUser);
+        System.err.println(num);
+        return "true";
+    }
 
 }
