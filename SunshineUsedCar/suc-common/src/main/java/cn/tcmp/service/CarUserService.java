@@ -2,6 +2,7 @@ package cn.tcmp.service;
 
 import cn.tcmp.entity.CarUser;
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: AnRan
@@ -21,5 +22,12 @@ public interface CarUserService {
 
     //客户个人信息
     CarUser detailCarUser(Integer id);
+
+    //修改个人信息
+    int updateCarUser(CarUser carUser);
+
+    //根据手机号或者邮箱修改密码
+    Integer updateUserPhone(CarUser carUser);
+
 
 }

@@ -5,16 +5,15 @@ import cn.tcmp.entity.Car;
 import cn.tcmp.entity.Vehicle;
 import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
+import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Service
 public class CarQicheServiceImpl implements CarQicheService {
-    @Resource
+    @Autowired
     private CarQicheMapper mapper;
     @Override
     public List<Vehicle> queryAllVehicle() {
@@ -27,17 +26,18 @@ public class CarQicheServiceImpl implements CarQicheService {
             pageNum = 1;
         }
         if(null == pageSize){
-            pageSize = 6;
+            pageSize = 8;
         }
         PageHelper.startPage(pageNum, pageSize);
         List<CarVO> carVOS = mapper.queryPageCarVo(car);
         PageInfo<CarVO> pageInfo = new PageInfo<>(carVOS);
         PageQiche<CarVO> pageQiche = new PageQiche<>();
-        pageQiche.setListF(pageInfo.getList());
+        pageQiche.setTotal(pageInfo.getTotal());
+        pageQiche.setList(pageInfo.getList());
         pageQiche.setNavigtepageNumbers(pageInfo.getNavigatepageNums());
-        pageQiche.setPageNumF(pageInfo.getPageNum());
-        pageQiche.setPagesF(pageInfo.getPages());
-        pageQiche.setPageSizeF(pageInfo.getPageSize());
+        pageQiche.setPageNum(pageInfo.getPageNum());
+        pageQiche.setPages(pageInfo.getPages());
+        pageQiche.setPageSize(pageInfo.getPageSize());
         return pageQiche;
     }
 
@@ -45,4 +45,44 @@ public class CarQicheServiceImpl implements CarQicheService {
     public List<Vehicle> queryVehicleByVehicleName(Integer vehicleID) {
         return mapper.queryVehicleByVehicleName(vehicleID);
     }
+
+    @Override
+    public List<Vehicle> queryAllVehiclebyChexi() {
+        return mapper.queryAllVehiclebyChexi();
+    }
+
+    @Override
+    public PageQiche<CarVO> qeuryCarByVehicleChexiname(String vehicleName, Integer pageNum, Integer pageSize) {
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        if(null == pageSize){
+            pageSize = 8;
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<CarVO> carVOS = mapper.qeuryCarByVehicleChexiname(vehicleName);
+        PageInfo<CarVO> pageInfo = new PageInfo<>(carVOS);
+        PageQiche<CarVO> pageQiche = new PageQiche<>();
+        pageQiche.setTotal(pageInfo.getTotal());
+        pageQiche.setList(pageInfo.getList());
+        pageQiche.setNavigtepageNumbers(pageInfo.getNavigatepageNums());
+        pageQiche.setPageNum(pageInfo.getPageNum());
+        pageQiche.setPages(pageInfo.getPages());
+        pageQiche.setPageSize(pageInfo.getPageSize());
+        return pageQiche;
+    }
+
+
+    @Override
+    public List<Vehicle> queryVehicleByVehicleName2(String vehicleName) {
+        List<Vehicle> vehicles = mapper.queryVehicleByVehicleName2(vehicleName);
+        return vehicles;
+    }
+
+    @Override
+    public Vehicle detailVehicleById(Integer vehicleId) {
+        return mapper.detailVehicleById(vehicleId);
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package cn.tcmp.dao;
 
 import cn.tcmp.entity.CarUser;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,10 +16,16 @@ public interface CarUserMapper {
     //用户是否存在
     CarUser existCarUser(String userPhone);
 
+    //客户个人信息
+    CarUser detailCarUser(Integer userID);
+
     //客户注册
     int carUserRegister(CarUser carUser);
 
-    //客户个人信息
-    CarUser detailCarUser(Integer id);
+    //修改个人信息
+    int updateCarUser(CarUser carUser);
+
+    //根据手机号或者邮箱修改密码
+    Integer updateUserPhone(CarUser carUser);
 
 }

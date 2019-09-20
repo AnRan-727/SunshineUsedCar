@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.tcmp.dao.CarUserMapper">
-
-
-
+    <!--客户登录-->
+    <select id="carUserLogin" resultType="cn.tcmp.entity.CarUser" parameterType="cn.tcmp.entity.CarUser">
+        select * from `caruser`
+        where
+          `userPhone` = #{userPhone}
+        and
+          `userPassWord` = #{userPassWord}
+    </select>
+    <!--用户是否存在-->
+    <select id="existCarUser" resultType="cn.tcmp.entity.CarUser" parameterType="String">
+        select * from `caruser`
+        where
+          `userPhone` = #{userPhone}
+    </select>
+    <!--客户个人信息-->
+    <select id="detailCarUser" resultType="cn.tcmp.entity.CarUser" parameterType="int">
+        select * from `caruser`
+        where
+          `userID` = #{userID}
+    </select>
+    <!--客户注册-->
+    <insert id="carUserRegister" parameterType="cn.tcmp.entity.CarUser">
+        insert into `caruser`(`userPassWord`,`realName`,`userPhone`,`userGender`)
+        values(#{userPassWord},
+                #{realName},
+                #{userPhone},
+                #{userGender})
+    </insert>
+    <update id="updateCarUser" parameterType="cn.tcmp.entity.CarUser">
+        UPDATE `caruser`
+        <set>
+            <if test="realName != null and realName != ''">
+                `realName` = #{realName}
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                ,`userEmail` = #{userEmail}
+            </if>
+            <if test="userGender != null and userGender != ''">
+                ,`userGender` = #{userGender}
+            </if>
+            <if test="userPassWord != null and userPassWord != ''">
+                `userPassWord` = #{userPassWord}
+            </if>
+        </set>
+        WHERE `userID` = #{userID}
+    </update>
+    <update id="updateUserPhone" parameterType="cn.tcmp.entity.CarUser">
+        UPDATE `caruser`
+        set `userPassWord` = #{userPassWord}
+        WHERE 1 = 1
+              <if test="userPhone != '' and userPhone != null">
+                  and `userPhone` = #{userPhone}
+              </if>
+            <if test="userEmail != '' and userEmail != null">
+                  and `userEmail` = #{userEmail}
+            </if>
+    </update>
 </mapper>

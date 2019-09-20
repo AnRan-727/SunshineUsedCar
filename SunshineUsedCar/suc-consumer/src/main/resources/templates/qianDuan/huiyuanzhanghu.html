@@ -1,19 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://xmlns.jcp.org/jsf/html">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>阳光好车</title>
-<link rel="stylesheet" type="text/css" href="css/base.css"/>
-<link rel="stylesheet" type="text/css" href="css/home.css"/>
-<link rel="stylesheet" type="text/css" href="css/hurst.css"/>
-<link rel="stylesheet" type="text/css" href="city/city.css">
-<script type="text/javascript" src="script/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="script/home_ban.js"></script>
-<script type="text/javascript" src="script/eg_top_search.js"></script>
-<script type="text/javascript" src="script/city.js"></script>
-<script type="text/javascript" src="script/snncar.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/css/home.css"/>
+<link rel="stylesheet" type="text/css" href="/css/hurst.css"/>
+<link rel="stylesheet" type="text/css" href="/city/city.css">
+<script type="text/javascript" src="/script/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/script/home_ban.js"></script>
+<script type="text/javascript" src="/script/eg_top_search.js"></script>
+<script type="text/javascript" src="/script/city.js"></script>
+<script type="text/javascript" src="/script/snncar.js"></script>
+
 <script type="text/javascript">
 $(function(){
 	$('.navmenu li').hover(function(){
@@ -137,19 +138,20 @@ $(function () {
 	   });
 });
 </script>
+
 </head>
 <body>
 <div class="egc-top">
   <div class="nav-cent">
-    <div class="top-r"> <a href="#" id="b-regist">朱先生</a>|<a href="#" id="b-login" class="b-login">退出</a> </div>
+    <div class="top-r"> <a th:href="@{/carUser/toCarUserInfo(userID=${carUser.userID})}" th:text="${carUser.realName}"></a>|<a href="logout" id="b-login" class="b-login">退出</a> </div>
     <div class="top-l">全国统一客服热线：400-877-9288</div>
     <div class="clear_fix"></div>
   </div>
 </div>
 <div class="navigation">
   <div class="nav-cent">
-    <div class="logo"><a href="index.html"><img src="images/logo.png" width="240" /></a></div>
-    <div class="city"> <span id="DY_site_name" class="red city-name Left">合肥</span>
+    <div class="logo"><a href="/"><img src="/images/logo.png" width="240" /></a></div>
+    <div class="city" style="display: none"> <span id="DY_site_name" class="red city-name Left">合肥</span>
       <div id="JS_hide_city_menu_11" class="city-select cut_handdler Left"> <a href="javascript:void(0);" class="common-bg selector">切换城市</a>
         <div id="JS_header_city_bar_box" class="hide_city_group">
           <div class="hideMap">
@@ -185,7 +187,7 @@ $(function () {
   </div>
 </div>
 <ul class="navmenu">
-  <li class="active"><a href="#">首页</a><span></span></li>
+  <li class="active"><a href="/">首页</a><span></span></li>
   <li><a href="#">我要买车</a><span></span></li>
   <li><a href="#">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
@@ -196,8 +198,8 @@ $(function () {
   <div class="stress-close"><a href="javascript:;"></a></div>
   <div class="nav-cents">
     <ul>
-      <li class="logo"><a href="index.html"><img src="images/logo.png"  width="180"/></a></li>
-      <li><a href="index.html">首页</a></li>
+      <li class="logo"><a href="/"><img src="/images/logo.png"  width="180"/></a></li>
+      <li><a href="/">首页</a></li>
       <li><a href="#">我要买车</a></li>
       <li><a href="#">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
@@ -216,22 +218,25 @@ $(function () {
 		<div class="meb-cont clearfix mainbox">
 			<div class="meb-nav fl dInline">
 				<ul class="clearfix">
-					<li><a href="会员中心首页.html">会员中心</a></li>
+					<li><a th:href="@{/carUser/toCarUserInfo(userID=${carUser.userID})}">会员中心</a></li>
                     <li><a href="会员中心_我的需求.html">我的需求</a></li>
-                    <li class="on"><a href="会员中心_账户管理.html">账户管理</a></li>				
+                    <li class="on"><a th:href="@{/carUser/toHuiYuanZhangHu(userID=${carUser.userID})}">账户管理</a></li>
                 </ul>
 			</div>
 			<div class="meb-right fr dInline">
             	<div class="mr-top">
     <div class="mr-top-div clearfix">
         <span class="fl">
-            <img src="images/photo.png">
+            <img src="/images/photo.png">
         </span>
         <div class="mr-infor fl dInline">
-            <h2>中午好，尊敬的会员 <b>朱先生</b></h2>
+            <h2>中午好，尊敬的会员 <b th:text="${carUser.realName}"></b></h2>
             <p>
-                手机：15138911875   邮箱：  |  [ <a href="#">管理账户信息</a> ]
+                手机：<b th:text="${carUser.userPhone}"></b>&nbsp;
+                邮箱：<b th:if="${carUser.userEmail == null}"><a th:href="@{/carUser/toHuiYuanZhangHu(userID=${carUser.userID})}">添加邮箱</a></b>
+                <b th:if="${carUser.userEmail != null}" th:text="${carUser.userEmail}"></b>
             </p>
+            <p>[ <a th:href="@{/carUser/toHuiYuanZhangHu(userID=${carUser.userID})}">管理账户信息</a> ]</p>
         </div>
     </div>
 </div>
@@ -244,13 +249,15 @@ $(function () {
 						<div class="me-dl" style="display:block;">
 							<div class="me-one">
 								<div class="accForm">
-									<form action="" enctype="multipart/form-data" name="editM" method="post" onsubmit="return checkpost();">
+                                    <!--修改个人信息-->
+									<form action="doUpdateCarUser">
 										<div class="afl clearfix">
 											<label class="fl">
 												手机号码
 											</label>
 											<div class="af-r fl dInline">
-												<input type="text" class="ar-txt" name="mobile" placeholder="请输入手机号码" value="15138911875" disabled="disabled">
+												<input type="text" class="ar-txt" name="userPhone" placeholder="请输入手机号码" th:value="${carUser.userPhone}" disabled="disabled">
+                                                <input type="hidden" name="userID" th:value="${carUser.userID}">
 											</div>
 										</div>
 										<div class="afl clearfix">
@@ -258,7 +265,7 @@ $(function () {
 												姓名
 											</label>
 											<div class="af-r fl dInline">
-												<input type="text" class="ar-txt" name="realname" placeholder="请输入您的姓名" value="董平运">
+												<input type="text" class="ar-txt" name="realName" placeholder="请输入您的姓名" th:value="${carUser.realName}">
 											</div>
 										</div>
 										<div class="afl clearfix">
@@ -267,18 +274,19 @@ $(function () {
 											</label>
 											<div class="af-r fl dInline">
 												<span>
-													<input type="radio" name="gender" value="M"> 男
+													<input type="radio" name="userGender" value="男" th:attr="checked=${carUser.userGender == '男'}"> 男
 												</span>
 												<span>
-													<input type="radio" name="gender" checked="" value="F"> 女
-												</span>											</div>
+													<input type="radio" name="userGender" value="女" th:attr="checked=${carUser.userGender == '女'}"> 女
+												</span>
+                                            </div>
 										</div>
 										<div class="afl clearfix">
 											<label class="fl">
 												邮箱
 											</label>
 											<div class="af-r fl dInline">
-												<input type="text" class="ar-txt" name="email" placeholder="请输入您的邮箱" value="">
+												<input type="text" class="ar-txt" name="userEmail" placeholder="请输入您的邮箱" th:value="${carUser.userEmail}">
 											</div>
 										</div>
 										<div class="afl clearfix">
@@ -295,13 +303,17 @@ $(function () {
                         <div class="me-dl" style="display:none;">
 							<div class="me-one">
 								<div class="accForm">
-									<form action="" enctype="multipart/form-data" name="editP" method="post" onsubmit="return checkPasspost();">
+                                    <!--修改密码-->
+									<form action="doUpdateCarUser" id="updatePWD">
 										<div class="afl clearfix">
 											<label class="fl">
 												当前密码
 											</label>
 											<div class="af-r fl dInline">
+                                                <input type="hidden" name="userID" th:value="${carUser.userID}">
 												<input type="password" class="ar-txt" name="password" placeholder="请输入当前密码" value="">
+                                                <input type="hidden" id="hiddenPassword" th:value="${carUser.userPassWord}"/>
+                                                <b id="b"></b>
 											</div>
 										</div>
 										<div class="afl clearfix">
@@ -317,11 +329,13 @@ $(function () {
 												确认新密码
 											</label>
 											<div class="af-r fl dInline">
-												<input type="password" class="ar-txt" name="password2" placeholder="请确认输入的新密码" value="">
+												<input type="password" class="ar-txt" name="userPassWord" placeholder="请确认输入的新密码" value="">
+                                                <b class="b"></b>
 											</div>
 										</div>
 										<div class="afl clearfix">
 											<label class="fl">
+
 											</label>
 											<div class="af-r fl dInline">
 												<input type="submit" value="提 交" class="ar-btn">
@@ -354,7 +368,7 @@ $(function () {
           <div class="tit"><i class="icon-angle-right"></i>购车指南</div>
           <div class="con"> <a href="#">购车帮助</a></div>
         </div>
-        <div class="app-section"> <img class="js-delayed-img"  src="images/f_wx.jpg">
+        <div class="app-section"> <img class="js-delayed-img"  src="/images/f_wx.jpg">
           <div class="title">扫码关注微信</div>
           <p> 随时随地，秒杀好车<br />
             优质个人二手车 </p>
@@ -376,8 +390,8 @@ $(function () {
     <div class="cent"> Copyright © 2016-2017, snncar.com,All Rights Reserved 皖ICP备16022456号-1</div>
   </div>
 </div>
-<script type="text/javascript" src="script/3c-menu.js"></script> 
-<script type="text/javascript" src="script/lg_reg.js"></script> 
+<script type="text/javascript" src="/script/3c-menu.js"></script> 
+<script type="text/javascript" src="/script/lg_reg.js"></script> 
 <!--会员登录和注册弹出框开始-->
 <div id="popBox">
   <div class="popCont"> <a class="p_closed">关闭</a>
@@ -392,7 +406,7 @@ $(function () {
             </li>
             <li>
               <label>密码</label>
-              <input class="input" type="password" value="" maxlength="16"  name="password">
+              <input class="input" type="password" value="" maxlength="16"  name="passworda">
             </li>
           </ul>
           <div class="login-check">
@@ -439,8 +453,41 @@ $(function () {
   </div>
 </div>
 <!--会员登录和注册弹出框结束-->
+<script src="/script/md5.js"></script>
 <script type="text/javascript">
 $(function(){
+    //验证原密码
+    $("input[placeholder='请输入当前密码']").blur(function () {
+        var pwd1 = $("input[placeholder='请输入当前密码']").val();
+        var pwd = $("#hiddenPassword").val();
+        //MD5加密原始密码
+        var pwd1 = hex_md5(pwd1);
+        //截取密码
+        pwd1 = pwd1.substring(2,8);
+        if(pwd1 != pwd){
+            $("#b").html("原密码不正确,请重新输入!");
+        }else{
+            $("#b").html("原密码正确!");
+        }
+    }).focus(function () {
+        $("#b").html("");
+    })
+
+    //修改密码
+    $("#updatePWD").submit(function () {
+        var password1 = $("input[name='password1']").val();
+        var userPassWord = $("input[name='userPassWord']").val();
+        if(password1 != userPassWord){
+            $(".b").html("密码输入不一致!");
+            return false;
+        }
+        var b = $("#b").html();
+        if(b == "原密码不正确,请重新输入!"){
+            return false;
+        }
+    })
+
+
 	$('.mr-tab a').each(function(index){
 		$(this).click(function(){
 			$(this).addClass('on').siblings().removeClass('on');

@@ -1,8 +1,10 @@
 package cn.tcmp.vo;
+import cn.tcmp.entity.Vehicle;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,10 +18,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CarVO {
+public class CarVO implements Serializable {
 	private Integer carID;
-	private String pinpaiID;;
-	private String vehicleID;
+	private String pinpaiID;
+	private String vehicleIDsss;
 	private Integer vehicleAge;//车龄
 	private String mileage;
 	private String model;
@@ -43,8 +45,7 @@ public class CarVO {
 	private Integer transitive;
 	private Integer personnelID;
 	private String subordinateName;
-	private String cheleiID;
-
+	private Vehicle vehicle;
 
 
 }

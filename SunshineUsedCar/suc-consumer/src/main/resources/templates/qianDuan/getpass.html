@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<title>忘记密码</title>
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/common.css" />
+		<link rel="stylesheet" href="/css/font-awesome.min.css" />
+	<script src="/js/jquery-2.1.4.min.js"></script>
+
+</head>
+	<body>
+		<div class="wrap login_wrap">
+			<div class="content">
+				
+				<div class="logo"></div>
+				
+				<div class="login_box">	
+					
+					<div class="login_form">
+						<div class="login_title">
+							重置
+						</div>
+						<form action="" id="form">
+							
+							<div class="form_text_ipt">
+								<input name="userPhone" id="zhangHao" type="text" placeholder="请输入手机号/邮箱">
+							</div>
+							<div class="ececk_warning"><span>手机号/邮箱不能为空</span></div>
+							<div class="form_text_ipt" id="xiayibudiv" >
+								<input  id="xiayibu" type="button" value="下一步">
+							</div>
+							<div id="next" style="display: none">
+								<!--验证码部位-->
+								<div class="form_text_ipt" name="yanzhenma" style="display: none">
+									<input name="code" type="text" placeholder="验证码">
+								</div>
+								<div class="ececk_warning" name="yanzhenma" style="display: none"><span>验证码不能为空</span></div>
+
+								<div>
+									<span id="tishi"></span>
+								</div>
+
+
+								<div class="form_text_ipt">
+									<input name="password" type="password" placeholder="密码">
+								</div>
+								<div class="ececk_warning"><span>密码不能为空</span></div>
+								<div class="form_text_ipt">
+									<input name="userPassWord" type="password" placeholder="重复密码">
+								</div>
+								<div class="ececk_warning"><span>密码不能为空</span></div>
+
+								<div class="form_btn">
+									<button type="button" id="chongzhia">重置</button>
+								</div>
+								<div class="form_reg_btn">
+									<span>已有帐号？</span><a href="/">马上登录</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="/js/common.js" ></script>
+		<div style="text-align:center;">
+<p>Powered by © 2018 <a href="/">阳光二手车</a></p>
+</div>
+	<script type="text/javascript">
+		$(function () {
+		    //点击下一步 如果是邮箱就发送验证码		如果是手机号就直接填写密码
+			$("#xiayibu").click(function () {
+			    //隐藏下一步按钮  显示下面的密码部分
+                $("#xiayibudiv").attr("style","display:none");
+				$("#next").attr("style","");
+				//输入账号
+                    var zhanghao = $("#zhangHao").val();
+                    var email = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+                    if(email.test(zhanghao)){
+                        //当输入的是邮箱的时候
+                        $("div[name='yanzhenma']").attr("style","");
+                        $("#zhangHao").attr("name","userEmail");
+                        //发送ajax请求验证码
+						$.post("/carUser/getCode","email="+zhanghao,function (result) {
+							$("#tishi").html(result);
+                        })
+                    }else{
+                        //当输入手机号的时候
+                        $("div[name='yanzhenma']").attr("style","display:none");
+                        $("#zhangHao").attr("name","userPhone");
+                    }
+            })
+
+
+
+			$("#chongzhia").click(function () {
+                var password1 = $("input[name='password']").val();
+                var userPassWord = $("input[name='userPassWord']").val();
+                if(password1 != userPassWord){
+                    $(".b").html("密码输入不一致!");
+                }
+                var dataaaa = $("#form").serialize();
+                $.post("/carUser/testing",dataaaa,function (result) {
+					if(result == "true"){
+					    alert("重置成功!请前往登录!");
+					    window.location.href="/";
+					}else{
+                        $("#tishi").html(result);
+					}
+                })
+            })
+
+
+        })
+	</script>
+	</body>
+</html>
