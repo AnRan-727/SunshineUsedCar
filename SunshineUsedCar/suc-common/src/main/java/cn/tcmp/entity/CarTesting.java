@@ -9,9 +9,10 @@ import java.util.Date;
  */
 @Data
 public class CarTesting implements Serializable {
+
 	private Integer ctID;
-	private Integer testID;
-	private Integer carID;
+	private Testing testID;
+	private Car carID;
 	private Integer goodOrBad;
 	private Date detectionTime;
 

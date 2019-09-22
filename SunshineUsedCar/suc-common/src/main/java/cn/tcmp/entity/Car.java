@@ -35,6 +35,7 @@ public class Car implements Serializable {
 	private Integer transitive;
 	private Integer personnelID;
 	private String subordinateName;
+	private Date shelfTime;//上架时间
 
 
 

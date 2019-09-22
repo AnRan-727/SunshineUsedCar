@@ -61,9 +61,10 @@ $(function () {
 
 <script type="text/javascript">
 
-    window.onload=pinpaiUL();
+    window.onload=pinpaiUL(),queryCar(0);
 
     function pinpaiUL(){
+        /*品牌*/
         $.post("/index/queryVehicle",function(result){
             //获取品牌的Map集合 并遍历
             var pinpai = result[1];
@@ -74,7 +75,6 @@ $(function () {
                 $("#youDian").append("<dl class='fore"+ key +"'><dt><a href='javascript:'>"+key+"</a></dt><dd id='dd"+key+"'></dd></dl>");
 
                 $.each(value,function (i,val) {
-                    console.log("val>>"+val);
                     //把8个品牌放到ul里
                     if(val.vehicleID <= 8){
                         $("#pinPaiUL").append("<li><a href='javascript:'>"+val.vehicleName+"</a></li>");
@@ -83,7 +83,16 @@ $(function () {
                 })
             })
         })
+        /*车型*/
+        $.post("/index/queryCarType",function (result) {
+            $.each(result,function (index,val) {
+                $("#cheXingUL").append("<li><a href='#'>"+val.valueName+"</a></li>");
+            })
+        })
     }
+
+
+
 
 $(function () {
 	var scroll_heitht = $('body').offset().top;
@@ -175,7 +184,6 @@ $(function () {
       <li><a href="/toListQiche">我要买车</a></li>
       <li><a href="wymc.html">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
-      <li><a href="/index/queryVehicle">测试</a></li>
       <li><a href="#">我要加盟</a></li>
     </ul>
     <div class="seas">
@@ -213,27 +221,20 @@ $(function () {
           <h3>
             <div class="border"><a href="">价格</a></div>
             <ul>
-              <li><a href="#">5万以下</a></li>
-              <li><a href="#">5-10万</a></li>
-              <li><a href="#">10-15万</a></li>
-              <li><a href="#">15-20万</a></li>
-              <li><a href="#">20-25万</a></li>
-              <li><a href="#">25-40万</a></li>
-              <li><a href="#">40万以上</a></li>
+              <li><a href="#">3万以下</a></li>
+              <li><a href="#">3-5万</a></li>
+              <li><a href="#">5-7万</a></li>
+              <li><a href="#">7-9万</a></li>
+              <li><a href="#">9-12万</a></li>
+              <li><a href="#">12万以上</a></li>
             </ul>
           </h3>
         </div>
         <div class="items">
           <h3 style="border-bottom:0px;">
             <div class="border"><a href="">车型</a></div>
-            <ul>
-              <li><a href="#">SUV</a></li>
-              <li><a href="#">商务车</a></li>
-              <li><a href="#">跑车</a></li>
-              <li><a href="#">急售</a></li>
-              <li><a href="#">准新车</a></li>
-              <li><a href="#">超值</a></li>
-              <li><a href="#">直销车</a></li>
+            <ul id="cheXingUL">
+              <!--<li><a href='#'>SUV</a></li>-->
             </ul>
           </h3>
         </div>
@@ -279,14 +280,14 @@ $(function () {
 		});
 	</script>
       <!--我要买车-->
-      <div class="buy-tit">我要买车</div>
+      <div class="buy-tit">我要卖车</div>
       <div class="sell-car-box">
         <form action="" class="clearfix">
           <input type="text" class="sell-phone-input" data-role="sellPhone" placeholder="请输入手机号码">
           <button class="sell-phone-submit">我要卖车</button>
         </form>
         <!--提交失败-->
-        <p class="sell-phone-error" style="display:block;">请填写正确的手机号码</p>
+        <p class="sell-phone-error" style="display:none;">请填写正确的手机号码</p>
         <!--提交成功-->
         <div class="submit-suc" style="display:none"><i></i>提交成功！ <a href="javascript:void(0)" data-role="go_back">返回</a> </div>
       </div>
@@ -362,15 +363,15 @@ $(document).ready(function(){
         <p class="content">驾驭想象 聆听声音</p>
         <div class="pic"><img src="/images/car1.jpg" alt="保值车型"></div>
         </a></li>
-      <li class="li_02"><a href="list.html" title="5-8万能买啥" target="_blank">
-        <p class="title">5-8万能买啥</p>
+      <li class="li_02"><a href="list.html" title="5-7万能买啥" target="_blank">
+        <p class="title">5-7万能买啥</p>
         <p class="content">驾有所值，动气强劲</p>
-        <div class="pic"><img src="/images/201601221218531455.jpg" alt="5-8万能买啥"></div>
+        <div class="pic"><img src="/images/201601221218531455.jpg" alt="5-7万能买啥"></div>
         </a></li>
-      <li class="li_03"><a href="list.html" title="12-16万能买啥" target="_blank">
-        <p class="title">12-16万能买啥</p>
+      <li class="li_03"><a href="list.html" title="9-12万能买啥" target="_blank">
+        <p class="title">9-12万能买啥</p>
         <p class="content">风范，与自由同行</p>
-        <div class="pic"><img src="/images/201601221218599350.jpg" alt="12-16万能买啥"></div>
+        <div class="pic"><img src="/images/201601221218599350.jpg" alt="9-12万能买啥"></div>
         </a></li>
       <li class="li_04"><a href="list.html" title="奥迪车库" target="_blank">
         <p class="title">奥迪车库</p>
@@ -395,293 +396,28 @@ $(document).ready(function(){
   <div class="menucar">
     <div class="more" id="11"><a href="list.html">查看全部>></a></div>
     <ul>
-      <li class="hover" id="tabs2_0" onmousemove="isShow4('tabs2_0','divs2_0','block','<a href=list.html>查看全部>></a>');">热卖好车</li>
-      <li id="tabs2_1" onmousemove="isShow4('tabs2_1','divs2_1','block','<a href=list.html>查看全部>></a>');">最新上架</li>
-      <li id="tabs2_2" onmousemove="isShow4('tabs2_2','divs2_2','block','<a href=list.html>查看全部>></a>');">降价急售</li>
+      <li class="hover" id="tabs2_0" onmousemove="isShow4('tabs2_0','divs2_0','block','<a href=list.html>查看全部>></a>');">最新上架</li>
+      <li id="tabs2_1" onmousemove="isShow4('tabs2_1','divs2_1','block','<a href=list.html>查看全部>></a>');">急售车辆</li>
+      <li id="tabs2_2" onmousemove="isShow4('tabs2_2','divs2_2','block','<a href=list.html>查看全部>></a>');">超值车辆</li>
       <li id="tabs2_3" onmousemove="isShow4('tabs2_3','divs2_3','block','<a href=list.html>查看全部>></a>');">准新车</li>
-      <li id="tabs2_4" onmousemove="isShow4('tabs2_4','divs2_4','block','<a href=list.html>查看全部>></a>');">SUV</li>
     </ul>
   </div>
   <div class="clear_fix"></div>
-  <div class="joinsnncar fl">
-    <form class="dForm" method="post">
-      <h2>我要加盟</h2>
-      <div class="mod-form">
-        <div class="mod-form-item">
-          <input class="input1" placeholder="请填写您的姓名" value="">
-        </div>
-        <div class="mod-form-item ">
-          <input class="input1 tipinput" name="mobile" id="mobile" placeholder="请填写您的手机号码" >
-          <i class="i-must"></i> </div>
-        <div class="mod-form-item mod-form-item-ex">
-          <input class="input1 input-short tipinput" name="msg_code" id="msg_code" placeholder="请输入短信验证码" >
-          <i class="i-must"></i><a id="countdown" href="javascript:;" class="get-code2">发送短信</a> </div>
-        <div class="mod-form-item mod-form-item-choose clearfix dropdown-group" style="position: relative; z-index: 1">
-          <div class="m_zlxg" id="shenfen">
-            <p title="">选择省份</p>
-            <div class="m_zlxg2">
-              <ul>
-              </ul>
-            </div>
-          </div>
-          <div class="m_zlxg" id="chengshi">
-            <p title="">选择城市</p>
-            <div class="m_zlxg2">
-              <ul>
-              </ul>
-            </div>
-          </div>
-          <input id="sfdq_num" type="hidden" value="" />
-          <input id="csdq_num" type="hidden" value="" />
-          <input id="sfdq_tj" type="hidden" value="" />
-          <input id="csdq_tj" type="hidden" value="" />
-          <input id="qydq_tj" type="hidden" value="" />
-        </div>
-        <div class="mod-form-item">
-          <input class="input1 tipinput" name="email" id="email" placeholder="电子邮箱" >
-        </div>
-        <div class="mod-form-item">
-          <textarea id="suggest" name="suggest" placeholder="留言" class="textarea1"></textarea>
-        </div>
-        <div class="mod-form-item">
-          <div class="btn-box">
-            <button type="submit" value="submit" class="b-r orange">提交</button>
-          </div>
-        </div>
-        <!---校验-->
-         <p class="sell-phone-error" style="display:block;">请填写正确的手机号码</p>
-      </div>
-    </form>
-  </div>
-  <div class="menucarlist fr">
+  <div class="">
     <div id="divs2_0">
       <ul class="carList">
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
       </ul>
     </div>
     <div id="divs2_1" style="display: none;">
       <ul class="carList">
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="#" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
       </ul>
     </div>
     <div id="divs2_2" style="display: none;">
       <ul class="carList">
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="#" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
       </ul>
     </div>
     <div id="divs2_3" style="display: none;">
       <ul class="carList">
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="#" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div id="divs2_4" style="display: none;">
-      <ul class="carList">
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
-        <li>
-          <div class="list-infoBox"> <a title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" target="_blank" class="imgtype" href="infor.html"> <img width="290" height="194" src="/images/carimg.jpg" alt="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版"> </a>
-            <p class="infoBox"> <a  title="奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版" href="infor.html" target="_blank" class="info-title">奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版</a> </p>
-            <p class="fc-gray"> <span class="tag-gray">石家庄</span> <span class="">2014年11月上牌</span> <em class="shuxian">|</em> 行驶2.4万公里 </p>
-            <p class="priType-s"> <span> <i class="fc-org priType"> 2.10万 </i> </span> <s>3.40万</s> </p>
-          </div>
-        </li>
       </ul>
     </div>
   </div>
@@ -764,11 +500,11 @@ $(document).ready(function(){
         <a href="medialist.html" class="newsmore">更多</a> </div>
       <div class="r-news-list">
         <ul>
-          <li><span class="date">11月02日</span><i class="icon "></i><a href="newsinfor.html" title="阳光易贷网贷10月份月报"> 阳光易贷网贷10月份月报 </a> </li>
-          <li><span class="date">10月10日</span><i class="icon "></i><a href="newsinfor.html" title="阳光易贷网贷9月份月报"> 阳光易贷网贷9月份月报 </a> </li>
-          <li><span class="date">09月28日</span><i class="icon "></i><a href="newsinfor.html" title="关于2016年国庆节放假工作安排的通知"> 关于2016年国庆节放假工作安... </a> </li>
-          <li><span class="date">09月13日</span><i class="icon "></i><a href="newsinfor.html" title="关于2016年中秋节放假工作安排的通知"> 关于2016年中秋节放假工作安... </a> </li>
-          <li><span class="date">09月13日</span><i class="icon "></i><a href="newsinfor.html" title="关于2016年中秋节放假工作安排的通知"> 关于2016年中秋节放假工作安... </a> </li>
+          <li><span class="date">08月02日</span><i class="icon "></i><a href="newsinfor.html" title="阳光易贷网贷10月份月报"> 阳光易贷网贷10月份月报 </a> </li>
+          <li><span class="date">09月10日</span><i class="icon "></i><a href="newsinfor.html" title="阳光易贷网贷9月份月报"> 阳光易贷网贷9月份月报 </a> </li>
+          <li><span class="date">09月28日</span><i class="icon "></i><a href="newsinfor.html" title="关于2019年国庆节放假工作安排的通知"> 关于2019年国庆节放假工作安... </a> </li>
+          <li><span class="date">09月13日</span><i class="icon "></i><a href="newsinfor.html" title="关于2019年中秋节放假工作安排的通知"> 关于2019年中秋节放假工作安... </a> </li>
+          <li><span class="date">09月13日</span><i class="icon "></i><a href="newsinfor.html" title="关于2018年中秋节放假工作安排的通知"> 关于2018年中秋节放假工作安... </a> </li>
         </ul>
       </div>
     </div>
@@ -804,14 +540,14 @@ $(document).ready(function(){
             <p>免费咨询(咨询、建议、投诉)</p>
             <a href="#" class="kf"><i class="kf-icon"></i>在线客服</a> </div>
           <div class="tel-mb">
-            <p><span>400-710-8886</span>周一至周日 8:00-18:00(仅收市话费)</p>
+            <p><span>400-000-0000</span>周一至周日 8:00-18:00(仅收市话费)</p>
             <a href="#" class="kf"><i class="kf-icon"></i>在线客服</a> </div>
         </div>
       </div>
     </div>
   </div>
   <div class="copyright">
-    <div class="cent"> Copyright © 2016-2017, snncar.com,All Rights Reserved 皖ICP备16022456号-1</div>
+    <div class="cent"> Copyright © 2018-2020, snncar.com,All Rights Reserved 京ICP备16022456号-1</div>
   </div>
 </div>
 <script type="text/javascript">

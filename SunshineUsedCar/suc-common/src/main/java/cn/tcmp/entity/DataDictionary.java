@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 @Data
 public class DataDictionary implements Serializable {
+
 	private Integer ddID;
 	private String typeCode;
 	private String typeName;
