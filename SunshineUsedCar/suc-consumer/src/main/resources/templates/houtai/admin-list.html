@@ -12,7 +12,9 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="format-detection" content="telephone=no">
         <link rel="stylesheet" href="/houtai/css/x-admin.css" media="all">
-        <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+        <script th:src="@{/houtai/lib/layui/layuipages.js}"></script>
+
+
     </head>
     <body>
         <div class="x-nav">
@@ -24,18 +26,18 @@
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
         </div>
         <div class="x-body" align="center" >
-            <form class="layui-form x-center"  action="" style="width:80%">
+            <form class="layui-form x-center" id="forms" action="/houtai/admin-list" style="width:80%">
                 <div class="layui-form-pane" align="center" style="margin-top: 15px;">
                   <div class="layui-form-item" >
                     <!--<label class="layui-form-label">日期范围</label>-->
                     <div class="layui-input-inline" align="center">
-                      <input class="layui-input" placeholder="入职时间" id="LAY_demorange_s">
+                      <input class="layui-input" th:value="${Personnel.personnelDate}" placeholder="入职时间" name="personnelDate" id="LAY_demorange_s">
                     </div>
                     <!--<div class="layui-input-inline">
                       <input class="layui-input" placeholder="截止日" id="LAY_demorange_e">
                     </div>-->
                     <div class="layui-input-inline">
-                      <input type="text" name="username"  placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                      <input type="text" th:value="${Personnel.personnelName}" name="personnelName"  placeholder="请输入姓名" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline" style="width:80px">
                         <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -43,12 +45,12 @@
                   </div>
                 </div> 
             </form>
-            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><button class="layui-btn" onclick="admin_add('添加用户','admin-add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px">共有数据：88 条</span></xblock>
+            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll(this)"><i class="layui-icon">&#xe640;</i>批量删除</button><button class="layui-btn" th:onclick="admin_add('添加用户',[[@{/admin-add}]],'600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px" th:text="'共有数据:'+${perList.pageTotal}+'条'"></span></xblock>
             <table class="layui-table">
                 <thead>
                     <tr>
                         <th>
-                            <input type="checkbox" name="" value="">
+                            <input type="checkbox" id="checkall" >
                         </th>
                         <th>
                             ID
@@ -82,7 +84,7 @@
                 <tbody>
                     <tr th:each="personnel:${perList.list}" th:object="${personnel}">
                         <td>
-                            <input type="checkbox" value="1" name="">
+                            <input type="checkbox" th:value="*{personnelID}" name="bookname">
                         </td>
                         <td th:text="*{personnelID}"></td>
                         <td th:text="*{personnelName}"></td>
@@ -100,31 +102,81 @@
                             <a style="text-decoration:none" onclick="admin_stop(this,'10001')" href="javascript:;" title="停用">
                                 <i class="layui-icon">&#xe601;</i>
                             </a>
-                            <a title="编辑" href="javascript:;" onclick="admin_edit('编辑','admin-edit.html','4','','510')"
+                            <a title="编辑" href="javascript:;" th:onclick="admin_edit('编辑',[[@{/houtai/admin-edit(personnelID=*{personnelID})}]],[[*{personnelID}]],'','510')"
                             class="ml-5" style="text-decoration:none">
                                 <i class="layui-icon">&#xe642;</i>
                             </a>
-                            <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" 
-                            style="text-decoration:none">
+                            <!--<a title="编辑" th:href="@{/houtai/admin-edit(personnelID=*{personnelID})}"   class="ml-5" style="text-decoration:none">
+                                <i class="layui-icon">&#xe642;</i>
+                            </a>-->
+                            <a title="删除" href="javascript:;"   th:onclick="admin_del(this,[[*{personnelID}]])" style="text-decoration:none">
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <div>
-                <ul>
-                    <li><a href=""><span>&lt;</span></a></li>
-                    <li th:each="no:${perList.navigatepageNums}" th:class="${perList.pageNumber ==no}?'active':''">
-                        <a href="#" th:text="${no}" th:on="${no}"></a>
-                    </li>
-                    <li><a href=""><span>&gt;</span></a></li>
-                </ul>
-            </div>
+            <!--<div>-->
+                <!--<ul>-->
+                    <!--<li><a href=""><span>&lt;</span></a></li>-->
+                    <!--<li th:each="no:${perList.navigatepageNums}" th:class="${perList.pageNumber ==no}?'active':''">-->
+                        <!--<a href="#" th:text="${no}" th:on="${no}"></a>-->
+                    <!--</li>-->
+                    <!--<li><a href=""><span>&gt;</span></a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
             <div id="page"></div>
+            <input type="hidden" id="pageNumber" th:value="${perList.pageNumber}">
         </div>
+
+        <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
         <script src="/houtai/lib/layui/layui.js" charset="utf-8"></script>
         <script src="/houtai/js/x-layui.js" charset="utf-8"></script>
+        <script type="text/javascript">
+            function getListData(){
+                var currPage=0;
+                var datas=$("#forms").serialize();
+                currPage=$("#pageNumber").val();
+                console.log(forms);
+                $.ajax({
+                    type: "get",
+                    url: "/houtai/ajax-admin-list",
+                    data: {
+                        pageNumber: currPage, pageSize: 2,
+                        personnelDate: datas.personnelDate,
+                        personnelName: datas.personnelName
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        alert("ffff")
+                        console.log(result)
+                        paged(result);
+                    }
+                })
+                }
+            $(function () {
+                var currPage=$("#pageNumber").val();
+                if (currPage==1)
+                {
+                    //getListData();
+                    paged();
+                }
+                paged();
+
+            })
+            $("#checkall").click(function(){
+                //全选按钮check状态，选择全部name为bookname的按钮
+                if(this.checked){
+                    $("input[name='bookname']").prop('checked', true);
+
+                }
+//全部取消选中
+                else{
+                    $("input[name='bookname']").prop('checked', false);
+                }
+            });
+
+        </script>
         <script>
             layui.use(['laydate','element','laypage','layer'], function(){
                 $ = layui.jquery;//jquery
@@ -132,17 +184,25 @@
               lement = layui.element();//面包导航
               laypage = layui.laypage;//分页
               layer = layui.layer;//弹出层
-
               //以上模块根据需要引入
+                    /*laypage({
+                        cont: 'page'
+                        ,url:""
+                        ,pages: 100
+                        ,first: 1
+                        ,limit: 1
+                        ,last: 100
+                        ,prev: '<em><</em>'
+                        ,next: '<em>></em>'
+                        ,jump : function(obj, first) {
+                            if (!first) {
+                                layer.msg('第' + obj.curr + '页', {
+                                    offset : 'b'
+                                });
+                            }
+                        }
+                    });*/
 
-              laypage({
-                cont: 'page'
-                ,pages: 100
-                ,first: 1
-                ,last: 100
-                ,prev: '<em><</em>'
-                ,next: '<em>></em>'
-              }); 
               
               var start = {
                 min: laydate.now()
@@ -163,22 +223,47 @@
                 }
               };
               
-              document.getElementById('LAY_demorange_s').onclick = function(){
-                start.elem = this;
-                laydate(start);
-              }
-              document.getElementById('LAY_demorange_e').onclick = function(){
-                end.elem = this
-                laydate(end);
-              }
+              // document.getElementById('LAY_demorange_s').onclick = function(){
+              //   start.elem = this;
+              //   laydate(start);
+              // }
+              // document.getElementById('LAY_demorange_e').onclick = function(){
+              //   end.elem = this
+              //   laydate(end);
+              // }
               
             });
 
             //批量删除提交
-             function delAll () {
+             function delAll (obj) {
+                 console.log(obj)
                 layer.confirm('确认要删除吗？',function(index){
+                    var s='';
+                    $('input[name="bookname"]:checked').each(function(){
+                        s+=$(this).val()+','; //遍历得到所有checkbox的value
+                    });
+                    if (s.length > 0) {
+                        //删除多出来的“，”
+                        s = s.substring(0,s.length - 1);
+                    }
+                    //$(obj).parents("tr").remove();
+                    //发异步删除数据
+                    $.ajax({
+                        type:"get",
+                        url:"/houtai/PersonnelDelete",
+                        data:{"ids":s},
+                        success:function (result) {
+                            console.log(result)
+                            if (result=='success'){
+                                layer.msg('已删除!',{icon:1,time:1000});
+                                window.location.reload();
+                            }else{
+                                layer.msg('删除失败!',{icon:1,time:1000});
+                            }
+                        }
+                    })
                     //捉到所有被选中的，发异步进行删除
-                    layer.msg('删除成功', {icon: 1});
+                    //layer.msg('删除成功', {icon: 1});
                 });
              }
              /*添加*/
@@ -209,14 +294,28 @@
             }
             //编辑
             function admin_edit (title,url,id,w,h) {
-                x_admin_show(title,url,w,h); 
+                x_admin_show(title,url,w,h);
             }
             /*删除*/
             function admin_del(obj,id){
                 layer.confirm('确认要删除吗？',function(index){
                     //发异步删除数据
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!',{icon:1,time:1000});
+                    $.ajax({
+                        type:"get",
+                        url:"/houtai/dangePersonnelDelete",
+                        data:{"id":id},
+                        success:function (result) {
+                            console.log(result)
+                            if (result=='success'){
+                                $(obj).parents("tr").remove();
+                                layer.msg('已删除!',{icon:1,time:1000});
+                            }else{
+                                layer.msg('删除失败!',{icon:1,time:1000});
+                            }
+                        }
+                    })
+                    // $(obj).parents("tr").remove();
+                    // layer.msg('已删除!',{icon:1,time:1000});
                 });
             }
             </script>

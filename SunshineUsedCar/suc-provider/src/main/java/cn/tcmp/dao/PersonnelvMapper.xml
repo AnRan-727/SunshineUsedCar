@@ -9,11 +9,22 @@
             <if test="personnelName!=null and personnelName!=''">
                 personnelName LIKE CONCAT('%',#{personnelName},'%')
             </if>
+            <if test="personnelDate!=null and personnelDate!=''">
+                and personnelDate LIKE CONCAT('%',#{personnelDate},'%')
+            </if>
         </where>
     </select>
     <select id="PersonnelLogin" resultType="cn.tcmp.entity.Personnel" parameterType="cn.tcmp.entity.Personnel">
-        select * from personnel where personnelPhone=#{personnelPhone}
-        and personnelPassWord=#{personnelPassWord}
+        select * from personnel where 1=1
+        <if test="personnelPhone!=null and personnelPhone!=''">
+            and personnelPhone=#{personnelPhone}
+        </if>
+        <if test="personnelPassWord!=null and personnelPassWord!=''">
+            and personnelPassWord=#{personnelPassWord}
+        </if>
+        <if test="personnelID!=null and personnelID!=''">
+            and personnelID=#{personnelID}
+        </if>
     </select>
 
     <update id="PersonnelUpdate" parameterType="cn.tcmp.entity.Personnel">

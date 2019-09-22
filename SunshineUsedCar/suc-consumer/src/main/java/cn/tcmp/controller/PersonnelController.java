@@ -39,6 +39,7 @@ public class PersonnelController {
 
         //1. 用户名密码验证
         Personnel loginUser = personnelvService.PersonnelLogin(user);
+        System.err.println(loginUser);
         if (null == loginUser) {
             //用户名密码错误
             tokenDto.setErrorcode(Common.CODE_02);
@@ -61,6 +62,7 @@ public class PersonnelController {
                 +Common.TOKEN_TIMEOUT+"");
         tokenDto.setData(data);
         tokenDto.setErrorcode(Common.CODE_SUCCESS);
+        System.err.println(tokenDto.getErrorcode());
         return JSON.toJSONString(tokenDto);
     }
 
@@ -77,22 +79,82 @@ public class PersonnelController {
 
 
     //去工作人员管理页(查询所有工作人员)
-    @ResponseBody
-    @RequestMapping("admin-list1")
-    public String personnelList1(Integer pageNumber, Integer pageSize, Personnel personnel, Model model){
-        System.err.println("personnel++"+personnel);
-        PageUtils<Personnel> personnelList=personnelvService.personnelList(pageNumber,pageSize,personnel);
-        System.err.println("工作人员:"+personnelList);
-        model.addAttribute("perList",personnelList);
-        //return "houtai/admin-list";
-        return JSON.toJSONString(personnelList);
-    }
     @RequestMapping("admin-list")
     public String personnelList(Integer pageNumber, Integer pageSize, Personnel personnel, Model model){
-        System.err.println("personnel++"+personnel);
         PageUtils<Personnel> personnelList=personnelvService.personnelList(pageNumber,pageSize,personnel);
-        System.err.println("工作人员:"+personnelList);
         model.addAttribute("perList",personnelList);
+        model.addAttribute("Personnel",personnel);
         return "houtai/admin-list";
     }
+
+    //工作人员分页
+    @ResponseBody
+    @RequestMapping(value = "ajax-admin-list",method = RequestMethod.GET,
+            produces ={"application/json;charset=UTF-8"})
+    public String ajaxpersonnelList(Integer pageNumber, Integer pageSize, Personnel personnel, Model model){
+        PageUtils<Personnel> personnelList=personnelvService.personnelList(pageNumber,pageSize,personnel);
+        return JSON.toJSONString(personnelList);
+    }
+
+    //去工作人员修改页
+    @RequestMapping("admin-edit")
+    public String adminedit(Personnel personnel,Model model){
+        System.out.println(personnel);
+        Personnel personnel1=this.personnelvService.PersonnelLogin(personnel);
+        model.addAttribute("personnel",personnel1);
+        return "houtai/admin-edit";
+    }
+    //做工作人员的修改操作
+    @ResponseBody
+    @RequestMapping("toPersonnelUpdate")
+    public String toPersonnelUpdate(Personnel personnel){
+        int count=this.personnelvService.PersonnelUpdate(personnel);
+        if (count<1){
+            return "erroe";
+        }
+        return "success";
+    }
+    //做工作人员删除操作
+    @ResponseBody
+    @RequestMapping("PersonnelDelete")
+    public String PersonnelDelete(Integer id,Model model,Integer[] ids){
+        System.err.println(id);
+        System.err.println("ids+++"+ids.length);
+        if (ids!=null || (ids==null && ids.length!=0)){
+            int counts=0;
+            for (int i=0;i<ids.length;i++){
+                System.err.println(ids[i]);
+                int count=this.personnelvService.PersonnelDelete(ids[i]);
+                counts=counts+count;
+                System.err.println("count::"+count);
+                System.err.println("counts:"+counts);
+            }
+            if (counts==ids.length){
+                return "success";
+            }
+        }
+        return "error";
+
+    }//做工作人员删除操作
+    @ResponseBody
+    @RequestMapping("dangePersonnelDelete")
+    public String dangePersonnelDelete(Integer id,Model model){
+        System.err.println(id);
+            int count=this.personnelvService.PersonnelDelete(id);
+            if (count<1){
+                return "erroe";
+            }
+        return "success";
+    }
+
+     //做工作人员添加操作
+     @ResponseBody
+     @RequestMapping("doPersonnelAdd")
+     public String dodangePersonnelAdd(Personnel personnel){
+         int count=this.personnelvService.PersonnelAdd(personnel);
+         if (count<1){
+             return "erroe";
+         }
+         return "success";
+     }
 }

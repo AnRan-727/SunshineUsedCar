@@ -13,6 +13,7 @@
         $(function () {
             $("input[type='submit']").click(function () {
                 var data=$("form").serialize();
+                alert("aaa");
                 $.ajax({
                     type:"get",
                     url:"/houtai/login",
@@ -21,7 +22,9 @@
                     contentType: "application/json; charset=utf-8",
                     async:false,
                     success:function (result) {
+                        alert(result.errorcode);
                         console.log ("result::::"+result.data.genTime);
+                        console.log ("result::::"+result.errorcode);
                         if (result.errorcode=='0000'){
                             alert("登录成功");
                             var token=result.data.token;
@@ -30,10 +33,11 @@
                             console.log(genTime)
                             document.cookie="token="+token;
                             document.cookie="genTime="+genTime;
+                            //location.href="/toindex";
                         }else{
                             alert("登录失败");
                         }
-
+                       return true;
                     }
                 })
             })
@@ -44,90 +48,16 @@
     <canvas id="fullstarbg">你的浏览器不支持canvas标签</canvas>
     <div class="login">
         <div class="message">二手车系统登录</div>
-        <div id="darkbannerwrap"></div>   
-        <form method="get" action="/toindex" class="layui-form" >
+        <div id="darkbannerwrap"></div>  <!--/toindex-->
+        <form  action="/toindex"  >
             <input name="personnelPhone"  placeholder="手机号"  type="text" lay-verify="required" class="layui-input" >
             <hr class="hr15">
             <input name="personnelPassWord"  lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
-            <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+            <input value="登录"  style="width:100%;" type="submit">
             <hr class="hr20" >
         </form>
     </div>
-    <!--<script type="text/javascript">
-            layui.use(['form'], function() {
-                $ = layui.jquery;
-                var form = layui.form(),
-                layer = layui.layer;
 
-
-                //监听提交
-                form.on('submit(login)',function(data) {
-                    var datas=data.field;
-                    console.log(datas);
-                    console.log(data);
-                    var data=$("form").serialize();
-                    $.ajax({
-                        type:"get",
-                        url:"/houtai/login",
-                        data:data,
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        async:false,
-                        success:function (result) {
-                            console.log (result);
-                            if (result.errorcode=='0000'){
-                                layer.confirm('登录成功,欢迎您', {
-                                    btn: ['确定'] //按钮
-                                }, function(){
-                                    var token=result.data.token;
-                                    var genTime=result.data.genTime();
-                                    console.log(token)
-                                    console.log(genTime)
-                                    document.cookie="token="+token;
-                                    document.cookie="genTime="+genTime;
-                                    alert("1111")
-                                    location.href = "index";
-                                });
-                                // layer.alert("登录成功,欢迎您", {
-                                //     title: '提示'
-                                // },function  () {
-                                //     var token=result.data.token;
-                                //     var genTime=result.data.genTime();
-                                //     console.log(token)
-                                //     console.log(genTime)
-                                //     document.cookie="token="+token;
-                                //     document.cookie="genTime="+genTime;
-                                //     alert("1111")
-                                //     location.href = "index";
-                                // })
-                                // return false;
-                                //location.href="index"
-                            }else{
-                                layer.alert("登录失败,用户名或密码错误!", {
-                                    title: '提示'
-                                },function  () {
-                                    //location.href = "tologin";
-                                })
-                                //alert("登录失败");
-                            }
-                        }
-                    })
-                    // layer.alert(JSON.stringify(data.field), {
-                    //   title: '最终的提交信息'
-                    // },function  () {
-                    //     location.href = "index";
-                    // })
-                     return false;
-                })
-
-            });
-
-
-        </script>-->
-
-    
-    <!-- 底部结束 -->
-    
 </body>
 </html>

@@ -23,8 +23,10 @@ public class PersonnelvServiceImpl implements PersonnelvService{
             pageNumber=1;
         }
         if (pageSize==null){
-            pageSize=3;
+            pageSize=7;
         }
+        System.err.println(pageNumber);
+        System.err.println(pageSize);
         PageHelper.startPage(pageNumber,pageSize);
         List<Personnel> list=this.personnelvMapper.personnelList(personnel);
         PageInfo<Personnel> pageinfo=new PageInfo<>(list);
