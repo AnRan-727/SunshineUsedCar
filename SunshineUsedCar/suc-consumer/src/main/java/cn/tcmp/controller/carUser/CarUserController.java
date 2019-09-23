@@ -8,6 +8,7 @@ import cn.tcmp.service.CreatRedisService;
 import cn.tcmp.service.MailService;
 import cn.tcmp.service.TokenService;
 import cn.tcmp.util.Common;
+import cn.tcmp.util.PageUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
@@ -233,6 +234,23 @@ public class CarUserController {
         Integer num = carUserService.updateUserPhone(carUser);
         System.err.println(num);
         return "true";
+    }
+
+    @RequestMapping("member-list")
+    public String memberlist(Integer pageNumber, Integer pageSize, CarUser carUser, Model model){
+        PageUtils<CarUser> list=this.carUserService.carUserQuery(pageNumber,pageSize,carUser);
+        model.addAttribute("userlist",list);
+        model.addAttribute("carUser",carUser);
+        return "houtai/member-list";
+    }
+    @ResponseBody
+    @RequestMapping("ajaxmember-list")
+    public String ajaxmemberlist(Integer pageNumber, Integer pageSize, CarUser carUser, Model model){
+        System.out.println("CarUser++++===="+carUser);
+        PageUtils<CarUser> list=this.carUserService.carUserQuery(pageNumber,pageSize,carUser);
+        model.addAttribute("userlist",list);
+        model.addAttribute("carUser",carUser);
+        return JSON.toJSONString(list);
     }
 
 }
