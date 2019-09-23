@@ -2,11 +2,14 @@ package cn.tcmp.service;
 
 import cn.tcmp.dao.CarUserMapper;
 import cn.tcmp.entity.CarUser;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.tcmp.util.PageUtils;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -19,6 +22,29 @@ public class CarUserServiceImpl implements CarUserService {
 
     @Resource
     private CarUserMapper carUserMapper;
+
+    @Override
+    public PageUtils<CarUser> carUserQuery(Integer pageNumber, Integer pageSize, CarUser carUser) {
+        if (pageNumber==null){
+            pageNumber=1;
+        }
+        if (pageSize==null){
+            pageSize=2;
+        }
+        System.err.println(pageNumber);
+        System.err.println(pageSize);
+        PageHelper.startPage(pageNumber,pageSize);
+        List<CarUser> list=this.carUserMapper.carUserQuery(carUser);
+        PageInfo<CarUser> pageinfo=new PageInfo<>(list);
+        PageUtils<CarUser> pageUtils=new PageUtils<>(pageinfo);
+        pageUtils.setNavigatepageNums(pageinfo.getNavigatepageNums());
+        return pageUtils;
+    }
+
+    @Override
+    public int carUserDelete(Integer id) {
+        return carUserMapper.carUserDelete(id);
+    }
 
     //用户登录
     @Override
