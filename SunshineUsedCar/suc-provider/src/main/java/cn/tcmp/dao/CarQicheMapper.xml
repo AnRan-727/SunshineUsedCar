@@ -75,6 +75,26 @@
 
         order  by presentPrice desc
     </select>
+    <!--根据车辆id查询该车辆所有的信息-->
+    <select id="detailCar" parameterType="Integer" resultMap="carvoMap">
+         SELECT c.carID ,
+        v1.vehicleName pinpaiID,v2.vehicleName vehicleIDsss,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE' AND valueID=typeID) typeID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='GEARBOX' AND valueID=gearboxID) gearboxID,
+        c.displacement,
+        (SELECT valueName FROM datadictionary WHERE typeCode='EMISSION' AND valueID=emissionID) emissionID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='FUEL' AND valueID=fuelID) fuelID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COLOR' AND valueID=colorID) colorID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COUNTRY' AND valueID=countryID) countryID,
+        topCity,placingTime,yearlyTime,insuranceTime,superValue,urgentSale,newCar,transitive,personnelID,subordinateName,vehicleage,
+        (SELECT carPicturesURL FROM carpictures WHERE carID=c.carID LIMIT 1) carPicturesURL
+        FROM car c,vehicle v1,vehicle v2
+        WHERE
+        c.pinpaiID=v1.vehicleID AND c.vehicleID=v2.vehicleID
+        and c.carID=#{carID}
+
+    </select>
 
 
 </mapper>

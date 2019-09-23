@@ -3,10 +3,11 @@ package cn.tcmp.service;
 import cn.tcmp.dao.CarUserMapper;
 import cn.tcmp.entity.CarUser;
 import cn.tcmp.util.PageUtils;
-import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.alibaba.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -39,6 +40,7 @@ public class CarUserServiceImpl implements CarUserService {
         PageUtils<CarUser> pageUtils=new PageUtils<>(pageinfo);
         pageUtils.setNavigatepageNums(pageinfo.getNavigatepageNums());
         return pageUtils;
+
     }
 
     @Override

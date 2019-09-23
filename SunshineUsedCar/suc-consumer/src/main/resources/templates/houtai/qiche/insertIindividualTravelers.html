@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>insertIindividualTravelers</title>
+    <div th:include="base::base"></div>
+
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
+    </style>
+    <script src="js/pageInfoJS.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1><a href="javascript:history.go(-1)"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a> 增加 <small>散客信息 </small></h1>
+            </div>
+            <form class="form-horizontal" id="insertOperatorForm">
+                <div class="form-group">
+                    <label for="on" class="col-sm-4 control-label">散客姓名：<span id="nameTiShi"></span></label>
+                    <div class="col-sm-6">
+                        <input type="text" name="itName" maxlength="5" oninput="checkNumber()" class="form-control"  id="on" placeholder="散客姓名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="od" class="col-sm-4 control-label">证件类型：</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="itSFZtype" id="od"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="os" class="col-sm-4 control-label">身份证号：<span id="sfzTiShi"></span></label>
+                    <div class="col-sm-6">
+                        <input type="number" oninput="checkLength(2)" placeholder="身份证号" class="form-control" name="itSFZ" id="os">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="osa" class="col-sm-4 control-label">住址：</label>
+                    <div class="col-sm-6">
+                        <input type=""  placeholder="住址" class="form-control" name="itAddress" id="osa">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-4 control-label">性别：</label>
+                    <div class="col-sm-6">
+                        <input type="radio" checked  name="itGender" id="genderNan" value="1"><label for="genderNan"><img  src="images/nan.png" alt="" title="男"></label>&nbsp;&nbsp;&nbsp;
+                        <input type="radio"   name="itGender" id="genderNv" value="2"><label for="genderNv"><img  src="images/nv1.png" alt="" title="女"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ot" class="col-sm-4 control-label">电话：<span id="telTiShi"></span></label>
+                    <div class="col-sm-6">
+                        <input type="number" oninput="checkLength(1)" placeholder="会员电话号码" class="form-control" name="itTel" id="ot">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="osfz" class="col-sm-4 control-label">消费总额：</label>
+                    <div class="col-sm-6">
+                        <input type="number"  placeholder="消费总额" value="0.0" class="form-control" name="itTotalConsumption" id="osfz">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="oa" class="col-sm-4 control-label">备注：</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" placeholder="备注" name="itRemarks" id="oa">
+                    </div>
+                </div>
+
+                <div class="col-sm-10 control-label">
+                    <button type="button" class="btn btn-info" id="alertLeft" onclick="insertOperatorForm()">
+                        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 添加
+                    </button>
+                </div>
+            </form>
+
+
+
+            <!--alert弹框样式-->
+            <div class="modal fade" tabindex="-1" role="dialog" id="alertModel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">系统提示</h4>
+                        </div>
+                        <div class="modal-body" id="alerttishi">
+
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+    </div>
+<script type="text/javascript">
+
+    // 检查是否包含数字
+    function checkNumber() {
+        var oName = $("input[name='itName'][id='on']").val();
+        var reg = /^(?=.*\d.*\b)/;
+        if(reg.test(oName)){
+            // 包含nameTiShi
+            $("#nameTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
+            return false;
+        }else{
+            // 不包含
+            $("#nameTiShi").html("");
+            return true;
+        }
+    }
+
+    // 检查字符串长度
+    function checkLength(r){
+        if(r==1){
+            var telLength = $("input[name='itTel']").val().length;
+            if(telLength!=11){
+                $("#telTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
+                return false;
+            }else{
+                $("#telTiShi").html("");
+                return true;
+            }
+        }else if(r==2){
+            var sfzLength = $("input[name='itSFZ']").val().length;
+            if(sfzLength!=18){
+                $("#sfzTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
+                return false;
+            }else{
+                $("#sfzTiShi").html("");
+                return true;
+            }
+        }
+    }
+
+
+    $(function () {
+
+
+        loadSelect("dataStatus/queryByCode","DOCUMENT_TYPE",$("select[name='itSFZtype']"))
+
+    })
+
+
+
+    // 增加操作
+    function insertOperatorForm() {
+        var oName = $("input[name='itName']").val();
+        if(oName==""){
+            $("#alerttishi").html("<font color='red'>操作错误！</font>");
+            $("#alertModel").modal("show");
+            return;
+        }
+        var oTel = $("input[name='itTel']").val();
+        if(oTel==""){
+            $("#alerttishi").html("<font color='red'>操作错误！</font>");
+            $("#alertModel").modal("show");
+            return;
+        }
+        var oAddress = $("input[name='itAddress']").val();
+        if(oAddress==""){
+            $("#alerttishi").html("<font color='red'>操作错误！</font>");
+            $("#alertModel").modal("show");
+            return;
+        }
+        var oHotelUserNum = $("select[name='itSFZtype']").val();
+        if(oHotelUserNum==-1){
+            $("#alerttishi").html("<font color='red'>操作错误！</font>");
+            $("#alertModel").modal("show");
+            return;
+        }
+
+        if(checkNumber()&&checkLength(1)&&checkLength(2)){
+            var data = $("#insertOperatorForm").serialize();
+            $.post("doInsertII",data,function (resutl) {
+                if(resutl){
+                    $("#alerttishi").html("<font color='green'>操作成功！</font>");
+                }else{
+                    $("#alerttishi").html("<font color='red'>操作错误！</font>");
+                }
+                $("#alertModel").modal("show");
+            })
+        }else{
+            $("#alerttishi").html("<font color='red'>操作错误！</font>");
+            $("#alertModel").modal("show");
+        }
+
+
+    }
+
+
+
+
+</script>
+
+
+</body>
+</html>

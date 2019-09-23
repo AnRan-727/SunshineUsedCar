@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>listIindividualTravelers</title>
+    <div th:include="base::base"></div>
+
+    <script src="/js/dateJS.js"></script>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
+        div .row{
+            margin-top: 20px;
+        }
+    </style>
+    <script src="js/pageInfoJS.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-inline" id="selectForm">
+                    <div class="form-group">
+                        <label for="mName">品牌名称：</label>
+                        <input type="text" name="name" class="form-control" id="mName" placeholder="品牌名称">
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="mSFZtype">证件类型：</label>-->
+                        <!--<select class="form-control" name="itSFZtype" id="mSFZtype">-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="itGender">散客性别：</label>-->
+                        <!--<select class="form-control" name="itGender" id="itGender">-->
+                        <!--</select>-->
+                    <!--</div>-->
+
+                    <button type="button" id="submitForm" class="btn btn-info">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        查询
+                    </button>
+
+                    <button type="button" id="toInsertII" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        增加
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!--人员列表-->
+            <div class="row" id="listContainer">
+
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <!--分页-->
+            <div class="col-xs-10">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" id="fengye">
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <!--查看模态框-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="detailInformation">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">车辆详情</h4>
+                </div>
+                <div class="modal-body" id="detailInformations">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--编辑模态框-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="updateInformation">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">编辑车辆信息</h4>
+                </div>
+                <div class="modal-body" id="updateInformations">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="alertLeft" onclick="updateInformationForm()">保存修改</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--alert弹框样式-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="alertModel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">系统提示</h4>
+                </div>
+                <div class="modal-body" id="alerttishi">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--confirm弹框样式-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="confirmModel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">系统提示</h4>
+                </div>
+                <div class="modal-body" id="confirmtishi">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="OkNo()">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+<script type="text/javascript">
+
+    $(function () {
+        <!--标题及对应实体名称列-->
+        var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
+        var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+        loadMembers("selectForm","ajaxQichelist","pageNum",1,sz,entitySz);
+
+        // 查询按钮
+        $("button[id='submitForm']").click(function () {
+            loadMembers("selectForm","ajaxQichelist","pageNum",1,sz,entitySz);
+        })
+        // 加载证件类型下拉框(数据字典)
+        // loadSelect("dataStatus/queryByCode","DOCUMENT_TYPE", $("select[name='itSFZtype']"));
+        // loadSelect("dataStatus/queryByCode","GENDER_TYPE", $("select[name='itGender']"));
+
+
+        // 去增加页面
+        $("#toInsertII").click(function(){
+            location.href="toInsertAAAAAA";
+        })
+    })
+
+    // 点击分页事件
+    function clickPage(pageNum) {
+        var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
+        var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+        loadMembers("selectForm","ajaxQichelist","pageNum",pageNum,sz,entitySz);
+    }
+
+    // 查看散客详情
+    function detailInformation(mId) {
+        $("#detailInformation").modal("show");
+
+        $.post("ajaxDetailCar","carID="+mId,function (result) {
+
+            $("#detailInformations").html("");
+            var html = "";
+            html="<table class='table table-striped'>"
+                +"<tr class=''>"
+                +"<th>车辆编号</th>"
+                +"<td>"+result.carID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>品牌</th>"
+                +"<td>"+result.pinpaiID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>车系</th>"
+                +"<td>"+result.vehicleIDsss+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>车龄</th>"
+                +"<td>"+result.vehicleAge+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>行驶里程</th>"
+                +"<td>"+result.mileage+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>型号</th>"
+                +"<td>"+result.model+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>现价</th>"
+                +"<td>"+result.presentPrice+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>原价</th>"
+                +"<td>"+result. originalPrice+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>车型</th>"
+                +"<td>"+result.typeID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>座位</th>"
+                +"<td>"+result.seatID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>变速箱</th>"
+                +"<td>"+result.gearboxID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>排量</th>"
+                +"<td>"+result.displacement+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>排放</th>"
+                +"<td>"+result.emissionID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>燃油</th>"
+                +"<td>"+result.fuelID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>颜色</th>"
+                +"<td>"+result.colorID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>国别</th>"
+                +"<td>"+result.countryID+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>上牌城市</th>"
+                +"<td>"+result.topCity+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>上牌时间</th>"
+                +"<td>"+result.placingTime+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>年检到期时间</th>"
+                +"<td>"+result.yearlyTime+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>是否超值</th>"
+                +"<td>"+result.superValue+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>是否急售</th>"
+                +"<td>"+result.urgentSale+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>是否准新车</th>"
+                +"<td>"+result.newCar+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>是否可迁全国</th>"
+                +"<td>"+result.transitive+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>是否急售</th>"
+                +"<td>"+result.urgentSale+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>车主</th>"
+                +"<td>"+result.subordinateName+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>上架时间</th>"
+                +"<td>"+result.shelfTime+"</td>"
+                +"</tr>"
+                +"<tr class=''>"
+                +"<th>工作人员</th>"
+                +"<td></td>"
+                +"</tr>"
+                +"</tr></table>";
+            $("#detailInformations").html(html);
+        })
+
+    }
+
+    // js ajax加载下拉框
+    function jsLoadSelect(code,k){
+        console.log(k)
+        $.get("dataStatus/queryByCode","code="+code,function(result){
+            var html = "";
+            $.each(result, function (index,item) {
+                if(k==item.valueName){
+                    html+= "<option selected value='"+item.valueId+"'>"+item.valueName+"</option>";
+                }else{
+                    html+= "<option value='"+item.valueId+"'>"+item.valueName+"</option>";
+                }
+            })
+            $("select[id='itsfzl']").html(html);
+
+
+        })
+        // alert(z);
+        // return z;
+    }
+
+    // 编辑会员
+    function updateInformation(mId) {
+        $("#updateInformation").modal("show");
+        $("#updateInformations").html("");
+
+        $.post("ajaxDetailIindividualTravelersVO","carID="+mId,function (result) {
+            var c;
+            var v;
+            if(result.itGender==1){
+                c = "checked";
+            }
+            if(result.itGender==2){
+                v = "checked";
+            }
+            jsLoadSelect("DOCUMENT_TYPE",result.itSFZtypeName);
+
+            var html = "<form class='form-horizontal' id='updateOperatorForm'>"
+                +"<div class='form-group'>"
+                +"<label for='on' class='col-sm-4 control-label'>散客姓名：<span id='nameTiShi'></span></label>"
+                +"<div class='col-sm-6'>"
+                +"<input type='text' name='itName' maxlength='5' oninput='checkNumber()'   class='form-control' value='"+result.itName+"' id='on' placeholder='散客姓名'><input type='hidden' name='itId' value='"+result.itId+"'>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group'>"
+                +"<label for='itsfzl' class='col-sm-4 control-label'>证件类型：</label>"
+                +"<div class='col-sm-6'>"
+                +"<select class='form-control' name='itSFZtype' id='itsfzl'></select>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group'>"
+                +"<label for='os' class='col-sm-4 control-label'>身份证号：<span id='sfzTiShi'></span></label>"
+                +"<div class='col-sm-6'>"
+                +"<input type='text' class='form-control' oninput='checkLength(2)'  name='itSFZ' value='"+result.itSFZ+"' id='os'>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group'>"
+                +"<label for='osa' class='col-sm-4 control-label'>住址：</label>"
+                +"<div class='col-sm-6'>"
+                +"<input type='text' class='form-control' name='itAddress' value='"+result.itAddress+"' id='osa'>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group'>"
+                +"<label for='aaa' class='col-sm-4 control-label'>性别：</label>"
+                +"<div class='col-sm-6'>"
+                +"<input type='radio' "+c+" name='itGender' id='genderNan' value='1'><label for='genderNan'><img  src='images/nan.png' alt='' title='男'></label>&nbsp;&nbsp;&nbsp;  "
+                +"<input type='radio' "+v+" name='itGender' id='genderNv' value='2'><label for='genderNv'><img  src='images/nv1.png' alt='' title='女'></label>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group'>"
+                +"<label for='ot' class='col-sm-4 control-label'>电话：<span id='telTiShi'></span></label>"
+                +"<div class='col-sm-6'>"
+                +"<input type='number' oninput='checkLength(1)' class='form-control' name='itTel' value='"+result.itTel+"' id='ot'>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group'>"
+                +"<label for='oa' class='col-sm-4 control-label'>总消费金额：</label>"
+                +"<div class='col-sm-6'>"
+                +"<input type='text' class='form-control' name='itTotalConsumption'  value='"+result.itTotalConsumption+"' id='oa'>"
+                +"</div>"
+                +"</div>"
+                +"<div class='form-group'>"
+                +"<label for='oa' class='col-sm-4 control-label'>备注：</label>"
+                +"<div class='col-sm-6'>"
+                +"<input type='text' class='form-control' name='itRemarks'  value='"+result.itRemarks+"' id='oa'>"
+                +"</div>"
+                +"</div>"
+                +"</form>";
+            $("#updateInformations").html(html);
+        })
+    }
+
+    // 编辑保存操作
+    function updateInformationForm() {
+        if (checkLength(1)&&checkNumber()&&checkLength(2)){
+            var data = $("#updateOperatorForm").serialize();
+            $.post("ajaxUpdateIindividualTravelers",data,function (resutl) {
+                if(resutl){
+                    $("#alerttishi").html("<font color='green'>操作成功！</font>");
+                    var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
+                    var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+                    loadMembers("selectForm","ajaxQueryAllIindividualTravelers","pageNum",1,sz,entitySz);
+
+                }else{
+                    $("#alerttishi").html("<font color='red'>操作错误！</font>");
+                }
+                $("#updateOperator").modal("hide");
+            })
+        }else{
+            $("#alerttishi").html("<font color='red'>操作错误！</font>");
+        }
+        $("#alertModel").modal("show");
+    }
+
+    // 检查字符串长度
+    function checkLength(r){
+        if(r==1){
+            var telLength = $("input[name='itTel']").val().length;
+            if(telLength!=11){
+                $("#telTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
+                return false;
+            }else{
+                $("#telTiShi").html("");
+                return true;
+            }
+        }else if(r==2){
+            var telLength = $("input[name='itSFZ']").val().length;
+            if(telLength!=18){
+                $("#sfzTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
+                return false;
+            }else{
+                $("#sfzTiShi").html("");
+                return true;
+            }
+        }
+    }
+
+    // 检查是否包含数字
+    function checkNumber() {
+        var oName = $("input[name='itName'][id='on']").val();
+        var reg = /^(?=.*\d.*\b)/;
+        if(reg.test(oName)){
+            // 包含nameTiShi
+            $("#nameTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
+            return false;
+        }else{
+            // 不包含
+            $("#nameTiShi").html("");
+            return true;
+        }
+    }
+
+    // 判断是否点击的变量
+    var isClick = false;
+    // 点击确认删除
+    function OkNo() {
+        isClick = true;
+        var oId = $("input[name='hiddenOId']").val();
+        if(isClick){
+            $("#confirmModel").modal("hide");
+            $.post("ajaxDeleteCar","carID="+oId, function (result) {
+                if(result){
+                    var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
+                    var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+                    loadMembers("selectForm","ajaxQueryAllIindividualTravelers","pageNum",1,sz,entitySz);
+                    $("#alerttishi").html("<font color='green'>操作成功！</font>");
+                    $("#alertModel").modal("show");
+                }else{
+                    $("#alerttishi").html("<font color='red'>操作错误！</font>");
+                }
+
+            })
+        }
+    }
+
+    // 删除操作
+    function deleteInformation(oId,name){
+        $("#confirmtishi").html("确定删除<strong>"+name+"</strong>的信息吗?<input type='hidden' value='"+oId+"' name='hiddenOId'>");
+        $("#confirmModel").modal("show");
+    }
+
+
+
+</script>
+</body>
+</html>

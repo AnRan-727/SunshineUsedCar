@@ -26,6 +26,18 @@ public interface CarQicheService {
     Vehicle detailVehicleById(Integer vehicleId);
     //查询所有的汽车信息
     PageQiche<CarVO> queryAllQiche(Integer pageNum,Integer pageSize);
+
+
+    //根据车辆id查询车辆信息
+    CarVO detailCar(Integer carID);
+    //删除车辆信息
+    Integer deleteCar(Integer carID);
+    //增加车辆信息
+    Integer insertCar(Car car);
+    //修改编辑车辆信息
+    Integer updateCar(Car car);
+
+
     /*
     //按照分页查询全部汽车信息
     //查询全部的汽车信息

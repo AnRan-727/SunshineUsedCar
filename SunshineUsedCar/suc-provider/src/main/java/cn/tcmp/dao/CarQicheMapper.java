@@ -4,6 +4,7 @@ import cn.tcmp.entity.Car;
 import cn.tcmp.entity.Vehicle;
 import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -39,6 +40,16 @@ public interface CarQicheMapper {
 
     //查询所有的汽车信息
     List<CarVO> queryAllQiche();
+
+    //根据车辆id查询车辆信息
+    CarVO detailCar(@Param("carID") Integer carID);
+    //删除车辆信息
+    @Delete(value = "delete from car where carID=#{carID}")
+    Integer deleteCar(@Param("carID") Integer carID);
+    //增加车辆信息
+    Integer insertCar(Car car);
+    //修改编辑车辆信息
+    Integer updateCar(Car car);
 
 
 
