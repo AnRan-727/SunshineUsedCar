@@ -33,6 +33,25 @@
               <if test="vehicleID !=null and vehicleID !=-1"> and vehicleID=#{vehicleID}</if>
 
     </select>
+    <!--查询所有的车辆-->
+    <select id="queryAllQiche" resultMap="carvoMap">
+        SELECT c.carID ,
+        v1.vehicleName pinpaiID,v2.vehicleName vehicleIDsss,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE' AND valueID=typeID) typeID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='GEARBOX' AND valueID=gearboxID) gearboxID,
+        c.displacement,
+        (SELECT valueName FROM datadictionary WHERE typeCode='EMISSION' AND valueID=emissionID) emissionID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='FUEL' AND valueID=fuelID) fuelID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COLOR' AND valueID=colorID) colorID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COUNTRY' AND valueID=countryID) countryID,
+        topCity,placingTime,yearlyTime,insuranceTime,superValue,urgentSale,newCar,transitive,personnelID,subordinateName,vehicleage,
+        (SELECT carPicturesURL FROM carpictures WHERE carID=c.carID LIMIT 1) carPicturesURL
+        FROM car c,vehicle v1,vehicle v2
+        WHERE
+        c.pinpaiID=v1.vehicleID AND c.vehicleID=v2.vehicleID
+        order  by presentPrice desc
+    </select>
     <!--根据品牌 车系名称模糊查询车辆信息-->
     <select id="qeuryCarByVehicleChexiname" parameterType="String" resultMap="carvoMap">
         SELECT c.carID ,

@@ -7,7 +7,6 @@ import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
-import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +25,36 @@ public class CarQicheController {
     private CarQicheService carQicheService;
 
     /**
-     * 搜索跳转
+     * 跳转汽车信息显示页面
      */
     @RequestMapping("toListQiche")
-    public String toListQiche() {
+    public String toListQiche(Integer pageNum,Integer pageSize,Model model) {
+        if (pageNum == null) {
+            pageNum=1;
+        }
+        if (pageSize == null) {
+            pageSize=8;
+        }
+        PageQiche<CarVO> pageQiche = carQicheService.queryAllQiche(pageNum, pageSize);
+        System.err.println(pageQiche);
+
+        model.addAttribute("carlist",pageQiche);
         return "qianDuan/list";
+    }
+    //ajax分页
+    @ResponseBody
+    @RequestMapping(value = "ajaxQicheFenye", method = RequestMethod.GET, produces = {"application/json;charset=utf-8"})
+    public PageQiche<CarVO> ajaxQicheFenye(Integer pageNum, Integer pageSize){
+        System.err.println("传过来的pageNum值为++++++++++++++++++"+pageNum);
+        if (pageNum == null) {
+            pageNum=1;
+        }
+        if (pageSize == null) {
+            pageSize=8;
+        }
+        PageQiche<CarVO> pageQiche = carQicheService.queryAllQiche(pageNum, pageSize);
+        System.err.println("值为++++++++++++++++++"+pageQiche);
+        return pageQiche;
     }
     /**
      * 查询全的车的ajax方法 （关）
