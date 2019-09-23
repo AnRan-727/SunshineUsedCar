@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tcmp.dao.IndexCarMapper">
+
+    <resultMap id="JianMap" type="cn.tcmp.vo.jiance.CT1VO" autoMapping="true">
+        <id column="t1" property="t1"></id>
+        <collection property="ct2VO" resultMap="T2Map"></collection>
+    </resultMap>
+    <resultMap id="T2Map" type="cn.tcmp.vo.jiance.CT2VO" autoMapping="true">
+        <id column="t2" property="t2"></id>
+        <collection property="ct3VO" resultMap="T3Map"></collection>
+    </resultMap>
+    <resultMap id="T3Map" type="cn.tcmp.vo.jiance.CT3VO" autoMapping="true">
+        <id column="t3" property="t3"></id>
+    </resultMap>
+
+    <!--首页展示汽车-->
+    <select id="queryCar" parameterType="cn.tcmp.vo.IndexVO" resultType="cn.tcmp.vo.IndexVO">
+        SELECT c.`carID`,c.`mileage`,c.`model`,c.`presentPrice`,c.`originalPrice`,c.`topCity`,c.`placingTime`,cp.`carPicturesURL`
+        FROM `car` c, `carpictures` cp
+        WHERE c.`carID` = cp.`carID`
+        /*准新车*/
+        <if test="newCar == 1">
+            and c.newCar = 1
+        </if>
+        /*急售车辆*/
+        <if test="urgentSale == 1">
+            and c.urgentSale = 1
+        </if>
+        /*超值车辆*/
+        <if test="superValue == 1">
+            and c.superValue = 1
+        </if>
+        GROUP BY c.`carID`
+        /*最新上架*/
+        <if test="zuiXinShangJia == 1">
+            ORDER BY c.`shelfTime` DESC
+        </if>
+
+    </select>
+    <!--汽车详情页-->
+    <select id="detailCar" parameterType="int" resultType="cn.tcmp.vo.CarTestingVO">
+        SELECT c.`carID`,c.`model`,c.`presentPrice`,c.`topCity`,c.`placingTime`,c.`mileage`,c.`displacement`,
+        ddt.`valueName` ddt,ddt2.`valueName` ddt2,ddt3.`valueName` ddt3,ddt4.`valueName` ddt4,
+        ct.`detectionTime`
+
+        FROM `cartesting` ct,`car`c,
+            `datadictionary` ddt,`datadictionary` ddt2,`datadictionary` ddt3,`datadictionary` ddt4
+
+        WHERE ct.`carID` = c.`carID`
+        AND ddt.`typeCode` = 'GEARBOX'
+        AND ddt.`valueID` = c.`gearboxID`
+        AND ddt2.`typeCode` = 'CAR_TYPE'
+        AND ddt2.`valueID` = c.`typeID`
+        AND ddt3.`typeCode` = 'COLOR'
+        AND ddt3.`valueID` = c.`colorID`
+        AND ddt4.`typeCode` = 'COUNTRY'
+        AND ddt4.`valueID` = c.`countryID`
+        AND c.`carID` =1
+        GROUP BY c.`carID`
+    </select>
+
+    <!--汽车图片-->
+    <select id="queryDetailImg" parameterType="int" resultType="cn.tcmp.entity.CarPictures">
+        select cp.`carPicturesURL` from `carpictures` cp ,`car` c
+        where cp.`carID` = c.`carID`
+        and cp.`carID` = #{id}
+    </select>
+
+    <!--汽车检测-->
+    <select id="queryJianCe" parameterType="int" resultMap="JianMap">
+        SELECT t.`testName` t1,t2.`testName` t2,t3.`testName` t3,ct.`goodOrBad`,ct.`detectionTime`
+        FROM `cartesting` ct,
+            `car` c,
+            `testing` t,
+            `testing` t2,
+            `testing` t3
+        WHERE ct.`carID` = c.`carID`
+        AND ct.`testID` = t3.`testID`
+        AND t3.`parentID` = t2.`testID`
+        AND t2.`parentID` = t.`testID`
+        AND c.`carID` = #{id}
+    </select>
+
+
+</mapper>

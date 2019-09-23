@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tcmp.dao.DataDictionaryMapper">
+
+    <select id="querySingle" resultType="cn.tcmp.entity.DataDictionary" parameterType="cn.tcmp.entity.DataDictionary">
+        SELECT * FROM `datadictionary` WHERE 1=1
+        <if test="typeCode != null and typeCode != ''">
+            and `typeCode` = #{typeCode}
+        </if>
+        <if test="typeName != null and typeName != ''">
+            and `typeName` = #{typeName}
+        </if>
+        <if test="valueID != null and valueID != ''">
+            and `valueID` = #{valueID}
+        </if>
+        <if test="valueName != null and valueName != ''">
+            and `valueName` = #{valueName}
+        </if>
+    </select>
+
+</mapper>

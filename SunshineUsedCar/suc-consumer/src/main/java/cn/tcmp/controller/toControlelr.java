@@ -22,6 +22,7 @@ public class toControlelr {
     @Reference
     private CarUserService carUserService;
 
+    //初始页面
     @RequestMapping("/")
     public String to(HttpServletRequest request, Model model){
         TokenDto tokenDto = new TokenDto();
