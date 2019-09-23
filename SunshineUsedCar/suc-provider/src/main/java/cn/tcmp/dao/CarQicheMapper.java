@@ -37,6 +37,9 @@ public interface CarQicheMapper {
     @Select(value = "select vehicleName from vehicle where vehicleId=#{vehicleId}")
     Vehicle detailVehicleById(@Param("vehicleId") Integer vehicleId);
 
+    //查询所有的汽车信息
+    List<CarVO> queryAllQiche();
+
 
 
 }

@@ -84,5 +84,26 @@ public class CarQicheServiceImpl implements CarQicheService {
         return mapper.detailVehicleById(vehicleId);
     }
 
+    @Override
+    public PageQiche<CarVO> queryAllQiche(Integer pageNum, Integer pageSize) {
+        if(null == pageNum){
+            pageNum = 1;
+        }
+        if(null == pageSize){
+            pageSize = 8;
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        List<CarVO> carVOS = mapper.queryAllQiche();
+        PageInfo<CarVO> pageInfo = new PageInfo<>(carVOS);
+        PageQiche<CarVO> pageQiche = new PageQiche<>();
+        pageQiche.setTotal(pageInfo.getTotal());
+        pageQiche.setList(pageInfo.getList());
+        pageQiche.setNavigtepageNumbers(pageInfo.getNavigatepageNums());
+        pageQiche.setPageNum(pageInfo.getPageNum());
+        pageQiche.setPages(pageInfo.getPages());
+        pageQiche.setPageSize(pageInfo.getPageSize());
+        return pageQiche;
+    }
+
 
 }

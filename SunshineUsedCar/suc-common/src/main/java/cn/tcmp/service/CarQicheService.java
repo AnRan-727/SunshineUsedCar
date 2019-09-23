@@ -24,6 +24,8 @@ public interface CarQicheService {
     List<Vehicle> queryVehicleByVehicleName2(String vehicleName);
     //根据品牌id查询品牌名称
     Vehicle detailVehicleById(Integer vehicleId);
+    //查询所有的汽车信息
+    PageQiche<CarVO> queryAllQiche(Integer pageNum,Integer pageSize);
     /*
     //按照分页查询全部汽车信息
     //查询全部的汽车信息
