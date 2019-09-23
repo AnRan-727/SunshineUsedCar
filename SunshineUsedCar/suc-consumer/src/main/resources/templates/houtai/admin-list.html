@@ -15,6 +15,7 @@
         <script th:src="@{/houtai/lib/layui/layuipages.js}"></script>
 
 
+
     </head>
     <body>
         <div class="x-nav">
@@ -135,8 +136,8 @@
         <script type="text/javascript">
             function getListData(){
                 var currPage=0;
-                var datas=$("#forms").serialize();
                 currPage=$("#pageNumber").val();
+                var datas=$("#forms").serialize();
                 console.log(forms);
                 $.ajax({
                     type: "get",

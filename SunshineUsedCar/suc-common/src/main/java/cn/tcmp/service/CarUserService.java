@@ -1,6 +1,7 @@
 package cn.tcmp.service;
 
 import cn.tcmp.entity.CarUser;
+import cn.tcmp.util.PageUtils;
 
 
 /**
@@ -10,6 +11,10 @@ import cn.tcmp.entity.CarUser;
  */
 //客户登录已经个人信息
 public interface CarUserService {
+    //查询所有用户
+    PageUtils<CarUser> carUserQuery(Integer pageNumber,Integer pageSize,CarUser carUser);
+    //删除用户
+    int carUserDelete(Integer id);
 
     //客户登录
     CarUser carUserLogin(CarUser carUser);

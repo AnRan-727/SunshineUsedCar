@@ -62,6 +62,7 @@ public class toControlelr {
         return "houtai/welcome";
     }
 
+    //后台无用
     @RequestMapping("admin-role")
     public String adminrole(){
         return "houtai/admin-role";
@@ -72,12 +73,21 @@ public class toControlelr {
     }
     @RequestMapping("admin-rule")
     public String adminrule(){
-
         return "houtai/admin-rule";
     }
 
+    //工作人员添加页面
     @RequestMapping("admin-add")
     public String adminadd(){
         return "houtai/admin-add";
+    }
+
+    @RequestMapping("question-list")
+    public String questionlist(){
+        return "houtai/question-list";
+    }
+    @RequestMapping("member-password")
+    public String memberpassword(){
+        return "houtai/member-password";
     }
 }
