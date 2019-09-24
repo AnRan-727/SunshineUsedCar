@@ -244,18 +244,38 @@ public class CarUserController {
         return "houtai/member-list";
     }
     @ResponseBody
-    @RequestMapping("ajaxmember-list")
-    public String ajaxmemberlist(Integer pageNumber, Integer pageSize, CarUser carUser, Model model){
+    @RequestMapping(value = "ajaxmember-list",method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
+    public String ajaxmemberlist(Integer pageNum, Integer pageSize, CarUser carUser, Model model){
         System.out.println("CarUser++++===="+carUser);
-        PageUtils<CarUser> list=this.carUserService.carUserQuery(pageNumber,pageSize,carUser);
-        model.addAttribute("userlist",list);
-        model.addAttribute("carUser",carUser);
-        return JSON.toJSONString(list);
+        PageUtils<CarUser> CarUserlist=this.carUserService.carUserQuery(pageNum,pageSize,carUser);
+        System.err.println(JSON.toJSONString(CarUserlist));
+        return JSON.toJSONString(CarUserlist);
     }
 
     @RequestMapping("member-add")
     public String memberadd(CarUser carUser){
 
         return "member-add";
+    }
+    //查询客户详情
+    @ResponseBody
+    @RequestMapping("DetailCarUser")
+    public String DetailCarUser(Integer userid){
+        CarUser carUser=this.carUserService.detailCarUser(userid);
+        return JSON.toJSONString(carUser);
+    }
+    //注销用户
+    @ResponseBody
+    @RequestMapping("AjaxDeleteCarUser")
+    public boolean deleteCarUser(Integer userid){
+        Integer count=this.carUserService.carUserDelete(userid);
+        return count>0?true:false;
+    }
+    @ResponseBody
+    @RequestMapping("AjaxUpdateCarUser")
+    public boolean  UpdateCarUser(CarUser carUser)
+    {
+        Integer count=this.carUserService.updateCarUser2(carUser);
+        return count>0?true:false;
     }
 }
