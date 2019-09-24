@@ -35,7 +35,7 @@
                       <input class="layui-input" placeholder="截止日" id="LAY_demorange_e">
                     </div>-->
                     <div class="layui-input-inline">
-                        <input type="text" name="userName" th:value="${carUser.userName}"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        <input type="text" name="userName" th:value="${carUser.userName }"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline">
                       <input type="text" name="realName" th:value="${carUser.realName}" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
@@ -46,7 +46,7 @@
                   </div>
                 </div> 
             </form>
-            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><button class="layui-btn" onclick="member_add('添加用户','member-add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px" id="totals"></span></xblock>
+            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon">&#xe640;</i>批量删除</button><button class="layui-btn" onclick="member_add('添加用户','member-add.html','600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px">共有数据：88 条</span></xblock>
             <table class="layui-table" id="tbody">
                 <thead >
                     <tr>

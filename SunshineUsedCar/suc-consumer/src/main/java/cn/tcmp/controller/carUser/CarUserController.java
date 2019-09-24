@@ -253,4 +253,9 @@ public class CarUserController {
         return JSON.toJSONString(list);
     }
 
+    @RequestMapping("member-add")
+    public String memberadd(CarUser carUser){
+
+        return "member-add";
+    }
 }
