@@ -5,6 +5,7 @@ import cn.tcmp.entity.Car;
 import cn.tcmp.entity.Vehicle;
 import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
+import cn.tcmp.vo.CarVO2;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -107,7 +108,7 @@ public class CarQicheServiceImpl implements CarQicheService {
 
 //     查看车辆详情
     @Override
-    public CarVO detailCar(Integer carID) {
+    public CarVO2 detailCar(Integer carID) {
         return mapper.detailCar(carID);
     }
 //     删除车辆
@@ -123,7 +124,7 @@ public class CarQicheServiceImpl implements CarQicheService {
 //     修改车辆
     @Override
     public Integer updateCar(Car car) {
-        return null;
+        return mapper.updateCar(car);
     }
 
 

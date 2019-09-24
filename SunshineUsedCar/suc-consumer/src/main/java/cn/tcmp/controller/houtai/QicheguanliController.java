@@ -28,6 +28,7 @@ public class QicheguanliController {
         }
         PageQiche<CarVO> pageQiche = carQicheService.qeuryCarByVehicleChexiname(name,pageNum, pageSize);
         System.err.println(pageQiche);
+
         return JSON.toJSONString(pageQiche);
     }
 //    跳转到车辆信息页面
