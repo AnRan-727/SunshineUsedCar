@@ -39,8 +39,8 @@
         FROM car c,vehicle v1,vehicle v2
         WHERE
         c.vehicleID=v2.vehicleID AND c.pinpaiID=v1.vehicleID
-              <if test="pinpaiID !=null and pinpaiID !=-1"> and pinpaiID=#{pinpaiID}</if>
-              <if test="vehicleID !=null and vehicleID !=-1"> and vehicleID=#{vehicleID}</if>
+        <if test="pinpaiID !=null and pinpaiID !=-1"> and pinpaiID=#{pinpaiID}</if>
+        <if test="vehicleID !=null and vehicleID !=-1"> and vehicleID=#{vehicleID}</if>
 
     </select>
     <!--查询所有的车辆-->
@@ -79,9 +79,9 @@
         FROM car c,vehicle v1,vehicle v2
         WHERE
         c.pinpaiID=v1.vehicleID AND c.vehicleID=v2.vehicleID
-            <if test="vehicleName !=null and vehicleName!=''">
-                AND v1.vehicleName LIKE CONCAT('%',#{vehicleName},'%')
-            </if>
+        <if test="vehicleName !=null and vehicleName!=''">
+            AND v1.vehicleName LIKE CONCAT('%',#{vehicleName},'%')
+        </if>
 
         order  by presentPrice desc
     </select>

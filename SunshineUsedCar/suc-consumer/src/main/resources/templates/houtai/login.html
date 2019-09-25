@@ -13,7 +13,7 @@
         $(function () {
             $("input[type='submit']").click(function () {
                 var data=$("form").serialize();
-                alert("aaa");
+
                 $.ajax({
                     type:"get",
                     url:"/houtai/login",
@@ -22,11 +22,9 @@
                     contentType: "application/json; charset=utf-8",
                     async:false,
                     success:function (result) {
-                        alert(result.errorcode);
                         console.log ("result::::"+result.data.genTime);
                         console.log ("result::::"+result.errorcode);
                         if (result.errorcode=='0000'){
-                            alert("登录成功");
                             var token=result.data.token;
                             var genTime=result.data.genTime;
                             console.log(token)

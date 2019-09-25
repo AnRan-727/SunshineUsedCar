@@ -4,7 +4,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
-
 /**
  * car  generated at 2019-09-09 10:35:03 by: eric
  */

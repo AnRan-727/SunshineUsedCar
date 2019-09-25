@@ -29,7 +29,7 @@ public class CarUserServiceImpl implements CarUserService {
             pageNumber=1;
         }
         if (pageSize==null){
-            pageSize=2;
+            pageSize=7;
         }
         PageHelper.startPage(pageNumber,pageSize);
         List<CarUser> list=this.carUserMapper.carUserQuery(carUser);

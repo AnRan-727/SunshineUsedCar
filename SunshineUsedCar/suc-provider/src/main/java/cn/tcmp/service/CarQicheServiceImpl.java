@@ -106,22 +106,22 @@ public class CarQicheServiceImpl implements CarQicheService {
         return pageQiche;
     }
 
-//     查看车辆详情
+    //     查看车辆详情
     @Override
     public CarVO2 detailCar(Integer carID) {
         return mapper.detailCar(carID);
     }
-//     删除车辆
+    //     删除车辆
     @Override
     public Integer deleteCar(Integer carID) {
         return mapper.deleteCar(carID);
     }
-//     增加车辆信息
+    //     增加车辆信息
     @Override
     public Integer insertCar(Car car) {
         return null;
     }
-//     修改车辆
+    //     修改车辆
     @Override
     public Integer updateCar(Car car) {
         return mapper.updateCar(car);
