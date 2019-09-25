@@ -51,11 +51,11 @@ public interface CarQicheMapper {
     //增加车辆信息
     Integer insertCar(Car car);
     //修改编辑车辆信息
-    @Update(value = "update Car set pinpaiID=#{car.pinpaiID},vehicleID={car.vehicleID},vehicleAge={car.vehicleAge},mileage={car.mileage},model={car.model},presentPrice={car.presentPrice}" +
-            ",originalPrice={car.originalPrice},typeID={car.typeID},seatID={car.seatID},gearboxID={car.gearboxID},displacement={car.displacement},emissionID={car.emissionID},fuelID={car.fuelID},colorID={car.colorID}" +
-            ",countryID={car.countryID},topCity={car.topCity},placingTime={car.placingTime},yearlyTime={car.yearlyTime},insuranceTime={car.insuranceTime},superValue={car.superValue}" +
-            ",urgentSale={car.urgentSale},newCar={car.newCar},transitive={car.transitive},personnelID={car.personnelID}," +
-            ",subordinateName={car.subordinateName},shelfTime={car.shelfTime} where carID=#{carID}")
+    @Update(value = "update Car set pinpaiID=#{car.pinpaiID},vehicleID=#{car.vehicleID},VehicleAge=#{car.VehicleAge},mileage=#{car.mileage},model=#{car.model},presentPrice=#{car.presentPrice}" +
+            ",originalPrice=#{car.originalPrice},typeID=#{car.typeID},seatID=#{car.seatID},gearboxID=#{car.gearboxID},displacement=#{car.displacement},emissionID=#{car.emissionID},fuelID=#{car.fuelID},colorID=#{car.colorID}" +
+            ",countryID=#{car.countryID},topCity=#{car.topCity},placingTime=#{car.placingTime},yearlyTime=#{car.yearlyTime},insuranceTime=#{car.insuranceTime},superValue=#{car.superValue}" +
+            ",urgentSale=#{car.urgentSale},newCar=#{car.newCar},transitive=#{car.transitive},personnelID=#{car.personnelID}," +
+            ",subordinateName=#{car.subordinateName},shelfTime=#{car.shelfTime} where carID=#{car.carID}")
     Integer updateCar(@Param("car") Car car);
 
 

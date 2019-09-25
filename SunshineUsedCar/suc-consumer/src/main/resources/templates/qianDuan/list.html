@@ -1,21 +1,189 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://xmlns.jcp.org/jsf/core">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>阳光好车</title>
-<link rel="stylesheet" type="text/css" href="css/base.css"/>
-<link rel="stylesheet" type="text/css" href="css/home.css"/>
-<link rel="stylesheet" type="text/css" href="city/city.css">
-<script type="text/javascript" src="script/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="script/home_ban.js"></script>
-<script type="text/javascript" src="script/eg_top_search.js"></script>
-<script type="text/javascript" src="script/city.js"></script>
-<script type="text/javascript" src="script/snncar.js"></script>
-
-
+<link rel="stylesheet" type="text/css" href="/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/css/home.css"/>
+<link rel="stylesheet" type="text/css" href="/city/city.css">
+<script type="text/javascript" src="/script/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/script/home_ban.js"></script>
+<script type="text/javascript" src="/script/eg_top_search.js"></script>
+<script type="text/javascript" src="/script/city.js"></script>
+<script type="text/javascript" src="/script/snncar.js"></script>
 <script type="text/javascript">
+
+    /*$(function () {
+        $("a[class='fenye']").click(function () {
+            alert("aaa");
+            var no = $(this).attr("no");
+            if(no <= 0){
+                no = 1;
+            }
+            var span = $("span[no]").attr("no");
+            if(no >= span){
+                no = span;
+            }
+            pageNum = no;
+            ajaxQuery();
+        })
+    })*/
+
+$(function () {
+
+    $("#chaozhi").toggle(function () {
+        superValue = 1 ;
+        ajaxQuery();
+    },function () {
+        superValue = 0 ;
+        ajaxQuery();
+    })
+    $("#jishou").toggle(function () {
+        urgentSale = 1 ;
+        ajaxQuery();
+    },function () {
+        urgentSale = 0 ;
+        ajaxQuery();
+    })
+    $("#zhunxinche").toggle(function () {
+        newCar = 1 ;
+        ajaxQuery();
+    },function () {
+        newCar = 0 ;
+        ajaxQuery();
+    })
+    $("#keqianquanguo").toggle(function () {
+        transitive = 1 ;
+        ajaxQuery();
+    },function () {
+        transitive = 0 ;
+        ajaxQuery();
+    })
+    $("#MoRenPX").click(function () {
+        paixu = 0;
+        ajaxQuery();
+    })
+    $("#ZuiXinPX").click(function () {
+        paixu = 2;
+        ajaxQuery();
+    })
+    $("#JiaGePX").toggle(function () {
+        paixu = 3;
+        ajaxQuery();
+    },function () {
+        paixu = 4;
+        ajaxQuery();
+    })
+    $("#CheLingPX").toggle(function () {
+        paixu = 5;
+        ajaxQuery();
+    },function () {
+        paixu = 6;
+        ajaxQuery();
+    })
+    $("#LiChePX").toggle(function () {
+        paixu = 7;
+        ajaxQuery();
+    },function () {
+        paixu = 8;
+        ajaxQuery();
+    })
+
+    $("#PinPaiBuXian").click(function () {
+        pinpaiId = null;
+        chexiId = null;
+        $("#pp").remove();
+        $("#cx").remove();
+        $(".chexiClass").remove();
+        ajaxQuery();
+        /*品牌*/
+        $.post("/index/queryVehicle",function(result){
+            $("#CheXiBuXian").siblings().html();
+            //获取车系的List集合
+            var chexi = result[0];
+            $.each(chexi,function (index,data) {
+                if(index <= 18){
+                    $("#CheXiBuXian").after("<a class='chexiClass' href='javascript:' onclick='CheXi("+data.vehicleID+")'>"+data.vehicleName+"</a>");
+                }
+            })
+        })
+    })
+    $("#CheXiBuXian").click(function () {
+        chexiId = null;
+        $("#cx").remove();
+        $(".chexiClass").remove();
+        ajaxQuery();
+        $.post("/index/queryVehicle",function(result){
+            $("#CheXiBuXian").siblings().html();
+            //获取车系的List集合
+            var chexi = result[0];
+            $.each(chexi,function (index,data) {
+                if(index <= 18){
+                    $("#CheXiBuXian").after("<a href='javascript:' class='chexiClass' onclick='CheXi("+data.vehicleID+")'>"+data.vehicleName+"</a>");
+                }
+            })
+        })
+    })
+    $("#JiaGeBuXian").click(function () {
+        zuigaojiage = null;
+        $("#jg").remove();
+        ajaxQuery();
+    })
+    $("#CheLingBuXian").click(function () {
+        cheling = null;
+        $("#cl").remove();
+        ajaxQuery();
+    })
+    $("#CheXingBuXian").click(function () {
+        chexingId = null;
+        $("#cxx").remove();
+        ajaxQuery();
+    })
+    $("#ZuoWeiBuXian").click(function () {
+        zuoweiId = null;
+        $("#zw").remove();
+        ajaxQuery();
+    })
+    $("#LiChengBuXian").click(function () {
+        licheng = null;
+        $("#lc").remove();
+        ajaxQuery();
+    })
+    $("#BianXuBuXian").click(function () {
+        biansuxiangId = null;
+        $("#bs").remove();
+        ajaxQuery();
+    })
+    $("#PaiLianBuXian").click(function () {
+        pailiang = null;
+        $("#pl").remove();
+        ajaxQuery();
+    })
+    $("#PaiFangBuXian").click(function () {
+        paifangId = null;
+        $("#pf").remove();
+        ajaxQuery();
+    })
+    $("#RanYouBuXian").click(function () {
+        ranyouId = null;
+        $("#ry").remove();
+        ajaxQuery();
+    })
+    $("#YanSeBuXian").click(function () {
+        yanseId = null;
+        $("#ys").remove();
+        ajaxQuery();
+    })
+    $("#GuoBieBuXian").click(function () {
+        guobieId = null;
+        $("#gb").remove();
+        ajaxQuery();
+    })
+})
+
+
 $(function(){
 	$('.navmenu li').hover(function(){
 		$('span',this).stop().css('height','2px');
@@ -138,19 +306,68 @@ $(function () {
 	   });
 });
 </script>
+    <script type="text/javascript" src="/script/login-out.js"></script>
+    <script type="text/javascript">
+        window.onload=pinpaiUL();
+
+        //加载品牌 车系
+        function pinpaiUL(){
+            /*品牌*/
+            $.post("/index/queryVehicle",function(result){
+                //获取车系的List集合
+                var chexi = result[0];
+                $.each(chexi,function (index,data) {
+                    if(index <= 18){
+                        $("#CheXiBuXian").after("<a href='javascript:' class='chexiClass' onclick='CheXi("+data.vehicleID+")'>"+data.vehicleName+"</a>");
+                    }
+                })
+
+
+                //获取品牌的Map集合 并遍历
+                var pinpai = result[1];
+                $.each(pinpai,function (key,value) {
+                    //遍历Map中的value>>List集合
+                    //把首字母品牌放进去
+
+                    $("#youDian").append("<li class='clearfix'> <span>"+key+"</span><div id='div"+key+"'></div>");
+
+                    $.each(value,function (i,val) {
+                        //10个品牌  展示
+                        if(val.vehicleID <= 16){
+                            $("#PinPaiBuXian").after("<a href='javascript:' onclick='PinPai("+val.vehicleID+")'>"+val.vehicleName+"</a>");
+                        }
+                        //加载全部的品牌
+                        $("#div"+key).append("<a href='javascript:' onclick='PinPai("+val.vehicleID+")'>"+val.vehicleName+"</em>");
+                    })
+                })
+            })
+        }
+
+    </script>
+    <script src="/script/queryCar.js"></script>
+
 </head>
 <body>
 <div class="egc-top">
   <div class="nav-cent">
-    <div class="top-r"> <a href="#" id="b-regist">注册</a>|<a href="#" id="b-login" class="b-login">登陆</a> </div>
+      <div class="top-r">
+        <span th:if="${carUser} == null">
+          <a href="#" id="b-regist">注册</a>
+          <a href="#" id="b-login" class="b-login">登陆</a>
+        </span>
+          <span th:if="${carUser} != null">
+          您好:<a th:href="@{/carUser/toCarUserInfo(userID=${carUser.userID})}" class="carUserName" style="color: #0c7fd1;" th:text="${carUser.realName}"></a>
+          <a href="/carUser/logout">注销</a>
+        </span>
+      </div>
     <div class="top-l">全国统一客服热线：400-877-9288</div>
     <div class="clear_fix"></div>
   </div>
 </div>
 <div class="navigation">
   <div class="nav-cent">
-    <div class="logo"><a href="index.html"><img src="images/logo.png" width="240" /></a></div>
-    <div class="city"> <span id="DY_site_name" class="red city-name Left">合肥</span>
+    <div class="logo"><a href="/"><img src="/images/logo.png" width="240" /></a></div>
+    <div class="city" style="display: none"> <span id="DY_site_name" class="red city-name Left">合肥</span>
       <div id="JS_hide_city_menu_11" class="city-select cut_handdler Left"> <a href="javascript:void(0);" class="common-bg selector">切换城市</a>
         <div id="JS_header_city_bar_box" class="hide_city_group">
           <div class="hideMap">
@@ -177,28 +394,18 @@ $(function () {
         </div>
       </div>
       <span class="common-bg city-logo"></span> </div>
-      <div class="sea">
-          <form action="" class="Byname1" method="post" id="ss1">
-              <div class="egc-sea-box">
-                  <input type="text"  autocomplete="off" class="sea-ipt-txt" oninput="guanzhengfang()" placeholder="搜索您想要的车" name="v1.vehicleName"  />
-                  <a href="javascript:void(0)" class="search-btn" id="sousuo1">搜索</a>
-
-              </div >
-              <div style="position: absolute;z-index: 3"  id="zhangsan">
-
-              </div>
-
-          </form>
-      </div>
-      <div class="hot-phone">
-          <i></i> <span class="js-change-phone">17600000142</span>
-      </div>
-
+    <div class="sea">
+      <div class="egc-sea-box">
+        <input type="text" class="sea-ipt-txt" placeholder="搜索您想要的车" />
+        <a href="#" class="search-btn">搜索</a> </div>
+    </div>
+    <div class="hot-phone"> <i></i> <span class="js-change-phone">400-877-9288</span> </div>
+  </div>
 </div>
 <ul class="navmenu">
-  <li class="active"><a href="index.html">首页</a><span></span></li>
-  <li><a href="list.html">我要买车</a><span></span></li>
-  <li><a href="wymc.html">我要卖车</a><span></span></li>
+  <li class="active"><a href="/">首页</a><span></span></li>
+  <li><a href="/index/toCarList">我要买车</a><span></span></li>
+  <li><a href="/index/toWoYaoMaiChe">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
   <li><a href="#">我要加盟</a><span></span></li>
 </ul>
@@ -207,203 +414,120 @@ $(function () {
   <div class="stress-close"><a href="javascript:;"></a></div>
   <div class="nav-cents">
     <ul>
-      <li class="logo"><a href="index.html"><img src="images/logo.png"  width="180"/></a></li>
-      <li><a href="index.html">首页</a></li>
-      <li><a href="list.html">我要买车</a></li>
-      <li><a href="wymc.html">我要卖车</a></li>
+      <li class="logo"><a href="/"><img src="/images/logo.png"  width="180"/></a></li>
+      <li><a href="/">首页</a></li>
+      <li><a href="/index/toCarList">我要买车</a></li>
+      <li><a href="/index/toWoYaoMaiChe">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
       <li><a href="#">我要加盟</a></li>
     </ul>
-
-      <div class="sea">
-          <form action="" class="Byname1" method="post">
-              <div class="egc-sea-box">
-                  <input type="text"  autocomplete="off" class="sea-ipt-txt" oninput="guanzhengfang2()" placeholder="搜索您想要的车" name="v1.vehicleName"  />
-                  <a href="javascript:void(0)" class="search-btn" id="sousuo2">搜索</a>
-
-              </div >
-              <div style="position: absolute;z-index: 3"  id="zhangsan2">
-
-              </div>
-
-          </form>
-      </div>
+    <div class="seas">
+      <div class="egc-sea-box">
+        <input type="text" class="sea-ipt-txt" placeholder="搜索您想要的车">
+        <a href="#" class="search-btn">搜索</a> </div>
+    </div>
   </div>
 </div>
 <div class="clear_fix"></div>
 <!--所在位置-->
 <div class="crumbp"> <a href="#">首页</a> <em>&gt;</em> <span>个人二手车</span> </div>
-<div class="mainbox">
+<div class="mainbox"> 
   <!--搜索条件-->
   <div class="comfilter-bd">
     <div class="filterBox">
       <dl class="fliter-bd clearfix">
         <dt>品牌：</dt>
-        <dd class="clickBrandWidget" id="pppppp">
-            <!-- 循环遍历汽车品牌 -->
-            <span class="pinpai321" style="cursor: pointer"></span>
-          <!--品牌全部-->
+        <dd class="clickBrandWidget">
+            <a class="on" id="PinPaiBuXian" href="javascript:">不限</a>
+            <!--<a  class="" href="#" title="大众二手车"> 大众 </a>-->
+          <!--品牌全部--> 
           <span class="brand-all z30"> <em data-role="show">全部<i></i></em>
           <div data-role="otherBrand" class="otherbrand" style="display: none;">
             <div class="o-b-box"><span class="arrow"><s></s></span>
-              <ul data-role="letterNav" class="o-b-list">
-                <li class="clearfix"> <span>A</span>
+              <ul data-role="letterNav" id="youDian" class="o-b-list">
+                <!--<li class="clearfix"> <span>A</span>
                   <div> <a  href="#" title="奥迪二手车"> 奥迪 </a> </div>
-                </li>
-
+                </li>-->
               </ul>
             </div>
           </div>
-          </span>
-          <!--品牌全部-->
+          </span> 
+          <!--品牌全部--> 
         </dd>
       </dl>
-      <dl class="fliter-bd clearfix" id="cxcxcx">
+      <dl class="fliter-bd clearfix">
         <dt>车系：</dt>
-        <dd class="clickTagWidget" id="cxcxcx">
-            <span class="chexi321" style="cursor: pointer"></span>
-        </dd>
+        <dd class="clickTagWidget"> <a  class="on" id="CheXiBuXian" href="#">不限</a></dd>
       </dl>
-
-        <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
-        <script type="text/javascript">
-            // 加载品牌车系
-            function loadSecondVehicle() {
-
-                $.get("ajaxLoadCarQiche",function (result) {
-                    //品牌
-                    var html = "";
-                    html+="<a class='on' href='#' onclick='dianjipinpai(-1)'>不限</a>";
-                    $.each(result,function (index,item) {
-                        html+="<a  th:href='javascript:void(0)' onclick='dianjipinpai("+item.vehicleID+")'>"+item.vehicleName+"</a>";
-                    })
-
-                    $(".pinpai321").html(html);
-
-                })
-            }
-
-            //  品牌点击
-            function dianjipinpai(data) {
-
-
-                $("#pppppp a[class='on']").attr("class","");
-                $("a[onclick='dianjipinpai("+data+")']").attr("class","on");
-                var pinpai=$("a[onclick='dianjipinpai("+data+")']").html();
-                alert(pinpai);
-                alert(data);
-                //拼接
-                $("#shaixuanpinjie").append("<a class='sel-a'>"+pinpai+"</a>");
-                $.get("ajaxLoadCarQicheChexi","data="+data,function(result){
-
-                    var html = "";
-                    html+="<a class='on' href='#' onclick='dianjichexi(-1)'>不限</a>";
-                    $.each(result,function (index,item) {
-                        html+="<a  th:href='javascript:void(0)' onclick='dianjichexi("+item.vehicleID+")'>"+item.vehicleName+"</a>";
-                    })
-
-                    $(".chexi321").html(html);
-                })
-
-            }
-           // 车系点击
-           function dianjichexi(data) {
-               $("#cxcxcx a[class='on']").attr("class","");
-               $("a[onclick='dianjichexi("+data+")']").attr("class","on");
-           }
-        </script>
-
-      <dl class="fliter-bd clearfix" >
+      <dl class="fliter-bd clearfix">
         <dt>价格：</dt>
-        <dd id="jiagejiage">
-            <a  class="on" href="#">不限</a>
-            <a  class="" href="#" onclick="dianjijiage(1)" title="3万以下二手车"> 3万以下 </a>
-            <a  class="" href="#" onclick="dianjijiage(2)" title="5万以下二手车"> 3-5万 </a>
-            <a  class="" href="#" onclick="dianjijiage(3)" title="7万以下二手车"> 5-7万 </a>
-            <a  class="" href="#" onclick="dianjijiage(4)" title="9万以下二手车"> 7-9万 </a>
-            <a  class="" href="#" onclick="dianjijiage(5)" title="12万以下二手车"> 9-12万 </a>
-            <a  class="" href="#" onclick="dianjijiage(6)" title="16万以下二手车"> 12-16万 </a>
-            <a  class="" href="#" onclick="dianjijiage(7)" title="20万以下二手车"> 16-20万 </a>
-            <a  class="" href="#" onclick="dianjijiage(8)" title="20万以上二手车"> 20万以上 </a>
-         </dd>
+          <dd>
+              <a class="on" href="javascript:" id="JiaGeBuXian">不限</a>
+              <a class="" href="javascript:" title="3万以下二手车" onclick="JiaGe(0,3)" > 3万以下 </a>
+              <a class="" href="javascript:" title="5万以下二手车" onclick="JiaGe(3,5)">3-5万 </a>
+              <a class="" href="javascript:" title="7万以下二手车" onclick="JiaGe(5,7)"> 5-7万 </a>
+              <a class="" href="javascript:" title="9万以下二手车" onclick="JiaGe(7,9)"> 7-9万 </a>
+              <a class="" href="javascript:" title="12万以下二手车" onclick="JiaGe(9,12)">9-12万 </a>
+              <a class="" href="javascript:" title="16万以下二手车" onclick="JiaGe(12,16)"> 12-16万 </a>
+              <a class="" href="javascript:" title="20万以下二手车" onclick="JiaGe(16,20)"> 16-20万 </a>
+              <a class="" href="javascript:" title="20万以上二手车" onclick="JiaGe(20,9999)"> 20万以上</a>
+          </dd>
       </dl>
-        <!--价格查询-->
-        <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
-        <script type="text/javascript">
-            function dianjijiage(data) {
-                $("#jiagejiage a[class='on']").attr("class","");
-                $("a[onclick='dianjijiage("+data+")']").attr("class","on");
-            }
-
-        </script>
       <dl class="fliter-bd clearfix">
         <dt>车龄：</dt>
-        <dd id="chelingcheling">
-            <a data-role="filterItemAge" onclick="dianjicheling(0)" data-value="" class="on" href="#">不限</a>
-            <a  class="" onclick="dianjicheling(1)" href="#" title="5年以上二手车"> 5年以上 </a>
-            <a class=""  onclick="dianjicheling(2)" href="#" title="5年内二手车"> 5年内 </a>
-            <a  class="" onclick="dianjicheling(3)" href="#" title="3年内二手车"> 3年内 </a>
-            <a  class="" onclick="dianjicheling(4)" href="#" title="1年以内二手车"> 1年以内 </a>
-        </dd>
+          <dd>
+              <a data-role="filterItemAge" data-value="" class="on" href="javascript:void(0);" id="CheLingBuXian" >不限</a>
+              <a class="" href="javascript:void(0);" onclick="CheLing(10)" title="10年内二手车" > 10年内 </a>
+              <a class="" href="javascript:void(0);" onclick="CheLing(5)" title="5年内二手车"> 5年内 </a>
+              <a class="" href="javascript:void(0);" onclick="CheLing(3)" title="3年内二手车"> 3年内 </a>
+              <a class="" href="javascript:void(0);" onclick="CheLing(1)" title="1年以内二手车"> 1年以内 </a>
+          </dd>
       </dl>
-        <!--价格查询-->
-        <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
-        <script type="text/javascript">
-            function dianjicheling(data) {
-                $("#chelingcheling a[class='on']").attr("class","");
-                $("a[onclick='dianjicheling("+data+")']").attr("class","on");
-            }
-
-        </script>
       <div class="moreitem clearfix">
         <span>更多：</span>
         <dl class="selecter">
 		<dt>车型</dt>
 		<dd>
-			<ul >
-				<li><a href="javascript:void(0);" name="">不限</a></li>
-				<li><a href="javascript:void(0);"> 两厢轿车 </a></li>
-				<li><a href="javascript:void(0);"> 三厢轿车 </a></li>
-				<li><a href="javascript:void(0);"> 跑车 </a></li>
-				<li><a href="javascript:void(0);"> SUV </a></li>
-				<li><a href="javascript:void(0);" > MPV </a></li>
+			<ul>
+				<li><a href="javascript:void(0);" id="CheXingBuXian">不限</a></li>
+				<li th:each="list:${di}" th:object="${list}">
+                    <a href="javascript:void(0);" th:text="*{valueName}" th:onclick="CheXing([[*{valueID}]])" th:valueNo="*{valueID}"></a>
+                </li>
 			</ul>
 		</dd>
-            <!--车型查询-->
-
 	</dl>
     <dl class="selecter">
 		<dt>座位</dt>
 		<dd>
 			<ul>
-				<li><a href="javascript:void(0);">不限</a></li>
-				<li><a href="javascript:void(0);" > 2座 </a></li>
-				<li><a href="javascript:void(0);"> 4座 </a></li>
-				<li><a href="javascript:void(0);"> 5座 </a></li>
-				<li><a href="javascript:void(0);"> 6座 </a></li>
-				<li><a href="javascript:void(0);"> 7座及以上 </a></li>
+				<li><a href="javascript:void(0);" id="ZuoWeiBuXian">不限</a></li>
+                <li th:each="list:${diz}" th:object="${list}">
+                    <a href="javascript:void(0);" th:text="*{valueName}" th:onclick="ZuoWei([[*{valueID}]])" th:valueNo="*{valueID}"></a>
+                </li>
 			</ul>
 		</dd>
 	</dl>
-    <dl class="selecter">
+    <dl class="selecter" style="display: none">
 		<dt>行驶里程</dt>
 		<dd>
-			<ul>
-				<li><a href="javascript:void(0);">不限</a></li>
-				<li><a href="javascript:void(0);"> 1万公里内 </a></li>
-				<li><a href="javascript:void(0);"> 3万公里内 </a></li>
-				<li><a href="javascript:void(0);"> 5万公里内 </a></li>
-				<li><a href="javascript:void(0);"> 5万公里以上 </a></li>
-			</ul>
+            <ul>
+                <li><a href="javascript:void(0);" id="LiChengBuXian">不限</a></li>
+                <li><a href="javascript:void(0);">3万公里内 </a></li>
+                <li><a href="javascript:void(0);">6万公里内 </a></li>
+                <li><a href="javascript:void(0);"> 10万公里内 </a></li>
+                <li><a href="javascript:void(0);"> 15万公里内 </a></li>
+                <li><a href="javascript:void(0);"> 50万公里内 </a></li>
+            </ul>
 		</dd>
 	</dl>
     <dl class="selecter">
 		<dt>变速箱</dt>
 		<dd>
 			<ul>
-				<li><a href="javascript:void(0);">不限</a>  </li>
-				<li><a href="javascript:void(0);"> 手动 </a></li>
-				<li><a href="javascript:void(0);"> 自动 </a></li>
+				<li><a href="javascript:void(0);" id="BianXuBuXian">不限</a>  </li>
+                <li th:each="list:${dib}" th:object="${list}">
+                    <a href="javascript:void(0);" th:text="*{valueName}" th:onclick="BianSu([[*{valueID}]])" th:valueNo="*{valueID}"></a>
+                </li>
 			</ul>
 		</dd>
 	</dl>
@@ -411,12 +535,12 @@ $(function () {
 		<dt>排量</dt>
 		<dd>
 			<ul>
-				<li><a href="javascript:void(0);">不限</a></li>
-				<li><a href="javascript:void(0);"> 1.0L以下 </a></li>
-				<li><a href="javascript:void(0);"> 1.0-1.6L </a></li>
-				<li><a href="javascript:void(0);"> 1.6-2.0L </a></li>
-				<li><a href="javascript:void(0);"> 2.0-3.0L </a></li>
-                <li><a href="javascript:void(0);"> 3.0L以上 </a></li>
+				<li><a href="javascript:void(0);" id="PaiLianBuXian">不限</a></li>
+				<li><a href="javascript:void(0);" onclick="PaiLiang(1.0)"> 1.0以下 </a></li>
+				<li><a href="javascript:void(0);" onclick="PaiLiang(1.5)"> 1.5以下 </a></li>
+				<li><a href="javascript:void(0);" onclick="PaiLiang(2.0)"> 2.0以下 </a></li>
+				<li><a href="javascript:void(0);" onclick="PaiLiang(2.5)"> 2.5以下 </a></li>
+                <li><a href="javascript:void(0);" onclick="PaiLiang(3.0)"> 3.0以下 </a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -424,11 +548,10 @@ $(function () {
 		<dt>排放标准</dt>
 		<dd>
 			<ul>
-				<li><a href="javascript:void(0);">不限</a> </li>
-				<li><a href="javascript:void(0);"> 国二及以上 </a></li>
-				<li><a href="javascript:void(0);"> 国三及以上 </a></li>
-				<li><a href="javascript:void(0);"> 国四及以上 </a></li>
-				<li><a href="javascript:void(0);"> 国五 </a></li>
+				<li><a href="javascript:void(0);" id="PaiFangBuXian">不限</a> </li>
+                <li th:each="list:${dip}" th:object="${list}">
+                    <a href="javascript:void(0);" th:text="*{valueName}" th:onclick="PaiFang([[*{valueID}]])" th:valueNo="*{valueID}"></a>
+                </li>
 			</ul>
 		</dd>
 	</dl>
@@ -436,12 +559,10 @@ $(function () {
 		<dt>燃油类型</dt>
 		<dd>
 			<ul>
-				<li><a href="javascript:void(0);">不限</a></li>
-				<li><a href="javascript:void(0);"> 汽油 </a></li>
-				<li><a href="javascript:void(0);"> 柴油 </a></li>
-				<li><a href="javascript:void(0);"> 电动 </a></li>
-				<li><a href="javascript:void(0);"> 油电混合 </a></li>
-                <li><a href="javascript:void(0);"> 其他 </a></li>
+				<li><a href="javascript:void(0);" id="RanYouBuXian">不限</a></li>
+                <li th:each="list:${dir}" th:object="${list}">
+                    <a href="javascript:void(0);" th:text="*{valueName}" th:onclick="RanYou([[*{valueID}]])" th:valueNo="*{valueID}"></a>
+                </li>
 			</ul>
 		</dd>
 	</dl>
@@ -449,21 +570,10 @@ $(function () {
 		<dt>颜色</dt>
 		<dd>
 			<ul>
-				<li><a href="javascript:void(0);">不限</a></li>
-				<li><a href="javascript:void(0);"> <i class="c-lump03"></i>黑色 </a> </li>
-				<li><a href="javascript:void(0);"> <i class="c-lump04"></i>白色 </a></li>
-				<li><a href="javascript:void(0);"> <i class="c-lump10"></i>银灰色 </a></li>
-				<li><a href="javascript:void(0);"> <i class="c-lump09"></i>红色 </a> </li>
-                <li><a href="javascript:void(0);"> <i class="c-lump15"></i>深灰色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump11"></i>橙色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump02"></i>绿色 </a></li>
-                <li><a href="javascript:void(0);" > <i class="c-lump05"></i>蓝色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump06"></i>咖啡色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump07"></i>紫色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump08"></i>香槟色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump12"></i>多彩色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump13"></i>黄色 </a></li>
-                <li><a href="javascript:void(0);"> <i class="c-lump14"></i>其它 </a></li>
+				<li><a href="javascript:void(0);" id="YanSeBuXian">不限</a></li>
+                <li th:each="list:${diy}" th:object="${list}">
+                    <a href="javascript:void(0);" th:text="*{valueName}" th:onclick="YanSe([[*{valueID}]])" th:valueNo="*{valueID}"></a>
+                </li>
 			</ul>
 		</dd>
 	</dl>
@@ -471,146 +581,66 @@ $(function () {
 		<dt>国别</dt>
 		<dd>
 			<ul>
-				<li><a href="javascript:void(0);">不限</a></li>
-				<li><a href="javascript:void(0);"> 德系 </a></li>
-				<li><a href="javascript:void(0);"> 日系 </a></li>
-				<li><a href="javascript:void(0);"> 美系 </a></li>
-				<li><a href="javascript:void(0);"> 法系 </a></li>
-                <li><a href="javascript:void(0);"> 韩系 </a></li>
-                <li><a href="javascript:void(0);"> 国产 </a></li>
-                <li><a href="javascript:void(0);"> 其他 </a></li>
+				<li><a href="javascript:void(0);" id="GuoBieBuXian">不限</a></li>
+                <li th:each="list:${dic}" th:object="${list}">
+                    <a href="javascript:void(0);" th:text="*{valueName}" th:onclick="GuoBie([[*{valueID}]])" th:valueNo="*{valueID}"></a>
+                </li>
 			</ul>
 		</dd>
 	</dl>
       </div>
-
+     
     </div>
-    <div class="sel-menu clearfix" >
-      <p class="sel-p" >当前筛选&gt;</p>
-        <!--拼接查询条件显示-->
-            <div id="shaixuanpinjie"></div>
-        <a href="#"  class="sel-reset" >重置</a>
-      <p class="sel-p">共为您找到<b><span th:text="${carlist.total}"></span></b>辆好车</p>
+    <div class="sel-menu clearfix">
+      <p class="sel-p" id="DianQianShaiXuan">当前筛选&gt;</p>
+      <!--<a href="#"  class="sel-a">大众</a>--> <a href="/index/toCarList" class="sel-reset">重置</a>
+      <p class="sel-p">共为您找到<b th:text="${list.pageTotal}" class="shuliang"><!--508--></b>辆好车</p>
     </div>
   </div>
   <div class="seqBox clearfix">
-    <p class="fr seqtype">共找到<b><span th:text="${carlist.total}"></span></b>辆 </p>
+    <p class="fr seqtype">共找到<b th:text="${list.pageTotal}" class="shuliang"><!--3430--></b>辆 </p>
     <ul class="sequen">
-      <li class="first"><a href="#" >默认排序</a></li>
-      <li> <a href="#" title="" >最新发布 </a> </li>
-      <li> <a href="#" title="">价格<i class="up"></i> </a> </li>
-      <li> <a href="#" title="">车龄<i class="up"></i> </a> </li>
-      <li> <a href="#" title="">里程<i class="up"></i> </a> </li>
+      <li class="first"><a href="javascript:void(0);" id="MoRenPX" >默认排序</a></li>
+      <li> <a href="javascript:void(0);" id="ZuiXinPX" >最新发布 </a> </li>
+      <li> <a href="javascript:void(0);" id="JiaGePX">价格 </a> </li>
+      <li> <a href="javascript:void(0);" id="CheLingPX">车龄 </a> </li>
+      <li> <a href="javascript:void(0);" id="LiChePX">里程 </a> </li>
     </ul>
-    <ul id="checkArea" class="screen-input tagTypesFilterNew">
+
+    <ul class="sequen">
       <li>
-        <input type="checkbox" id="chaozhi">
-        <label for="chaozhi">超值</label>
+          <a href="javascript:void(0);" id="chaozhi">超值</a>
       </li>
       <li>
-        <input type="checkbox" id="jishou">
-        <label for="jishou">急售</label>
+          <a href="javascript:void(0);" id="jishou">急售</a>
       </li>
       <li >
-        <input type="checkbox" id="zhunxinche">
-        <label for="zhunxinche">准新车</label>
+          <a href="javascript:void(0);" id="zhunxinche">准新车</a>
       </li>
       <li >
-        <input type="checkbox" id="keqianquanguo">
-        <label for="keqianquanguo">可迁全国</label>
+          <a href="javascript:void(0);" id="keqianquanguo">可迁全国</a>
       </li>
     </ul>
   </div>
-    <!--显示信息-->
-    <ul class="carList" >
-
-            <li class="tiao" th:each="item:${carlist.list}">
-                <div class='list-infoBox'  >
-                    <a title="${item.model}" target="_blank" class="imgtype" href="infor.html">
-                        <img width="290" height="194" src="images/carimg.jpg" alt="${item.model}">
-                    </a>
-                    <p class="infoBox">
-                        <a  title="${item.model}" href="infor.html" target="_blank" class="info-title">
-                            <span th:text="${item.model}"></span>
-                        </a>
-                    </p>
-                    <p class="fc-gray">
-                        <span class="tag-gray" th:text="${item.topCity}"></span>
-                        <span class="" th:text="${#dates.format(item.placingTime,'yyyy-MM-dd')}"></span>
-                        <em class="shuxian">|</em> 行驶
-                        <span th:text="${item.mileage}"></span>
-                    </p>
-                    <p class="priType-s">
-                        <span>
-                            <i class="fc-org priType"> <span th:text="${item.presentPrice}"></span> </i>
-                        </span> <s><span th:text="${item.originalPrice}"></span></s>
-                    </p>
-                </div>
-            </li>
-
-    </ul>
+  <ul class="carList" id="carList">
+    <li th:each="list:${list.list}" th:object="${list}">
+      <div class="list-infoBox"> <a th:title="*{model}"  class="imgtype" th:href="@{/index/queryCarInfo(carId=*{carID})}"> <img width="290" height="194" th:src="*{'/img/car/' + carPicturesURL }"  th:alt="*{model}"> </a>
+        <p class="infoBox"> <a  th:title="*{model}"  th:href="@{/index/queryCarInfo(carId=*{carID})}" class="info-title" th:text="*{model}"><!--奇瑞QQ3 2012款 QQ3 0.8 手动 梦想版--></a> </p>
+        <p class="fc-gray"> <span class="tag-gray" th:text="*{topCity}"><!--石家庄--></span> <span class=""> <span th:text="*{placingTime}"></span>上牌</span> <em class="shuxian">|</em> 行驶<!--2.4万公里--> <span th:text="*{mileage}"></span> </p>
+        <p class="priType-s"> <span> <i class="fc-org priType" th:text="*{presentPrice}+'万'">  </i> </span> <s th:text="*{originalPrice} + '万'"><!--3.40--></s> </p>
+      </div>
+    </li>
+  </ul>
 </div>
-    <!--分页-->
+
 <div class="pages">
-    <a href="javascript:void(0)" th:no="1"   class="fenye">首页</a>
-    <a href="javascript:void(0)" th:no="${carlist.pageNum-1}"  class="fenye">上一页</a>
-    [<span th:text="${carlist.pageNum}"></span>/<span th:text="${carlist.pages}"></span>]
-    <a href="javascript:void(0)" th:no="${carlist.pageNum+1}" class="fenye">下一页</a>
-    <a href="javascript:void(0)" th:no="${carlist.pages}" class="fenye">尾页</a>
-    <input type="hidden" name="haha" th:value="${carlist.pages}">
+    <a href="javascript:void(0)" no="1" onclick="fenye(1)" class="fenye">首页</a>
+    <a href="javascript:void(0)" th:onclick="fenye([[${list.pageNumber} - 1]])" th:no="${list.pageNumber} - 1" class="fenye">上一页</a>
+    第<span th:text="${list.pageNumber}"></span>页/共<span th:text="${list.pageCount}"></span>页
+    <a href="javascript:void(0)" th:onclick="fenye([[${list.pageNumber} + 1]])" th:no="${list.pageNumber} + 1" class="fenye">下一页</a>
+    <a href="javascript:void(0)" th:onclick="fenye([[${list.pageCount}]])" th:no="${list.pageCount}" class="fenye">尾页</a>
 </div>
-    <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
-    <script th:inline="javascript">
-        $(function () {
-            $(".fenye").click(function () {
-                var pageNum = $(this).attr("no");
-                if(pageNum <= 0){
-                    pageNum = 1;
-                }
-                var zong = $("input[name='haha']").val();
-                if(pageNum>=zong){
-                    pageNum = zong
-                }
-                alert(zong);
-                //分页跳转
-                $.get("ajaxQicheFenye","pageNum="+pageNum,function(result){
-                    $(".tiao").remove();
-                    $(".listQiChe").remove();
-                    alert(pageNum);
-                    $.each(result,function (index,item) {
-                        $(".carList").append("<li class='tiao'><div class='list-infoBox'>\n" +
-                            "                            <a title='"+item.model+"' target='_blank' class='imgtype' href='infor.html'>\n" +
-                            "                            <img width='290' height='194' src='images/carimg.jpg' alt='"+item.model+"'>\n" +
-                            "                            </a>\n" +
-                            "                            <p class='infoBox'>\n" +
-                            "                            <a  title='"+item.model+"' href='infor.html' target='_blank' class='info-title'>\n" +
-                            "                            <span th:text='"+item.model+"'></span>\n" +
-                            "                            </a>\n" +
-                            "                            </p>\n" +
-                            "                            <p class='fc-gray'>\n" +
-                            "                            <span class='tag-gray' th:text='"+item.topCity+"'></span>\n" +
-                            "                            <span class='' th:text='${#dates.format("+item.placingTime+",'yyyy-MM-dd')}'></span>\n" +
-                            "                            <em class='shuxian'>|</em> 行驶\n" +
-                            "                            <span th:text='"+item.mileage+"'></span>\n" +
-                            "                            </p>\n" +
-                            "                            <p class='priType-s'>\n" +
-                            "                            <span>\n" +
-                            "                            <i class='fc-org priType'> <span th:text='"+item.presentPrice+"'></span> </i>\n" +
-                            "                            </span> <s><span th:text='"+item.originalPrice+"'></span></s>\n" +
-                            "                        </p>\n" +
-                            "                        </div>\n" +
-                            "                        </li>");
 
-                    })
-
-
-                })
-                // $.post("","pageNum="+pageNum,function(resutl){})
-
-            });
-        })
-
-    </script>
 <div class="clear_fix"></div>
 <!--底部-->
 <div class="ftWrap">
@@ -623,13 +653,13 @@ $(function () {
         </div>
         <div class="items">
           <div class="tit"><i class="icon-angle-right"></i>客服中心</div>
-          <div class="con"> <a href="abut.html">网站合作</a> <a href="about.html">关于我们</a> <a href="contact.html">联系我们</a> </div>
+          <div class="con"> <a href="/abut.html">网站合作</a> <a href="/about.html">关于我们</a> <a href="/contact.html">联系我们</a> </div>
         </div>
         <div class="items">
           <div class="tit"><i class="icon-angle-right"></i>购车指南</div>
           <div class="con"> <a href="#">购车帮助</a></div>
         </div>
-        <div class="app-section"> <img class="js-delayed-img"  src="images/f_wx.jpg">
+        <div class="app-section"> <img class="js-delayed-img"  src="/images/f_wx.jpg">
           <div class="title">扫码关注微信</div>
           <p> 随时随地，秒杀好车<br />
             优质个人二手车 </p>
@@ -651,69 +681,73 @@ $(function () {
     <div class="cent"> Copyright © 2016-2017, snncar.com,All Rights Reserved 皖ICP备16022456号-1</div>
   </div>
 </div>
-<script type="text/javascript" src="script/3c-menu.js"></script>
-<script type="text/javascript" src="script/lg_reg.js"></script>
+<script type="text/javascript" src="/script/3c-menu.js"></script>
+<script type="text/javascript" src="/script/lg_reg.js"></script> 
 <!--会员登录和注册弹出框开始-->
 <div id="popBox">
-  <div class="popCont"> <a class="p_closed">关闭</a>
-    <div class="p-tab"> <a>会员登录<i></i></a><a>会员注册<i></i></a> </div>
-    <div class="p-detail">
-      <div class="p-dl">
-        <form onsubmit="return check();" enctype="multipart/form-data" method="post" name="form" id="form">
-          <ul class="login-items">
-            <li>
-              <label>用户名(手机号)</label>
-              <input class="input" type="text" value="" maxlength="32"  name="username" placeholder="请输入您的手机号">
-            </li>
-            <li>
-              <label>密码</label>
-              <input class="input" type="password" value="" maxlength="16"  name="password">
-            </li>
-          </ul>
-          <div class="login-check">
-            <input type="checkbox" name="checkbox" style=" width:auto;" />
-            <label>记住我</label>
-            <a href="Meet/editPass">忘记登录密码？</a> </div>
-          <div class="login-button">
-            <input type="hidden" value="" name="carid" class="ordercarid" />
-            <input type="hidden" value="" name="carstatus" class="orderstatus" />
-            <input type="button"  value="登&nbsp;&nbsp;&nbsp;&nbsp;陆" class="fM" onclick="$('#form').submit()" />
-          </div>
-        </form>
-      </div>
-      <div class="p-dl">
-        <form class="registForm" onsubmit="return regcheck();" enctype="multipart/form-data" method="post" name="reg" id="reg">
-          <ul class="login-items">
-            <li class="clearfix">
-              <input class="input" name="mobile" id="mobile" type="text" value="" placeholder="手机号码（登录帐号）">
-            </li>
-            <li class="clearfix">
-              <input class="input left" type="text" value=""  name="verify" placeholder="输入验证码" style="width:100px;" />
-              <div id="send"><a href="#" class="send_code right">获取验证码</a></div>
-            </li>
-            <li class="clearfix">
-              <input class="input" type="text" value=""  name="realname" placeholder="姓名">
-            </li>
-            <li class="clearfix sex">
-              <input type="radio" checked="" name="gender" value="M" />
-              男&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="radio" name="gender" value="F" />
-              女 </li>
-            <li class="clearfix">
-              <input id="" class="input" type="password" name="password" value="" placeholder="输入密码（六位字符）">
-            </li>
-          </ul>
-          <div class="login-button">
-            <input type="hidden" value="" name="carid" class="ordercarid" />
-            <input type="hidden" value="" name="carstatus" class="orderstatus" />
-            <input type="button"  value="立即注册" class="fM" onclick="$('#reg').submit()" />
-          </div>
-        </form>
-      </div>
+    <div class="popCont"> <a class="p_closed">关闭</a>
+        <div class="p-tab"> <a>会员登录<i></i></a><a>会员注册<i></i></a> </div>
+        <div class="p-detail">
+            <div class="p-dl">
+                <form action="" method="post" name="form" id="loginform">
+                    <ul class="login-items">
+                        <li><label>用户名(手机号)</label> <input class="input" type="text"
+                                                           value="" id="loginUsername" maxlength="32" name="userPhone"
+                                                           placeholder="请输入您的手机号"></li>
+                        <li><label>密码</label> <input class="input" type="password"
+                                                     id="loginPassword" maxlength="16" name="userPassWord"></li>
+                    </ul>
+                    <div class="login-check">
+                        <a href="toGetPass">忘记登录密码？</a>
+                    </div>
+                    <div class="login-button">
+                        <input type="hidden" value="" name="carid" class="ordercarid" />
+                        <input type="hidden" value="" name="carstatus"
+                               class="orderstatus" /> <input type="button"
+                                                             value="登&nbsp;&nbsp;&nbsp;&nbsp;陆" class="fM" onclick="denglu()" />
+                    </div>
+                    <!---校验-->
+                    <p class="sell-phone-error" style="display: block;"
+                       id="logintishi"></p>
+                </form>
+            </div>
+            <div class="p-dl">
+                <form action="" id="zhucheform" class="registForm" method="post"
+                      name="reg">
+                    <ul class="login-items">
+                        <li class="clearfix">
+                            <input class="input" name="userPhone"
+                                   id="phone" type="tel" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')" value="" onblur="Userphone()" onfocus="focusHtml" placeholder="手机号码（登录帐号）">
+                            <input class="input" type="hidden" name="quanxian"
+                                   id="quanxian" value="0"></li>
+                        <li class="clearfix">
+                            <input type="text" value="" placeholder="请输入验证码（不区分大小写）" name="verify" style="width:51%;" class="input left">
+                            <div id="send">
+                                <canvas id="canvas" class="send_code right"></canvas>
+                            </div></li>
+                        <li class="clearfix"><input class="input" type="text"
+                                                    id="zhuchename" name="realName" placeholder="姓名"></li>
+                        <li class="clearfix sex"><input type="radio" name="userGender"
+                                                        value="男" /> 男&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
+                                                                                                      name="userGender" value="女" /> 女</li>
+                        <li class="clearfix"><input class="input" type="password"
+                                                    name="userPassWord" id="zhuchepassword" placeholder="输入密码（六位字符）"></li>
+
+                    </ul>
+                    <div class="login-button">
+                        <input type="hidden" value="" name="carid" class="ordercarid" />
+                        <input type="hidden" value="" name="carstatus"
+                               class="orderstatus" /> <input type="button" value="立即注册"
+                                                             class="fM" />
+                    </div>
+                    <!---校验-->
+                    <p class="sell-phone-error" style="display: block;" id="tishi"></p>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-<!--会员登录和注册弹出框结束-->
+<!--会员登录和注册弹出框结束--> 
 <script>
 $(function(){
 	var t=null,$this,i=0;
@@ -726,9 +760,9 @@ $(function(){
 			$(this).find(".otherbrand").hide();
 		}
 	});
-
+	
 });
-</script>
+</script> 
 <script type="text/javascript">
 $(".hoverWidget").each(function() {
 				$(this).mouseenter(function() {
@@ -742,34 +776,34 @@ $(".hoverWidget").each(function() {
 	<ul>
 	     <li>
 			<a id="top_btn">
-				<img src="images/foot03/ll06.png" width="47" height="49" class="hides"/>
-				<img src="images/foot03/l06.png" width="47" height="49" class="shows" />
+				<img src="/images/foot03/ll06.png" width="47" height="49" class="hides"/>
+				<img src="/images/foot03/l06.png" width="47" height="49" class="shows" />
 			</a>
 		</li>
 
 		<li>
 			<a href="">
-				<img src="images/foot03/ll03.png"  width="47" height="49" class="hides"/>
-				<img src="images/foot03/l03.png" width="47" height="49" class="shows" />
+				<img src="/images/foot03/ll03.png"  width="47" height="49" class="hides"/>
+				<img src="/images/foot03/l03.png" width="47" height="49" class="shows" />
 			</a>
 		</li>
 
 		<li>
 			<a href="">
-					<img src="images/foot03/ll02.png" width="166" height="49" class="hides"/>
-				<img src="images/foot03/l04.png" width="47" height="49" class="shows" />
+					<img src="/images/foot03/ll02.png" width="166" height="49" class="hides"/>
+				<img src="/images/foot03/l04.png" width="47" height="49" class="shows" />
 			</a>
 		</li>
 
 		<li>
 			<a class="youhui">
-				<img src="images/foot03/l02.png" width="47" height="49" class="shows" />
-				<img src="images/foot03/zfew.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
+				<img src="/images/foot03/l02.png" width="47" height="49" class="shows" />
+				<img src="/images/foot03/zfew.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
 			</a>
 		</li>
-
-
-
+	
+	
+	
 	</ul>
 </div><!--leftsead end-->
 
@@ -783,9 +817,9 @@ $(document).ready(function(){
 		}else{
 			$(this).children("img.hides").show();
 			$(this).children("img.shows").hide();
-			$(this).children("img.hides").animate({marginRight:'0px'},'slow');
+			$(this).children("img.hides").animate({marginRight:'0px'},'slow'); 
 		}
-	},function(){
+	},function(){ 
 		if($(this).prop("className")=="youhui"){
 			$(this).children("img.hides").hide('slow');
 		}else{
@@ -810,81 +844,7 @@ $(function(){
 		dd.find("a").click(function(){dt.html($(this).html());_hide();});     //选择效果（如需要传值，可自定义参数，在此处返回对应的“value”值 ）
 		$("body").click(function(i){ !$(i.target).parents(".selecter").first().is(s) ? _hide():"";});
 	})
-
-    loadSecondVehicle();
-
-
 })
-
 </script>
-    <!--品牌模糊下拉框显示查询 -->
-    <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
-    <script type="text/javascript">
-        $(function(){
-            $("#sousuo1").click(
-                function() {
-                    var vehicleName=$(".Byname1 input[name='v1.vehicleName']").val();
-                    alert(vehicleName);
-
-                    location.href="doQueryListCheche?pageNum=1&&vehicleName="+vehicleName;
-                })
-            $("input[name='v1.vehicleName']").focus(function(){
-                $("#zhangsan").show();
-            })
-            $("input[name='v1.vehicleName']").blur(function(){
-                $("#zhangsan").hide();
-            })
-
-        })
-
-
-
-        //搜索框输入提示
-        function guanzhengfang(){
-            var vehicleName = $.trim($("input[name='v1.vehicleName']").val());
-
-            if(vehicleName==""){
-                $("#zhangsan").hide();
-            }else{
-                $("#zhangsan").show();
-
-                $.ajax({
-                    type:"get",
-                    url:"ajaxQueryCarChepinpaiByVehicalname",
-                    data:{"vehicleName":vehicleName},
-                    success:function(returnData){
-                        var zhi = returnData;
-                        $("#zhangsan").html("");
-                        html = "<ul style='z-index: 5;position: absolute; background-color:rgba(144,144,144,0.15) ' >";
-                        $.each(zhi, function(index,item){
-                            html +="<span onmouseover='selectli("+item.vehicleID+")'><li style='width:300px; height:25px;cursor:pointer;padding:0px 0px 0px 10px;line-height:25px;' >"+item.vehicleName+"</li></span>";
-                        })
-                        html +="</ul>";
-                        $("#zhangsan").html(html);
-
-                    }
-
-                });
-
-            }
-
-        }
-        //根据传的品牌id查询车系现在在提示框里
-        function selectli(vehicleID){
-            $.ajax({
-                type:"get",
-                url:"ajaxQueryCarByVehicleId",
-                data:{"vehicleID":vehicleID},
-                success:function(returnData){
-                    var zhi = returnData.vehicleName;
-                    $("input[name='v1.vehicleName']").val(zhi);
-
-                }
-            });
-        }
-
-
-    </script>
-
 </body>
 </html>

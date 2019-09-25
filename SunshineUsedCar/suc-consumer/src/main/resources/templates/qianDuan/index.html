@@ -77,16 +77,16 @@ $(function () {
                 $.each(value,function (i,val) {
                     //把8个品牌放到ul里
                     if(val.vehicleID <= 8){
-                        $("#pinPaiUL").append("<li><a href='javascript:'>"+val.vehicleName+"</a></li>");
+                        $("#pinPaiUL").append("<li><a href='/index/toCarList?pinpaiId="+val.vehicleID+"'>"+val.vehicleName+"</a></li>");
                     }
-                    $("#dd"+key).append("<em><a href=''>"+val.vehicleName+"</a></em>");
+                    $("#dd"+key).append("<em><a href='/index/toCarList?pinpaiId="+val.vehicleID+"'>"+val.vehicleName+"</a></em>");
                 })
             })
         })
         /*车型*/
         $.post("/index/queryCarType",function (result) {
             $.each(result,function (index,val) {
-                $("#cheXingUL").append("<li><a href='#'>"+val.valueName+"</a></li>");
+                $("#cheXingUL").append("<li><a href='/index/toCarList?chexingId="+val.valueID+"'>"+val.valueName+"</a></li>");
             })
         })
     }
@@ -169,8 +169,8 @@ $(function () {
 </div>
 <ul class="navmenu">
   <li class="active"><a href="/">首页</a><span></span></li>
-  <li><a href="/toListQiche">我要买车</a><span></span></li>
-  <li><a href="wymc.html">我要卖车</a><span></span></li>
+  <li><a href="/index/toCarList">我要买车</a><span></span></li>
+  <li><a href="/index/toCarList">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
   <li><a href="#">我要加盟</a><span></span></li>
 </ul>
@@ -181,8 +181,8 @@ $(function () {
     <ul>
       <li class="logo"><a href="/"><img src="/images/logo.png"  width="180"/></a></li>
       <li><a href="/">首页</a></li>
-      <li><a href="/toListQiche">我要买车</a></li>
-      <li><a href="wymc.html">我要卖车</a></li>
+      <li><a href="/index/toCarList">我要买车</a></li>
+      <li><a href="/index/toCarList">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
       <li><a href="#">我要加盟</a></li>
     </ul>
@@ -221,12 +221,12 @@ $(function () {
           <h3>
             <div class="border"><a href="">价格</a></div>
             <ul>
-              <li><a href="#">3万以下</a></li>
-              <li><a href="#">3-5万</a></li>
-              <li><a href="#">5-7万</a></li>
-              <li><a href="#">7-9万</a></li>
-              <li><a href="#">9-12万</a></li>
-              <li><a href="#">12万以上</a></li>
+              <li><a href="/index/toCarList?zuidijiage=0&zuigaojiage=3">3万以下</a></li>
+              <li><a href="/index/toCarList?zuidijiage=3&zuigaojiage=5">3-5万</a></li>
+              <li><a href="/index/toCarList?zuidijiage=5&zuigaojiage=7">5-7万</a></li>
+              <li><a href="/index/toCarList?zuidijiage=7&zuigaojiage=9">7-9万</a></li>
+              <li><a href="/index/toCarList?zuidijiage=9&zuigaojiage=12">9-12万</a></li>
+              <li><a href="/index/toCarList?zuidijiage=12&zuigaojiage=9999">12万以上</a></li>
             </ul>
           </h3>
         </div>
@@ -358,34 +358,34 @@ $(document).ready(function(){
     <img src="/images/sun_banner.jpg"> </a> </div>
   <div class="active-blocks fr">
     <ul>
-      <li class="li_01"><a href="list.html" title="实用代步车" target="_blank">
+      <li class="li_01"><a href="/index/toCarList" title="实用代步车" target="_blank">
         <p class="title">实用代步车</p>
         <p class="content">驾驭想象 聆听声音</p>
         <div class="pic"><img src="/images/car1.jpg" alt="保值车型"></div>
         </a></li>
-      <li class="li_02"><a href="list.html" title="5-7万能买啥" target="_blank">
+      <li class="li_02"><a href="/index/toCarList?zuigaojiage=7&zuidijiage=5" title="5-7万能买啥" target="_blank">
         <p class="title">5-7万能买啥</p>
         <p class="content">驾有所值，动气强劲</p>
         <div class="pic"><img src="/images/201601221218531455.jpg" alt="5-7万能买啥"></div>
         </a></li>
-      <li class="li_03"><a href="list.html" title="9-12万能买啥" target="_blank">
+      <li class="li_03"><a href="/index/toCarList?zuigaojiage=12&zuidijiage=8" title="9-12万能买啥" target="_blank">
         <p class="title">9-12万能买啥</p>
         <p class="content">风范，与自由同行</p>
         <div class="pic"><img src="/images/201601221218599350.jpg" alt="9-12万能买啥"></div>
         </a></li>
-      <li class="li_04"><a href="list.html" title="奥迪车库" target="_blank">
+      <li class="li_04"><a href="/index/toCarList?pinpaiId=1" title="奥迪车库" target="_blank">
         <p class="title">奥迪车库</p>
         <p class="content">奥迪—— Audi</p>
         <div class="pic"><img src="/images/201601221432247622.jpg" alt="奥迪车库"></div>
         </a></li>
-      <li class="li_05"><a href="list.html" title="大众车库" target="_blank">
+      <li class="li_05"><a href="/index/toCarList?pinpaiId=23" title="大众车库" target="_blank">
         <p class="title">大众车库</p>
         <p class="content">大众 — Volkswagen</p>
         <div class="pic"><img src="/images/201601221219156607.jpg" alt="大众车库"></div>
         </a></li>
-      <li class="li_06"><a href="list.html" title="岂止于大" target="_blank">
+      <li class="li_06"><a href="/index/toCarList?zuoweiId=5" title="岂止于大" target="_blank">
         <p class="title">岂止于大</p>
-        <p class="content">我所钟爱的7座SUV</p>
+        <p class="content">我所钟爱的7座</p>
         <div class="pic"><img src="/images/201601221219239104.jpg" alt="岂止于大"></div>
         </a></li>
     </ul>
@@ -649,38 +649,39 @@ $(function(){
 </div>
 <!--会员登录和注册弹出框结束-->
 <div id="leftsead">
-	<ul>
-	     <li>
-			<a id="top_btn">
-				<img src="/images/foot03/ll06.png" width="47" height="49" class="hides"/>
-				<img src="/images/foot03/l06.png" width="47" height="49" class="shows" />
-			</a>
-		</li>
+  <ul>
+    <li><a id="top_btn"> <img
+            src="/images/foot03/ll06.png"
+            width="47" height="49" class="hides" /> <img
+            src="/images/foot03/l06.png"
+            width="47" height="49" class="shows" />
+    </a></li>
 
-		<li>
-			<a href="">
-				<img src="/images/foot03/ll03.png"  width="47" height="49" class="hides"/>
-				<img src="/images/foot03/l03.png" width="47" height="49" class="shows" />
-			</a>
-		</li>
+    <li><a href="http://wpa.qq.com/msgrd?v=3&uin=9123949&site=qq&menu=yes"> <img
+            src="/images/foot03/ll03.png"
+            width="47" height="49" class="hides" /> <img
+            src="/images/foot03/l03.png"
+            width="47" height="49" class="shows" />
+    </a></li>
 
-		<li>
-			<a href="">
-					<img src="/images/foot03/ll02.png" width="166" height="49" class="hides"/>
-				<img src="/images/foot03/l04.png" width="47" height="49" class="shows" />
-			</a>
-		</li>
+    <li><a  class="youhui"> <img
+            src="/images/foot03/ll02.png"
+            width="196" height="205" class="hides" usemap="#taklhtml" title="请用微信扫描二维码"/> <img
+            src="/images/foot03/l04.png"
+            width="47" height="49" class="shows" />
+    </a></li>
 
-		<li>
-			<a class="youhui">
-				<img src="/images/foot03/l02.png" width="47" height="49" class="shows" />
-				<img src="/images/foot03/zfew.jpg" width="196" height="205" class="hides" usemap="#taklhtml"/>
-			</a>
-		</li>
+    <li><a class="youhui"> <img
+            src="/images/foot03/l02.png"
+            width="47" height="49" class="shows" />
+      <img
+              src="/images/foot03/zfew.jpg"
+              width="196" height="205" class="hides" usemap="#taklhtml" />
+    </a></li>
 
 
 
-	</ul>
+  </ul>
 </div>
 
 <!--leftsead end-->

@@ -10,15 +10,12 @@ import java.io.Serializable;
 @Data
 public class CarUser implements Serializable {
 	private Integer userID;
-	private String userName;//用户名
-	private String userPassWord;//密码
-	private String realName;//用户真实姓名
-	private String userEmail;//邮箱
-	private String userPhone;//手机号
-	private String userAddress;//地址
-	private String userGender;//性别
-	private String code;//昵称
-
-
-
+	private String userName;
+	private String userPassWord;
+	private String realName;
+	private String userEmail;
+	private String userPhone;
+	private String userAddress;
+	private String userGender;
+	private String code;
 }
