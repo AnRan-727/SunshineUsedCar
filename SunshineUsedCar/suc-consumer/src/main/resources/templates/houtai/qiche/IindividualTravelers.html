@@ -156,7 +156,7 @@
     $(function () {
         <!--标题及对应实体名称列-->
         var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
-        var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+        var entitySz = ["carID","model","vehicleIDsss","VehicleAge","mileage","pinpaiID","presentPrice"];
         loadMembers("selectForm","ajaxQichelist","pageNum",1,sz,entitySz);
 
         // 查询按钮
@@ -175,7 +175,7 @@
     // 点击分页事件
     function clickPage(pageNum) {
         var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
-        var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+        var entitySz = ["carID","model","vehicleIDsss","VehicleAge","mileage","pinpaiID","presentPrice"];
         loadMembers("selectForm","ajaxQichelist","pageNum",pageNum,sz,entitySz);
     }
 
@@ -591,9 +591,9 @@ function ajaxCheXi() {
                 +"</div>"
                 +"</div>"
                 +"<div class='form-group'>"
-                    +"<label for='Vehicleage' class='col-sm-4 control-label'>车龄(年):</label>"
+                    +"<label for='VehicleAge' class='col-sm-4 control-label'>车龄(年):</label>"
                     +"<div class='col-sm-6'>"
-                        +"<input type='text' name='Vehicleage'   class='form-control' value='"+result.vehicleAge+"' id='Vehicleage' placeholder='车龄'>"
+                        +"<input type='text' name='VehicleAge'   class='form-control' value='"+result.vehicleAge+"' id='VehicleAge' placeholder='车龄'>"
                     +"</div>"
                 +"</div>"
                 +"<div class='form-group'>"
@@ -710,7 +710,7 @@ function ajaxCheXi() {
                 if(resutl){
                     $("#alerttishi").html("<font color='green'>操作成功！</font>");
                     var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
-                    var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+                    var entitySz = ["carID","model","vehicleIDsss","VehicleAge","mileage","pinpaiID","presentPrice"];
                     loadMembers("selectForm","ajaxQichelist","pageNum",1,sz,entitySz);
 
                 }else{
@@ -771,7 +771,7 @@ function ajaxCheXi() {
             $.post("ajaxDeleteCar","carID="+oId, function (result) {
                 if(result){
                     var sz = ["编号id","型号","车系","车龄","里程","品牌","价钱","操作"];
-                    var entitySz = ["carID","model","vehicleIDsss","vehicleAge","mileage","pinpaiID","presentPrice"];
+                    var entitySz = ["carID","model","vehicleIDsss","VehicleAge","mileage","pinpaiID","presentPrice"];
                     loadMembers("selectForm","ajaxQueryAllIindividualTravelers","pageNum",1,sz,entitySz);
                     $("#alerttishi").html("<font color='green'>操作成功！</font>");
                     $("#alertModel").modal("show");
