@@ -46,7 +46,7 @@
                   </div>
                 </div> 
             </form>
-            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll(this)"><i class="layui-icon">&#xe640;</i>批量删除</button><button class="layui-btn" th:onclick="admin_add('添加用户',[[@{/admin-add}]],'600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px" th:text="'共有数据:'+${perList.pageTotal}+'条'"></span></xblock>
+            <xblock><button class="layui-btn layui-btn-danger" onclick="delAll(this)"><i class="layui-icon">&#xe640;</i>批量删除</button><button class="layui-btn" th:onclick="admin_add('添加用户',[[@{/admin-add}]],'600','500')"><i class="layui-icon">&#xe608;</i>添加</button><span class="x-right" style="line-height:40px" th:text="'共有数据:'+${perList.pageTotal}+'条,当前为第'+${perList.pageNumber}+'页'"></span></xblock>
             <table class="layui-table">
                 <thead>
                     <tr>
@@ -74,9 +74,9 @@
                         <th>
                             工作人员身份证号
                         </th>
-                        <th>
-                            状态
-                        </th>
+                        <!--<th>
+                        状态
+                        </th>-->
                         <th>
                             操作
                         </th>
@@ -94,15 +94,15 @@
                         <td th:text="*{personnelEmail}"></td>
                         <td th:text="*{personnelAddress}"></td>
                         <td th:text="*{personnelIDCard}"></td>
-                        <td class="td-status">
+                        <!--<td class="td-status">
                             <span class="layui-btn layui-btn-normal layui-btn-mini">
                                 已启用
                             </span>
-                        </td>
+                        </td>-->
                         <td class="td-manage">
-                            <a style="text-decoration:none" onclick="admin_stop(this,'10001')" href="javascript:;" title="停用">
+                            <!--<a style="text-decoration:none" onclick="admin_stop(this,'10001')" href="javascript:;" title="停用">
                                 <i class="layui-icon">&#xe601;</i>
-                            </a>
+                            </a>-->
                             <a title="编辑" href="javascript:;" th:onclick="admin_edit('编辑',[[@{/houtai/admin-edit(personnelID=*{personnelID})}]],[[*{personnelID}]],'','510')"
                             class="ml-5" style="text-decoration:none">
                                 <i class="layui-icon">&#xe642;</i>
@@ -126,7 +126,13 @@
                     <!--<li><a href=""><span>&gt;</span></a></li>-->
                 <!--</ul>-->
             <!--</div>-->
-            <div id="page"></div>
+            <div id="page">
+                <button type="button" th:on="1" class="layui-btn layui-btn-primary layui-btn-sm">首页</button>
+                <button type="button" th:on="${perList.pageNumber-1}" class="layui-btn layui-btn-primary layui-btn-sm">上一页</button>
+                <button type="button" th:on="${perList.pageNumber+1}" class="layui-btn layui-btn-primary layui-btn-sm">下一页</button>
+                <button type="button" th:on="${perList.pageCount}" class="layui-btn layui-btn-primary layui-btn-sm">末页</button>
+                <input type="hidden" id="pages" th:value="${perList.pageCount}">
+            </div>
             <input type="hidden" id="pageNumber" th:value="${perList.pageNumber}">
         </div>
 
@@ -134,49 +140,33 @@
         <script src="/houtai/lib/layui/layui.js" charset="utf-8"></script>
         <script src="/houtai/js/x-layui.js" charset="utf-8"></script>
         <script type="text/javascript">
-            function getListData(){
-                var currPage=0;
-                currPage=$("#pageNumber").val();
-                var datas=$("#forms").serialize();
-                console.log(forms);
-                $.ajax({
-                    type: "get",
-                    url: "/houtai/ajax-admin-list",
-                    data: {
-                        pageNumber: currPage, pageSize: 2,
-                        personnelDate: datas.personnelDate,
-                        personnelName: datas.personnelName
-                    },
-                    dataType: 'json',
-                    success: function (result) {
-                        alert("ffff")
-                        console.log(result)
-                        paged(result);
-                    }
-                })
-                }
+
             $(function () {
-                var currPage=$("#pageNumber").val();
-                if (currPage==1)
-                {
-                    //getListData();
-                    paged();
-                }
-                paged();
+                $("#checkall").click(function () {
+                    //全选按钮check状态，选择全部name为bookname的按钮
+                    if (this.checked) {
+                        $("input[name='bookname']").prop('checked', true);
 
+                    }
+                    //全部取消选中
+                    else {
+                        $("input[name='bookname']").prop('checked', false);
+                    }
+                });
+                $("button[on]").click(function () {
+                    var data=$("#forms").serialize();
+                    var pageNumber=$(this).attr("on");
+                    var pages=$("#pages").val();
+                    if (pageNumber>=0){
+                        pageNumber==1;
+                    }
+                    if (pageNumber>=pages)
+                    {
+                        pageNumber=pages;
+                    }
+                    location.href="/houtai/admin-list?"+data+"&pageNumber="+pageNumber;
+                })
             })
-            $("#checkall").click(function(){
-                //全选按钮check状态，选择全部name为bookname的按钮
-                if(this.checked){
-                    $("input[name='bookname']").prop('checked', true);
-
-                }
-//全部取消选中
-                else{
-                    $("input[name='bookname']").prop('checked', false);
-                }
-            });
-
         </script>
         <script>
             layui.use(['laydate','element','laypage','layer'], function(){
