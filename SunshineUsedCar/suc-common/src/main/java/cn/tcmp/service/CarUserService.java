@@ -30,6 +30,7 @@ public interface CarUserService {
 
     //修改个人信息
     int updateCarUser(CarUser carUser);
+    int updateCarUser2(CarUser carUser);
 
     //根据手机号或者邮箱修改密码
     Integer updateUserPhone(CarUser carUser);

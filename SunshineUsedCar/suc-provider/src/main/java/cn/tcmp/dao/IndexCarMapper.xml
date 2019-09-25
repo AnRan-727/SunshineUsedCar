@@ -14,6 +14,168 @@
         <id column="t3" property="t3"></id>
     </resultMap>
 
+    <!--关联汽车-->
+    <sql id="guanLianQiChe">
+        SELECT c.`carID`,c.`shelfTime`,p.`personnelID`,p.`personnelRealName`,
+	    c.`superValue`,c.`urgentSale`,c.`newCar`,(SELECT `carPicturesURL` FROM `carpictures` WHERE c.`carID` = carPicturesID) carPicturesURL,
+        p.`personnelPhone`,c.`model`,c.`presentPrice`,p.`personnelDate`,
+        c.`topCity`,c.`placingTime`,c.`mileage`,c.`displacement`,
+        ddt.`valueName` ddt,ddt2.`valueName` ddt2,
+        ddt3.`valueName` ddt3,ddt4.`valueName` ddt4,
+        ddt5.`valueName` ddt5,ddt6.`valueName` ddt6,
+        ct.`detectionTime`,c.`yearlyTime`,c.`insuranceTime`
+
+        FROM `car` c
+        LEFT JOIN `cartesting` ct
+        ON c.`carID` = ct.`carID`
+        LEFT JOIN `personnel` p
+        ON c.`personnelID` = p.`personnelID`
+        LEFT JOIN `datadictionary` ddt
+        ON ddt.`typeCode` = 'GEARBOX' AND ddt.`valueID` = c.`gearboxID`
+        LEFT JOIN `datadictionary` ddt2
+        ON ddt2.`typeCode` = 'CAR_TYPE' AND ddt2.`valueID` = c.`typeID`
+        LEFT JOIN `datadictionary` ddt3
+        ON ddt3.`typeCode` = 'COLOR' AND ddt3.`valueID` = c.`colorID`
+        LEFT JOIN `datadictionary` ddt4
+        ON ddt4.`typeCode` = 'COUNTRY' AND ddt4.`valueID` = c.`countryID`
+        LEFT JOIN `datadictionary` ddt5
+        ON ddt5.`typeCode` = 'EMISSION' AND ddt5.`valueID` = c.`emissionID`
+        LEFT JOIN `datadictionary` ddt6
+        ON ddt6.`typeCode` = 'FUEL' AND ddt6.`valueID` = c.`fuelID`
+    </sql>
+
+
+    <!--查询所有的汽车-->
+    <select id="queryAllCar" parameterType="cn.tcmp.vo.ChaXunVO" resultType="cn.tcmp.vo.IndexVO">
+        SELECT c.`carID`,c.`model`,c.`presentPrice`,c.`originalPrice`,ve.`vehicleID`,ve.`vehicleName` chexi,
+        ve2.`vehicleName` pinpai,
+        c.`superValue`,c.`urgentSale`,c.`newCar`,cp.carPicturesURL,
+        c.`topCity`,c.`placingTime`,c.`mileage`,c.`displacement`,
+        ddt.`valueName` ddt,ddt2.`valueName` ddt2,
+        ddt3.`valueName` ddt3,ddt4.`valueName` ddt4,
+        ddt5.`valueName` ddt5,ddt6.`valueName` ddt6,
+        c.`yearlyTime`,c.`insuranceTime`
+        FROM `car` c
+        left join `carpictures` cp
+        on c.`carID` = cp.`carID`
+        left join `vehicle` ve
+        on c.`vehicleID` = ve.`vehicleID`
+        inner join `vehicle` ve2
+        on ve2.`vehicleID` = ve.`parentID`
+        LEFT JOIN `datadictionary` ddt
+        ON ddt.`typeCode` = 'GEARBOX' AND ddt.`valueID` = c.`gearboxID`
+        LEFT JOIN `datadictionary` ddt2
+        ON ddt2.`typeCode` = 'CAR_TYPE' AND ddt2.`valueID` = c.`typeID`
+        LEFT JOIN `datadictionary` ddt3
+        ON ddt3.`typeCode` = 'COLOR' AND ddt3.`valueID` = c.`colorID`
+        LEFT JOIN `datadictionary` ddt4
+        ON ddt4.`typeCode` = 'COUNTRY' AND ddt4.`valueID` = c.`countryID`
+        LEFT JOIN `datadictionary` ddt5
+        ON ddt5.`typeCode` = 'EMISSION' AND ddt5.`valueID` = c.`emissionID`
+        LEFT JOIN `datadictionary` ddt6
+        ON ddt6.`typeCode` = 'FUEL' AND ddt6.`valueID` = c.`fuelID`
+        where 1 = 1
+        /*品牌id*/
+        <if test="pinpaiId != null and pinpaiId != ''">
+            and c.`pinpaiID` = #{pinpaiId}
+        </if>
+        /*车系id*/
+        <if test="chexiId != null and chexiId != ''">
+            and c.`vehicleID` = #{chexiId}
+        </if>
+        /*车龄*/
+        <if test="cheling != null and cheling != ''">
+            and <![CDATA[ c.Vehicleage < #{cheling}  ]]>
+        </if>
+        /*车型id*/
+        <if test="chexingId != null and chexingId != ''">
+            and c.`typeID` = #{chexingId}
+        </if>
+        /*座位id*/
+        <if test="zuoweiId != null and zuoweiId != ''">
+            and c.`seatID` = #{zuoweiId}
+        </if>
+        /*里程数*/
+        <if test="licheng != null and licheng != ''">
+            and <![CDATA[ c.`mileage` < #{licheng} ]]>
+        </if>
+        /*变速箱id*/
+        <if test="biansuxiangId != null and biansuxiangId != ''">
+            and c.`gearboxID` = #{biansuxiangId}
+        </if>
+        /*排量*/
+        <if test="pailiang != null and pailiang != ''">
+            and <![CDATA[ c.`displacement` < #{pailiang} ]]>
+        </if>
+        /*排放标准*/
+        <if test="paifangId != null and paifangId != ''">
+            and c.`emissionID` = #{paifangId}
+        </if>
+        /*燃油id*/
+        <if test="ranyouId != null and ranyouId != ''">
+            and c.`fuelID` = #{ranyouId}
+        </if>
+        /*颜色id*/
+        <if test="yanseId != null and yanseId != ''">
+            and c.`colorID` = #{yanseId}
+        </if>
+        /*国别id*/
+        <if test="guobieId != null and guobieId != ''">
+            and c.`countryID` = #{guobieId}
+        </if>
+        /*价格*/
+        <if test="zuigaojiage != null and zuigaojiage != '' and zuidijiage != null and zuidijiage != ''">
+            AND <![CDATA[ c.`presentPrice` < #{zuigaojiage} ]]> AND <![CDATA[ c.`presentPrice` > #{zuidijiage} ]]>
+        </if>
+        /*品牌名称模糊查询*/
+        <if test="pinpaiName != null and pinpaiName != ''">
+            and ve.`vehicleName` like concat( #{pinpaiName} + '%')
+        </if>
+        /*是否超值*/
+        <if test="superValue == 1">
+            and c.`superValue` = 1
+        </if>
+        /*是否急售*/
+        <if test="urgentSale == 1">
+            and c.`urgentSale` = 1
+        </if>
+        /*准新车*/
+        <if test="newCar == 1">
+            and c.`newCar` = 1
+        </if>
+        /*是否可迁全国*/
+        <if test="transitive == 1">
+            and c.`transitive` = 1
+        </if>
+        group by c.`carID`
+        /*排序*/
+        <if test="paixu == 2">
+           order by c.`shelfTime` desc
+        </if>
+        <if test="paixu == 3">
+           order by c.`presentPrice`
+        </if>
+        <if test="paixu == 4">
+           order by c.`presentPrice` desc
+        </if>
+        <if test="paixu == 5">
+           order by c.`Vehicleage`
+        </if>
+        <if test="paixu == 6">
+           order by c.`Vehicleage` desc
+        </if>
+        <if test="paixu == 7">
+           order by c.`mileage`
+        </if>
+        <if test="paixu == 8">
+           order by c.`mileage` desc
+        </if>
+    </select>
+
+    <select id="queryVehicleByPinPai" resultType="cn.tcmp.entity.Vehicle" parameterType="int">
+        SELECT * FROM `vehicle` WHERE `parentID` = #{id}
+    </select>
+
     <!--首页展示汽车-->
     <select id="queryCar" parameterType="cn.tcmp.vo.IndexVO" resultType="cn.tcmp.vo.IndexVO">
         SELECT c.`carID`,c.`mileage`,c.`model`,c.`presentPrice`,c.`originalPrice`,c.`topCity`,c.`placingTime`,cp.`carPicturesURL`
@@ -40,24 +202,9 @@
     </select>
     <!--汽车详情页-->
     <select id="detailCar" parameterType="int" resultType="cn.tcmp.vo.CarTestingVO">
-        SELECT c.`carID`,c.`model`,c.`presentPrice`,c.`topCity`,c.`placingTime`,c.`mileage`,c.`displacement`,
-        ddt.`valueName` ddt,ddt2.`valueName` ddt2,ddt3.`valueName` ddt3,ddt4.`valueName` ddt4,
-        ct.`detectionTime`
-
-        FROM `cartesting` ct,`car`c,
-            `datadictionary` ddt,`datadictionary` ddt2,`datadictionary` ddt3,`datadictionary` ddt4
-
-        WHERE ct.`carID` = c.`carID`
-        AND ddt.`typeCode` = 'GEARBOX'
-        AND ddt.`valueID` = c.`gearboxID`
-        AND ddt2.`typeCode` = 'CAR_TYPE'
-        AND ddt2.`valueID` = c.`typeID`
-        AND ddt3.`typeCode` = 'COLOR'
-        AND ddt3.`valueID` = c.`colorID`
-        AND ddt4.`typeCode` = 'COUNTRY'
-        AND ddt4.`valueID` = c.`countryID`
-        AND c.`carID` =1
-        GROUP BY c.`carID`
+        <include refid="guanLianQiChe" />
+        where c.`carID` = #{id}
+        group by c.`carID`
     </select>
 
     <!--汽车图片-->
@@ -81,6 +228,49 @@
         AND t2.`parentID` = t.`testID`
         AND c.`carID` = #{id}
     </select>
+
+    <!--交易顾问旗下车辆-->
+    <select id="queryGuWenCar" parameterType="int" resultType="cn.tcmp.vo.IndexVO">
+        <include refid="guanLianQiChe" />
+        where c.`personnelID` = #{id}
+        group by c.`carID`
+    </select>
+
+    <select id="queryPersonnelDetail" parameterType="int" resultType="cn.tcmp.entity.Personnel">
+        SELECT * FROM `personnel` WHERE `personnelID` = #{id}
+    </select>
+    <!--查看是否已收藏-->
+    <select id="queryIsNoCollection" resultType="cn.tcmp.vo.IndexVO">
+        SELECT ct.`collectionID`,c.`carID`,c.`mileage`,c.`model`,
+            c.`presentPrice`,c.`originalPrice`,c.`displacement`,
+            c.`topCity`,c.`placingTime`,cp.`carPicturesURL`
+        FROM `collection` ct,`car` c, `carpictures` cp
+        WHERE ct.`carID` = c.`carID`
+        AND cp.`carID` = c.`carID`
+        AND ct.`userID` = #{userID}
+        AND ct.`carID` = #{carID}
+        GROUP BY c.`carID`
+    </select>
+    <!--查看收藏-->
+    <select id="queryCollection" resultType="cn.tcmp.vo.IndexVO" parameterType="int">
+        SELECT ct.`collectionID`,c.`carID`,c.`mileage`,c.`model`,
+            c.`presentPrice`,c.`originalPrice`,c.`displacement`,
+            c.`topCity`,c.`placingTime`,cp.`carPicturesURL`
+        FROM `collection` ct,`car` c, `carpictures` cp
+        WHERE ct.`carID` = c.`carID`
+        AND cp.`carID` = c.`carID`
+        AND ct.`userID` = #{id}
+        GROUP BY c.`carID`
+    </select>
+    <!--收藏汽车-->
+    <insert id="userCollection">
+        insert into `collection` values(null,#{carID},#{userID})
+    </insert>
+
+    <!--取消收藏-->
+    <delete id="deleteCollection" parameterType="int">
+        DELETE FROM `collection` WHERE `collectionID` = #{cID}
+    </delete>
 
 
 </mapper>

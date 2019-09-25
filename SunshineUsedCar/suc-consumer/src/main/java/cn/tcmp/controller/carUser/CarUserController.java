@@ -7,6 +7,7 @@ import cn.tcmp.service.CarUserService;
 import cn.tcmp.service.CreatRedisService;
 import cn.tcmp.service.MailService;
 import cn.tcmp.service.TokenService;
+import cn.tcmp.service.indexCar.IndexCarService;
 import cn.tcmp.util.Common;
 import cn.tcmp.util.PageUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +42,9 @@ public class CarUserController {
     private CreatRedisService redisService;
     @Reference
     private MailService mailService;
+    @Reference
+    private IndexCarService indexCarService;
+
 
     //注册
     @RequestMapping("doZhucheController")
@@ -148,10 +153,18 @@ public class CarUserController {
         }
         //4.查询个人信息
         model.addAttribute("carUser",carUserService.detailCarUser(userID));
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>carUSer"+carUserService.detailCarUser(userID));
+        //5.收藏的汽车
+        model.addAttribute("coll",indexCarService.queryCollection(userID));
 
-        //TODO 查询收藏的汽车,浏览过的汽车
+        //TODO 查询浏览过的汽车
+
+
+
         return "qianDuan/huiyuanzhongxin";
     }
+
+
 
     //去修改个人信息
     @RequestMapping(value = "toHuiYuanZhangHu")
@@ -172,7 +185,28 @@ public class CarUserController {
 
         return "qianDuan/huiyuanzhanghu";
     }
+    //去需求
+    @RequestMapping(value = "toXuQiu")
+    public String toXuQiu(Integer userID,HttpServletRequest request,Model model){
 
+        //1.获取UserAgent
+        String userAgent = request.getHeader("User-Agent");
+        //2.截取Token
+        String token = request.getHeader("Cookie");
+        String[] tkStr = token.split(";");
+        token = tkStr[0].substring(6);
+        System.err.println("Token>>>>>>"+token);
+        //3.验证Token
+        if(!tokenService.checkToken(token,userAgent)){
+            return "qianDuan/404";
+        }
+        //4.查询个人信息
+        model.addAttribute("carUser",carUserService.detailCarUser(userID));
+        //5.收藏的汽车
+        model.addAttribute("coll",indexCarService.queryCollection(userID));
+
+        return "qianDuan/huiyuanxuqiu";
+    }
     //修改个人信息
     @RequestMapping(value = "doUpdateCarUser")
     public String doUpdateCarUser(CarUser carUser,Model model,HttpServletRequest request){
@@ -244,18 +278,38 @@ public class CarUserController {
         return "houtai/member-list";
     }
     @ResponseBody
-    @RequestMapping("ajaxmember-list")
-    public String ajaxmemberlist(Integer pageNumber, Integer pageSize, CarUser carUser, Model model){
+    @RequestMapping(value = "ajaxmember-list",method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
+    public String ajaxmemberlist(Integer pageNum, Integer pageSize, CarUser carUser, Model model){
         System.out.println("CarUser++++===="+carUser);
-        PageUtils<CarUser> list=this.carUserService.carUserQuery(pageNumber,pageSize,carUser);
-        model.addAttribute("userlist",list);
-        model.addAttribute("carUser",carUser);
-        return JSON.toJSONString(list);
+        PageUtils<CarUser> CarUserlist=this.carUserService.carUserQuery(pageNum,pageSize,carUser);
+        System.err.println(JSON.toJSONString(CarUserlist));
+        return JSON.toJSONString(CarUserlist);
     }
 
     @RequestMapping("member-add")
     public String memberadd(CarUser carUser){
 
         return "member-add";
+    }
+    //查询客户详情
+    @ResponseBody
+    @RequestMapping("DetailCarUser")
+    public String DetailCarUser(Integer userid){
+        CarUser carUser=this.carUserService.detailCarUser(userid);
+        return JSON.toJSONString(carUser);
+    }
+    //注销用户
+    @ResponseBody
+    @RequestMapping("AjaxDeleteCarUser")
+    public boolean deleteCarUser(Integer userid){
+        Integer count=this.carUserService.carUserDelete(userid);
+        return count>0?true:false;
+    }
+    @ResponseBody
+    @RequestMapping("AjaxUpdateCarUser")
+    public boolean  UpdateCarUser(CarUser carUser)
+    {
+        Integer count=this.carUserService.updateCarUser2(carUser);
+        return count>0?true:false;
     }
 }

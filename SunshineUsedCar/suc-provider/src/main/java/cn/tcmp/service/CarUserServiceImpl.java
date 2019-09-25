@@ -3,11 +3,10 @@ package cn.tcmp.service;
 import cn.tcmp.dao.CarUserMapper;
 import cn.tcmp.entity.CarUser;
 import cn.tcmp.util.PageUtils;
+import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.alibaba.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,8 +31,6 @@ public class CarUserServiceImpl implements CarUserService {
         if (pageSize==null){
             pageSize=2;
         }
-        System.err.println(pageNumber);
-        System.err.println(pageSize);
         PageHelper.startPage(pageNumber,pageSize);
         List<CarUser> list=this.carUserMapper.carUserQuery(carUser);
         PageInfo<CarUser> pageinfo=new PageInfo<>(list);
@@ -76,6 +73,12 @@ public class CarUserServiceImpl implements CarUserService {
     @Override
     public int updateCarUser(CarUser carUser) {
         return carUserMapper.updateCarUser(this.md5Encryption(carUser));
+    }
+
+    //后台修改用户信息
+    @Override
+    public int updateCarUser2(CarUser carUser) {
+        return carUserMapper.updateCarUser2(carUser);
     }
 
     //根据手机号或邮箱修改密码

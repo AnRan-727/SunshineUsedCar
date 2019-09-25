@@ -62,6 +62,18 @@
         </set>
         WHERE `userID` = #{userID}
     </update>
+    <update id="updateCarUser2" parameterType="cn.tcmp.entity.CarUser">
+        UPDATE
+  sunshineusedcar.caruser
+SET
+  userName = #{userName},
+  realName = #{realName},
+  userEmail = #{userEmail},
+  userPhone = #{userPhone},
+  userAddress = #{userAddress},
+  userGender = #{userGender}
+WHERE userID = #{userID}
+    </update>
     <update id="updateUserPhone" parameterType="cn.tcmp.entity.CarUser">
         UPDATE `caruser`
         set `userPassWord` = #{userPassWord}
