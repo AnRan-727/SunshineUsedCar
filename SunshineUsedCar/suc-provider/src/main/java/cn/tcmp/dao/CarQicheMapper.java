@@ -4,8 +4,11 @@ import cn.tcmp.entity.Car;
 import cn.tcmp.entity.Vehicle;
 import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
+import cn.tcmp.vo.CarVO2;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -36,6 +39,24 @@ public interface CarQicheMapper {
     //根据品牌id查询品牌名称
     @Select(value = "select vehicleName from vehicle where vehicleId=#{vehicleId}")
     Vehicle detailVehicleById(@Param("vehicleId") Integer vehicleId);
+
+    //查询所有的汽车信息
+    List<CarVO> queryAllQiche();
+
+    //根据车辆id查询车辆信息
+    CarVO2 detailCar(@Param("carID") Integer carID);
+    //删除车辆信息
+    @Delete(value = "delete from car where carID=#{carID}")
+    Integer deleteCar(@Param("carID") Integer carID);
+    //增加车辆信息
+    Integer insertCar(Car car);
+    //修改编辑车辆信息
+    @Update(value = "update Car set pinpaiID=#{car.pinpaiID},vehicleID={car.vehicleID},vehicleAge={car.vehicleAge},mileage={car.mileage},model={car.model},presentPrice={car.presentPrice}" +
+            ",originalPrice={car.originalPrice},typeID={car.typeID},seatID={car.seatID},gearboxID={car.gearboxID},displacement={car.displacement},emissionID={car.emissionID},fuelID={car.fuelID},colorID={car.colorID}" +
+            ",countryID={car.countryID},topCity={car.topCity},placingTime={car.placingTime},yearlyTime={car.yearlyTime},insuranceTime={car.insuranceTime},superValue={car.superValue}" +
+            ",urgentSale={car.urgentSale},newCar={car.newCar},transitive={car.transitive},personnelID={car.personnelID}," +
+            ",subordinateName={car.subordinateName},shelfTime={car.shelfTime} where carID=#{carID}")
+    Integer updateCar(@Param("car") Car car);
 
 
 

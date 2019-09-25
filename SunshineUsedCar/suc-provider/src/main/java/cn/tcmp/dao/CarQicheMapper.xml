@@ -7,9 +7,19 @@
         <id property="carID" column="carID"></id>
         <association property="vehicle" resultMap="vehicalMap"></association>
     </resultMap>
+    <resultMap id="carvoMap1" type="cn.tcmp.vo.CarVO2" autoMapping="true">
+        <id property="carID" column="carID"></id>
+        <association property="vehicle" resultMap="vehicalMap"></association>
+        <association property="personnel" resultMap="personnelMap"></association>
+    </resultMap>
     <resultMap id="vehicalMap" type="cn.tcmp.entity.Vehicle" autoMapping="true">
         <id property="vehicleID" column="vehicleID"></id>
     </resultMap>
+    <resultMap id="personnelMap" type="cn.tcmp.entity.Personnel" autoMapping="true">
+        <id property="personnelID" column="personnelID"></id>
+    </resultMap>
+
+
 
     <!--根据条件查询车辆信息-->
     <select id="queryPageCarVo" parameterType="cn.tcmp.entity.Car" resultType="cn.tcmp.vo.CarVO">
@@ -33,6 +43,25 @@
               <if test="vehicleID !=null and vehicleID !=-1"> and vehicleID=#{vehicleID}</if>
 
     </select>
+    <!--查询所有的车辆-->
+    <select id="queryAllQiche" resultMap="carvoMap">
+        SELECT c.carID ,
+        v1.vehicleName pinpaiID,v2.vehicleName vehicleIDsss,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE' AND valueID=typeID) typeID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='GEARBOX' AND valueID=gearboxID) gearboxID,
+        c.displacement,
+        (SELECT valueName FROM datadictionary WHERE typeCode='EMISSION' AND valueID=emissionID) emissionID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='FUEL' AND valueID=fuelID) fuelID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COLOR' AND valueID=colorID) colorID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COUNTRY' AND valueID=countryID) countryID,
+        topCity,placingTime,yearlyTime,insuranceTime,superValue,urgentSale,newCar,transitive,personnelID,subordinateName,vehicleage,
+        (SELECT carPicturesURL FROM carpictures WHERE carID=c.carID LIMIT 1) carPicturesURL
+        FROM car c,vehicle v1,vehicle v2
+        WHERE
+        c.pinpaiID=v1.vehicleID AND c.vehicleID=v2.vehicleID
+        order  by presentPrice desc
+    </select>
     <!--根据品牌 车系名称模糊查询车辆信息-->
     <select id="qeuryCarByVehicleChexiname" parameterType="String" resultMap="carvoMap">
         SELECT c.carID ,
@@ -55,6 +84,28 @@
             </if>
 
         order  by presentPrice desc
+    </select>
+    <!--根据车辆id查询该车辆所有的信息-->
+    <select id="detailCar" parameterType="Integer" resultMap="carvoMap1">
+
+        SELECT c.carID ,
+        v1.vehicleName pinpaiID,v2.vehicleName vehicleIDsss,c.mileage,c.model,c.presentPrice,c.originalPrice,
+        (SELECT valueName FROM datadictionary WHERE typeCode='CAR_TYPE' AND valueID=typeID) typeID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='SEAT' AND valueID=seatID) seatID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='GEARBOX' AND valueID=gearboxID) gearboxID,
+        c.displacement,
+        (SELECT valueName FROM datadictionary WHERE typeCode='EMISSION' AND valueID=emissionID) emissionID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='FUEL' AND valueID=fuelID) fuelID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COLOR' AND valueID=colorID) colorID,
+        (SELECT valueName FROM datadictionary WHERE typeCode='COUNTRY' AND valueID=countryID) countryID,
+        topCity,placingTime,yearlyTime,insuranceTime,superValue,urgentSale,newCar,transitive,c.personnelID,c.subordinateName,c.vehicleage,p.personnelName,c.shelfTime,
+        (SELECT carPicturesURL FROM carpictures WHERE carID=c.carID LIMIT 1) carPicturesURL
+        FROM car c,vehicle v1,vehicle v2,personnel p
+        WHERE
+        c.pinpaiID=v1.vehicleID AND c.vehicleID=v2.vehicleID
+        AND p.personnelID=c.personnelID
+        and c.carID=#{carID}
+
     </select>
 
 

@@ -9,6 +9,7 @@ import cn.tcmp.service.MailService;
 import cn.tcmp.service.TokenService;
 import cn.tcmp.service.indexCar.IndexCarService;
 import cn.tcmp.util.Common;
+import cn.tcmp.util.PageUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
@@ -269,4 +270,46 @@ public class CarUserController {
         return "true";
     }
 
+    @RequestMapping("member-list")
+    public String memberlist(Integer pageNumber, Integer pageSize, CarUser carUser, Model model){
+        PageUtils<CarUser> list=this.carUserService.carUserQuery(pageNumber,pageSize,carUser);
+        model.addAttribute("userlist",list);
+        model.addAttribute("carUser",carUser);
+        return "houtai/member-list";
+    }
+    @ResponseBody
+    @RequestMapping(value = "ajaxmember-list",method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
+    public String ajaxmemberlist(Integer pageNum, Integer pageSize, CarUser carUser, Model model){
+        System.out.println("CarUser++++===="+carUser);
+        PageUtils<CarUser> CarUserlist=this.carUserService.carUserQuery(pageNum,pageSize,carUser);
+        System.err.println(JSON.toJSONString(CarUserlist));
+        return JSON.toJSONString(CarUserlist);
+    }
+
+    @RequestMapping("member-add")
+    public String memberadd(CarUser carUser){
+
+        return "member-add";
+    }
+    //查询客户详情
+    @ResponseBody
+    @RequestMapping("DetailCarUser")
+    public String DetailCarUser(Integer userid){
+        CarUser carUser=this.carUserService.detailCarUser(userid);
+        return JSON.toJSONString(carUser);
+    }
+    //注销用户
+    @ResponseBody
+    @RequestMapping("AjaxDeleteCarUser")
+    public boolean deleteCarUser(Integer userid){
+        Integer count=this.carUserService.carUserDelete(userid);
+        return count>0?true:false;
+    }
+    @ResponseBody
+    @RequestMapping("AjaxUpdateCarUser")
+    public boolean  UpdateCarUser(CarUser carUser)
+    {
+        Integer count=this.carUserService.updateCarUser2(carUser);
+        return count>0?true:false;
+    }
 }
