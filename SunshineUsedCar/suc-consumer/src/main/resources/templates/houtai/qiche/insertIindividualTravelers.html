@@ -16,67 +16,187 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="margin-bottom: 200px">
     <div class="row">
         <div class="page-header">
-            <h1><a href="javascript:history.go(-1)"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a> 增加 <small>散客信息 </small></h1>
+            <h1><a href="javascript:history.go(-1)"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></a> 增加 <small>汽车信息</small></h1>
         </div>
         <form class="form-horizontal" id="insertOperatorForm">
-            <div class="form-group">
-                <label for="on" class="col-sm-4 control-label">散客姓名：<span id="nameTiShi"></span></label>
-                <div class="col-sm-6">
-                    <input type="text" name="itName" maxlength="5" oninput="checkNumber()" class="form-control"  id="on" placeholder="散客姓名">
+            <div class='form-group'>
+            <label for='on' class='col-sm-4 control-label'>车辆名字:</label>
+            <div class='col-sm-6'>
+                <input type='text' name='model'   class='form-control'  id='on' placeholder='车辆名字'><input type='hidden' name='carID' value='"+result.carID+"'>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="od" class="col-sm-4 control-label">证件类型：</label>
-                <div class="col-sm-6">
-                    <select class="form-control" name="itSFZtype" id="od"></select>
+            <div class='form-group'>
+            <label for='presentPrice' class='col-sm-4 control-label'>二手价￥:</label>
+            <div class='col-sm-6'>
+                <input type='text' name='presentPrice'   class='form-control'  id='presentPrice' placeholder='二手价'>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="os" class="col-sm-4 control-label">身份证号：<span id="sfzTiShi"></span></label>
-                <div class="col-sm-6">
-                    <input type="number" oninput="checkLength(2)" placeholder="身份证号" class="form-control" name="itSFZ" id="os">
+            <div class='form-group'>
+            <label for='originalPrice' class='col-sm-4 control-label'>原价￥:</label>
+            <div class='col-sm-6'>
+                <input type='text' name='originalPrice'   class='form-control' id='originalPrice' placeholder='原价'>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="osa" class="col-sm-4 control-label">住址：</label>
-                <div class="col-sm-6">
-                    <input type=""  placeholder="住址" class="form-control" name="itAddress" id="osa">
+            <div class='form-group'>
+            <label for='mileage' class='col-sm-4 control-label'>行驶里程:</label>
+            <div class='col-sm-6'>
+                <input type='text' name='mileage'   class='form-control'  id='mileage' placeholder='里程数'>
                 </div>
             </div>
-            <div class="form-group">
-                <label  class="col-sm-4 control-label">性别：</label>
-                <div class="col-sm-6">
-                    <input type="radio" checked  name="itGender" id="genderNan" value="1"><label for="genderNan"><img  src="images/nan.png" alt="" title="男"></label>&nbsp;&nbsp;&nbsp;
-                    <input type="radio"   name="itGender" id="genderNv" value="2"><label for="genderNv"><img  src="images/nv1.png" alt="" title="女"></label>
+            <div class='form-group'>
+            <label for='displacement' class='col-sm-4 control-label'>排量L:</label>
+            <div class='col-sm-6'>
+                <input type='text' name='displacement'   class='form-control'  id='displacement' placeholder='排量'>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="ot" class="col-sm-4 control-label">电话：<span id="telTiShi"></span></label>
-                <div class="col-sm-6">
-                    <input type="number" oninput="checkLength(1)" placeholder="会员电话号码" class="form-control" name="itTel" id="ot">
+            <div class='form-group'>
+            <label for='topCity' class='col-sm-4 control-label'>上牌城市:</label>
+            <div class='col-sm-6'>
+                <input type='text' name='topCity'   class='form-control' id='topCity' placeholder='上牌城市'>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="osfz" class="col-sm-4 control-label">消费总额：</label>
-                <div class="col-sm-6">
-                    <input type="number"  placeholder="消费总额" value="0.0" class="form-control" name="itTotalConsumption" id="osfz">
+            <div class='form-group'>
+            <label for='placingTime' class='col-sm-4 control-label'>上牌日期:</label>
+            <div class='col-sm-6'>
+                <input type='date' name='placingTime'   class='form-control'  id='placingTime' placeholder='上牌日期'>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="oa" class="col-sm-4 control-label">备注：</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="备注" name="itRemarks" id="oa">
+            <div class='form-group'>
+            <label for='yearlyTime' class='col-sm-4 control-label'>年检到期时间:</label>
+            <div class='col-sm-6'>
+                <input type='date' name='yearlyTime'   class='form-control'  id='yearlyTime' placeholder='年检到期时间'>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='insuranceTime' class='col-sm-4 control-label'>保险到期时间:</label>
+            <div class='col-sm-6'>
+                <input type='date' name='insuranceTime'   class='form-control'  id='insuranceTime' placeholder='保险到期时间'>
+                </div>
+            </div>
+            <div class='form-group'>
+                <label for='shelfTime' class='col-sm-4 control-label'>上架时间:</label>
+                <div class='col-sm-6'>
+                    <input type='date' name='shelfTime'   class='form-control'  id='shelfTime' placeholder='上架时间'>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='VehicleAge' class='col-sm-4 control-label'>车龄(年):</label>
+            <div class='col-sm-6'>
+                <input type='text' name='VehicleAge'   class='form-control'  id='VehicleAge' placeholder='车龄'>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='subordinateName' class='col-sm-4 control-label'>所属人名字:</label>
+            <div class='col-sm-6'>
+                <input type='text' name='subordinateName'   class='form-control'  id='subordinateName' placeholder='所属人名字'>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='pinpaiID' class='col-sm-4 control-label'>品牌：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='pinpaiID' id='pinpaiID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='vehicleID' class='col-sm-4 control-label'>车系：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='vehicleID' id='vehicleID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='itsfzl' class='col-sm-4 control-label'>车型：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='typeID' id='itsfzl'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='seatID' class='col-sm-4 control-label'>座位：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='seatID' id='seatID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='gearboxID' class='col-sm-4 control-label'>变速箱：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='gearboxID' id='gearboxID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='emissionID' class='col-sm-4 control-label'>排放标准：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='emissionID' id='emissionID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='fuelID' class='col-sm-4 control-label'>燃油：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='fuelID' id='fuelID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='colorID' class='col-sm-4 control-label'>颜色：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='colorID' id='colorID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='countryID' class='col-sm-4 control-label'>国别：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='countryID' id='countryID'></select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='personnelID' class='col-sm-4 control-label'>员工：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='personnelID' id='personnelID'></select>
+            </div>
+            </div>
+            <div class='form-group'>
+            <label for='superValue' class='col-sm-4 control-label'>是否超值：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='superValue' id='superValue'>
+                    <option value='0'>否</option>
+                    <option value='1'>是</option>
+                    </select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='urgentSale' class='col-sm-4 control-label'>是否急售：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='urgentSale' id='urgentSale'>
+                    <option value='0'>否</option>
+                    <option value='1'>是</option>
+                    </select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='newCar' class='col-sm-4 control-label'>是否准新车：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='newCar' id='newCar'>
+                    <option value='0'>否</option>
+                    <option value='1'>是</option>
+                    </select>
+                </div>
+            </div>
+            <div class='form-group'>
+            <label for='transitive' class='col-sm-4 control-label'>是否可迁全国：</label>
+            <div class='col-sm-6'>
+                <select class='form-control' name='transitive' id='transitive'>
+                    <option value='0'>否</option>
+                    <option value='1'>是</option>
+                    </select>
+                </div>
+            </div>
+            <div class='form-group'>
+
+            <div class='col-sm-10'align='center'>
+                <button type='button' class='btn btn-primary' id='alertLeft' onclick='insertCarForm()'>确认新增</button>
                 </div>
             </div>
 
-            <div class="col-sm-10 control-label">
-                <button type="button" class="btn btn-info" id="alertLeft" onclick="insertOperatorForm()">
-                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 添加
-                </button>
-            </div>
         </form>
 
 
@@ -97,86 +217,134 @@
         </div><!-- /.modal -->
     </div>
 </div>
+<!--加载下拉框-->
 <script type="text/javascript">
+    // js ajax加载下拉框型号
+    function jsLoadSelectXingHao(code){
 
-    // 检查是否包含数字
-    function checkNumber() {
-        var oName = $("input[name='itName'][id='on']").val();
-        var reg = /^(?=.*\d.*\b)/;
-        if(reg.test(oName)){
-            // 包含nameTiShi
-            $("#nameTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
-            return false;
-        }else{
-            // 不包含
-            $("#nameTiShi").html("");
-            return true;
-        }
+        $.get("ajaxXiaLaKuang","typeCode="+code,function(result){
+            var html = "";
+            $.each(result, function (index,item) {
+                    html+= "<option value='"+item.valueID+"'>"+item.valueName+"</option>";
+            })
+            $("select[id='itsfzl']").html(html);
+        })
+    }
+    // js ajax加载下拉框座位
+    function jsLoadSelectZuoWei(code) {
+
+        $.get("ajaxXiaLaKuang", "typeCode=" + code, function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.valueID + "'>" + item.valueName + "</option>";
+            })
+            $("select[id='seatID']").html(html);
+        })
+    }
+    // js ajax加载下拉框变速箱
+    function jsLoadSelectBianShuXiang(code) {
+        $.get("ajaxXiaLaKuang", "typeCode=" + code, function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.valueID + "'>" + item.valueName + "</option>";
+            })
+            $("select[id='gearboxID']").html(html);
+        })
     }
 
-    // 检查字符串长度
-    function checkLength(r){
-        if(r==1){
-            var telLength = $("input[name='itTel']").val().length;
-            if(telLength!=11){
-                $("#telTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
-                return false;
-            }else{
-                $("#telTiShi").html("");
-                return true;
-            }
-        }else if(r==2){
-            var sfzLength = $("input[name='itSFZ']").val().length;
-            if(sfzLength!=18){
-                $("#sfzTiShi").html("<font color='red'><span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span></font>");
-                return false;
-            }else{
-                $("#sfzTiShi").html("");
-                return true;
-            }
-        }
+    // js ajax加载下拉框排放标准
+    function jsLoadSelectPaiFangBiaoZhun(code) {
+        $.get("ajaxXiaLaKuang", "typeCode=" + code, function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.valueID + "'>" + item.valueName + "</option>";
+            })
+            $("select[id='emissionID']").html(html);
+        })
+    }
+    // js ajax加载下拉框燃油
+    function jsLoadSelectRanYou(code) {
+        $.get("ajaxXiaLaKuang", "typeCode=" + code, function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.valueID + "'>" + item.valueName + "</option>";
+            })
+            $("select[id='fuelID']").html(html);
+        })
     }
 
+    // js ajax加载下拉框颜色
+    function jsLoadSelectYanSe(code) {
+        $.get("ajaxXiaLaKuang", "typeCode=" + code, function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.valueID + "'>" + item.valueName + "</option>";
+            })
+            $("select[id='colorID']").html(html);
+        })
+    }
 
+    // js ajax加载下拉框国别
+    function jsLoadSelectGuoBIe(code) {
+        $.get("ajaxXiaLaKuang", "typeCode=" + code, function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.valueID + "'>" + item.valueName + "</option>";
+            })
+            $("select[id='countryID']").html(html);
+        })
+    }
+    // js ajax加载下拉框车辆品牌
+    function jsLoadSelectPinPai() {
+        $.get("ajaxQueeyPinPai",function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.vehicleID + "' >" + item.vehicleName + "</option>";
+            })
+            $("select[id='pinpaiID']").attr("onchange","ajaxCheXi()");
+            $("select[id='pinpaiID']").html(html);
+        })
+    }
+
+    function ajaxCheXi() {
+        var a=$("select[id='pinpaiID'][onchange='ajaxCheXi()']").val();
+        console.log(a);
+        $.get("ajaxQueeyCheXi","vehicleID="+a,function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.vehicleID + "' >" + item.vehicleName + "</option>";
+            })
+            $("select[id='vehicleID']").html(html);
+        })
+    }
+
+    // js ajax加载下拉框员工
+    function jsLoadSelectYuanGong() {
+        $.get("ajaxYuanGong",function (result) {
+            var html = "";
+            $.each(result, function (index, item) {
+                    html += "<option value='" + item.personnelID + "' >" + item.personnelName + "</option>";
+            })
+            $("select[id='personnelID']").html(html);
+        })
+    }
     $(function () {
-
-
-        loadSelect("dataStatus/queryByCode","DOCUMENT_TYPE",$("select[name='itSFZtype']"))
-
+        jsLoadSelectYuanGong();
+        jsLoadSelectPinPai();
+        jsLoadSelectXingHao("CAR_TYPE");
+        jsLoadSelectZuoWei("SEAT");
+        jsLoadSelectBianShuXiang("GEARBOX");
+        jsLoadSelectPaiFangBiaoZhun("EMISSION");
+        jsLoadSelectRanYou("FUEL");
+        jsLoadSelectYanSe("COLOR");
+        jsLoadSelectGuoBIe("COUNTRY");
     })
-
-
-
+</script>
+<script type="text/javascript">
     // 增加操作
-    function insertOperatorForm() {
-        var oName = $("input[name='itName']").val();
-        if(oName==""){
-            $("#alerttishi").html("<font color='red'>操作错误！</font>");
-            $("#alertModel").modal("show");
-            return;
-        }
-        var oTel = $("input[name='itTel']").val();
-        if(oTel==""){
-            $("#alerttishi").html("<font color='red'>操作错误！</font>");
-            $("#alertModel").modal("show");
-            return;
-        }
-        var oAddress = $("input[name='itAddress']").val();
-        if(oAddress==""){
-            $("#alerttishi").html("<font color='red'>操作错误！</font>");
-            $("#alertModel").modal("show");
-            return;
-        }
-        var oHotelUserNum = $("select[name='itSFZtype']").val();
-        if(oHotelUserNum==-1){
-            $("#alerttishi").html("<font color='red'>操作错误！</font>");
-            $("#alertModel").modal("show");
-            return;
-        }
-
-        if(checkNumber()&&checkLength(1)&&checkLength(2)){
+    function insertCarForm() {
             var data = $("#insertOperatorForm").serialize();
-            $.post("doInsertII",data,function (resutl) {
+            $.post("",data,function (resutl) {
                 if(resutl){
                     $("#alerttishi").html("<font color='green'>操作成功！</font>");
                 }else{
@@ -184,19 +352,8 @@
                 }
                 $("#alertModel").modal("show");
             })
-        }else{
-            $("#alerttishi").html("<font color='red'>操作错误！</font>");
             $("#alertModel").modal("show");
-        }
-
-
     }
-
-
-
-
 </script>
-
-
 </body>
 </html>
