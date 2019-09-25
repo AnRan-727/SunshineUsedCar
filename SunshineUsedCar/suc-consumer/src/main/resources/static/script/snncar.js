@@ -52,8 +52,8 @@ function queryCar(i){
             $.each(result,function (a,val) {
                if( a < 8){
                    var time = gettime(val.placingTime);
-                   $("#divs2_"+i+" .carList").append("<li><div class='list-infoBox'> <a title='"+val.model+"' target='_blank' class='imgtype' href='/index/queryCarInfo?carId="+val.carID+"'> <img width='290' height='194' src='/img/car/"+val.carPicturesURL+"' alt='"+val.model+"'> </a>" +
-                       "            <p class='infoBox'> <a  title='"+val.model+"' href='infor.html' target='_blank' class='info-title'>"+val.model+"</a> </p>" +
+                   $("#divs2_"+i+" .carList").append("<li><div class='list-infoBox'> <a title='"+val.model+"' class='imgtype' href='/index/queryCarInfo?carId="+val.carID+"'> <img width='290' height='194' src='/img/car/"+val.carPicturesURL+"' alt='"+val.model+"'> </a>" +
+                       "            <p class='infoBox'> <a  title='"+val.model+"' href='infor.html' class='info-title'>"+val.model+"</a> </p>" +
                        "            <p class='fc-gray'> <span class='tag-gray'>"+val.topCity+"</span> <span class=''>"+time+"上牌</span> <em class='shuxian'>|</em> 行驶"+val.mileage+" </p>" +
                        "            <p class='priType-s'> <span> <i class='fc-org priType'> "+val.presentPrice+"万 </i> </span> <s>"+val.originalPrice+"万</s> </p>" +
                        "          </div></li>");

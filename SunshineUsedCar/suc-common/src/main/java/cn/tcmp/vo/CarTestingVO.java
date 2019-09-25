@@ -18,7 +18,7 @@ public class CarTestingVO implements Serializable {
 
     private Integer carID;
     private String
-            goodOrBad,
+            goodOrBad,detectionTime,yearlyTime,insuranceTime,
             model,
             presentPrice,
             topCity,
@@ -28,7 +28,10 @@ public class CarTestingVO implements Serializable {
             ddt,
             ddt2,
             ddt3,
-            ddt4;
-    private Date detectionTime;//检测时间
+            ddt4,
+            ddt5,
+            ddt6;
 
+    private Integer personnelID;//工作人员ID
+    private String personnelRealName,personnelPhone;//工作人员名字,手机号
 }

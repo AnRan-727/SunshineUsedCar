@@ -21,7 +21,6 @@ public class toControlelr {
     private TokenService tokenService;
     @Reference
     private CarUserService carUserService;
-
     //初始页面
     @RequestMapping("/")
     public String to(HttpServletRequest request, Model model){
@@ -30,6 +29,7 @@ public class toControlelr {
         if(token != null && token != ""){
             //1.验证Token
             String[] idStr = token.split("-");
+            System.out.println("-----------"+token);
             Integer id = Integer.parseInt(idStr[2]);
             String[] tkStr = token.split(";");
             token = tkStr[0].substring(6);
@@ -80,4 +80,5 @@ public class toControlelr {
     public String adminadd(){
         return "houtai/admin-add";
     }
+
 }

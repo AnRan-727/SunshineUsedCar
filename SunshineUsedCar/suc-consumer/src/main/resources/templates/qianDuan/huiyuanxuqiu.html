@@ -186,8 +186,8 @@ $(function () {
 </div>
 <ul class="navmenu">
   <li class="active"><a href="/">首页</a><span></span></li>
-  <li><a href="list.html">我要买车</a><span></span></li>
-  <li><a href="wymc.html">我要卖车</a><span></span></li>
+  <li><a href="/index/toCarList">我要买车</a><span></span></li>
+  <li><a href="/index/toCarList">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
   <li><a href="#">我要加盟</a><span></span></li>
 </ul>
@@ -198,8 +198,8 @@ $(function () {
     <ul>
       <li class="logo"><a href="/"><img src="/images/logo.png"  width="180"/></a></li>
       <li><a href="/">首页</a></li>
-      <li><a href="list.html">我要买车</a></li>
-      <li><a href="wymc.html">我要卖车</a></li>
+      <li><a href="/index/toCarList">我要买车</a></li>
+      <li><a href="/index/toCarList">我要卖车</a></li>
       <li><a href="#">阳光联盟</a></li>
       <li><a href="#">我要加盟</a></li>
     </ul>
@@ -217,7 +217,7 @@ $(function () {
 			<div class="meb-nav fl dInline">
 				<ul class="clearfix">
 					<li class="on"><a th:href="@{/carUser/toCarUserInfo(userID=${carUser.userID})}">会员中心</a></li>
-                    <li><a href="会员中心_我的需求.html">我的需求</a></li>
+                    <li><a th:href="@{/carUser/toXuQiu(userID=${carUser.userID})}">我的需求</a></li>
                     <li><a th:href="@{/carUser/toHuiYuanZhangHu(userID=${carUser.userID})}">账户管理</a></li>
                 </ul>
 			</div>
@@ -245,7 +245,45 @@ $(function () {
 					<div class="me-box">
                         <div class="me-dl" style="display: block;">
 							<div class="me-one" id="me-four">
-								<ul class="cs-list"><li class="clearfix" style="position: relative;">	<span class="carImg fl dInline"><a href="#" target="_blank"><div class="car_bg"> </div>		<img src="/images/carinfor1.jpg" onerror="this.src='images/carinfor1.jpg'" width="300"></a>	</span>	<div class="carTxt fr dInline">		<h2><a href="#" target="_blank">奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型</a></h2>		<p>			<span>上牌时间：2014-06</span> 			<span>行驶里程：0.8万公里</span>			<span>排量：2.0T</span>			<span>排放标准：</span>		</p>		<div class="price clearfix" style="margin:5px 0;">			<div class="fl dInline pNum">				<font>一口价</font><br>				<span class="num nBlue">28.2				</span><font> 万元</font>			 </div>			<span class="num1 fl" style="height:43px;padding-top:10px;"><em>新车价：40.14万元(含40140元购置税)</em><br>				为您节省：11.94万元 				<input type="hidden" class="CarValue_287" value="{img:'/',id:'224',price:'28.2',status:'',title:'奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型',url:'#'}">			</span>		</div>		<div class="cs_bt clearfix">			<a href="#" class="cs-q">立即抢订</a>			<a href="javascript:void(0)" onclick="delNeedThis('287')">取消收藏</a>		</div>	</div></li></ul><div class="hPages">    </div>							</div>
+								<ul class="cs-list" th:each="list : ${coll}" th:object="${list}">
+                                  <li class="clearfix" style="position: relative;" th:id="*{'CollID'+collectionID}">
+                                    <span class="carImg fl dInline">
+                                      <a th:href="@{/index/queryCarInfo(carId=*{carID})}">
+                                        <div class="car_bg"> </div>
+                                        <img th:src="*{'/img/car/' + carPicturesURL}" onerror="this.src='images/carinfor1.jpg'" width="300">
+                                      </a>
+                                    </span>
+                                    <div class="carTxt fr dInline">
+                                      <h2>
+                                        <a th:href="@{/index/queryCarInfo(carId=*{carID})}" th:text="*{model}"><!--奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型--></a>
+                                      </h2>
+                                      <p>
+                                        <span>上牌时间： <span th:text="*{placingTime}" ></span><!--2014-06--></span>
+                                        <span>行驶里程：<span th:text="*{mileage}"></span></span>
+                                        <span>排量： <span th:text="*{displacement}"></span></span>
+                                      </p>
+                                      <div class="price clearfix" style="margin:5px 0;">
+                                        <div class="fl dInline pNum">
+                                          <font>一口价</font><br>
+                                          <span class="num nBlue" th:text="*{presentPrice}"></span>
+                                          <font> 万元</font>
+                                        </div>
+                                        <span class="num1 fl" style="height:43px;padding-top:10px;">
+                                          <em>新车价：<span th:text="*{originalPrice}"></span>万元</em>
+                                          <br>				为您节省：<span th:text="*{originalPrice} - *{presentPrice}"></span>万元
+                                          <!--<input type="hidden" class="CarValue_287" value="{img:'/',id:'224',price:'28.2',status:'',title:'奥迪A4L 2013 款 2.0T CVT 35TFSI 技术型',url:'#'}">-->
+                                        </span>
+                                      </div>
+                                      <div class="cs_bt clearfix">
+                                        <!--<a href="#">立即抢订</a>-->
+                                        <a href="javascript:void(0)" class="cs-q" th:onclick="delNeedThis([[*{collectionID}]])">取消收藏</a>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              <div class="hPages">
+                              </div>
+                            </div>
 						</div>
 					</div>
 				</div>
@@ -289,7 +327,7 @@ $(function () {
     </div>
   </div>
   <div class="copyright">
-    <div class="cent"> Copyright © 2016-2017, snncar.com,All Rights Reserved 皖ICP备16022456号-1</div>
+    <div class="cent"> Copyright © 2016-2017, snncar.com,All Rights Reserved 京ICP备16022456号-1</div>
   </div>
 </div>
 <script type="text/javascript" src="/script/3c-menu.js"></script> 
@@ -524,16 +562,17 @@ function delNeed(act,meb){
 	});
 	return false;
 }
+//收藏
 function delNeedThis(carid){
-	var url='/Member/delCondent/channel/7.html';
+	var url='/index/deleteCollection';
 	$.ajax({
 		type: "POST",
 		url: url,
-		data: {carid:carid},
+		data: {cID:carid},
 		success: function(data){
-			if(data.result){
+			if(data == "true"){
 				alert('已取消该收藏');
-				 window.location.href="/Member/need/channel/7/list/11/tpl/4";
+				$("#CollID"+carid).remove();
 			}else{
 				alert('收藏取消失败');
 			}

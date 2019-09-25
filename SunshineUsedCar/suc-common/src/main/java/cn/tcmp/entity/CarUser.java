@@ -18,7 +18,4 @@ public class CarUser implements Serializable {
 	private String userAddress;
 	private String userGender;
 	private String code;
-
-
-
 }
