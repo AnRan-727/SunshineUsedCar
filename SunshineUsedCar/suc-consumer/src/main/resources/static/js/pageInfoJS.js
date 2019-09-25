@@ -1,4 +1,4 @@
-/ 加载数据字典下拉框
+// 加载数据字典下拉框
 function loadSelect(url,code, e){
     $.get(url,"code="+code,function(result){
         e.append("<option value='-1'>--请选择--</option>");

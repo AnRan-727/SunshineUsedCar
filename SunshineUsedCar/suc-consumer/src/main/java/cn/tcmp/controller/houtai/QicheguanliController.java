@@ -3,6 +3,7 @@ package cn.tcmp.controller.houtai;
 import cn.tcmp.service.CarQicheService;
 import cn.tcmp.util.PageQiche;
 import cn.tcmp.vo.CarVO;
+import cn.tcmp.vo.CarVO2;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class QicheguanliController {
     @ResponseBody
     @RequestMapping(value = "ajaxDetailCar", method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
     public  String ajaxDetailCar(Integer carID) {
-        CarVO carVO = carQicheService.detailCar(carID);
+        CarVO2 carVO = carQicheService.detailCar(carID);
         return JSON.toJSONString(carVO);
     }
     @ResponseBody
