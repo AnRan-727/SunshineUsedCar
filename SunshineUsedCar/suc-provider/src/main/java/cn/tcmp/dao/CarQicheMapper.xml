@@ -107,6 +107,100 @@
         and c.carID=#{carID}
 
     </select>
+    <update id="updateCar" parameterType="cn.tcmp.entity.Car">
+                    UPDATE
+              `sunshineusedcar`.`car`
+            SET
+
+              `pinpaiID` = #{car.pinpaiID},
+              `vehicleID` = #{car.vehicleID},
+              `mileage` = #{car.mileage},
+              `model` = #{car.model},
+              `presentPrice` =#{car.presentPrice},
+              `originalPrice` = #{car.originalPrice},
+              `typeID` = #{car.typeID},
+              `seatID` =#{car.seatID},
+              `gearboxID` =#{car.gearboxID},
+              `displacement` = #{car.displacement},
+              `emissionID` = #{car.emissionID},
+              `fuelID` = #{car.fuelID},
+              `colorID` = #{car.colorID},
+              `countryID` = #{car.countryID},
+              `topCity` = #{car.topCity},
+              `placingTime` =#{car.placingTime},
+              `yearlyTime` = #{car.yearlyTime},
+              `insuranceTime` =#{car.insuranceTime},
+              `superValue` = #{car.superValue},
+              `urgentSale` =#{car.urgentSale},
+              `newCar` = #{car.newCar},
+              `transitive` = #{car.transitive},
+              `personnelID` = #{car.personnelID},
+              `subordinateName` = #{car.subordinateName},
+              `Vehicleage` = #{car.VehicleAge},
+              `shelfTime` = #{car.shelfTime}
+            WHERE `carID` = #{car.carID};
+
+    </update>
+    <insert id="insertCar" parameterType="cn.tcmp.entity.Car">
+          INSERT INTO `sunshineusedcar`.`car` (
+  `pinpaiID`,
+  `vehicleID`,
+  `mileage`,
+  `model`,
+  `presentPrice`,
+  `originalPrice`,
+  `typeID`,
+  `seatID`,
+  `gearboxID`,
+  `displacement`,
+  `emissionID`,
+  `fuelID`,
+  `colorID`,
+  `countryID`,
+  `topCity`,
+  `placingTime`,
+  `yearlyTime`,
+  `insuranceTime`,
+  `superValue`,
+  `urgentSale`,
+  `newCar`,
+  `transitive`,
+  `personnelID`,
+  `subordinateName`,
+  `Vehicleage`,
+  `shelfTime`
+)
+VALUES
+  (
+    null,
+    #{pinpaiID},
+    #{vehicleID},
+    #{mileage},
+    #{model},
+    #{presentPrice},
+    #{originalPrice},
+    #{typeID},
+    #{seatID},
+    #{gearboxID},
+    #{displacement},
+    #{emissionID},
+    #{fuelID},
+    #{colorID},
+    #{countryID},
+    #{topCity},
+    #{placingTime},
+    #{yearlyTime},
+    #{insuranceTime},
+    #{superValue},
+    #{urgentSale},
+    #{newCar},
+    #{transitive},
+    #{personnelID},
+    #{subordinateName},
+    #{VehicleAge},
+    #{shelfTime}
+  );
 
 
+    </insert>
 </mapper>

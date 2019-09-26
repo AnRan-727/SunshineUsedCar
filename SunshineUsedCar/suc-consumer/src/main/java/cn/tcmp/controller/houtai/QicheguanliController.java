@@ -67,17 +67,11 @@ public class QicheguanliController {
     /*//  加载下拉框
     @ResponseBody
     @RequestMapping(value = "ajaxXiaLaKuang", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
-    public String ajaxDeleteCar(String typeCode) {
+    public String ajaxXiaLaKuang(String typeCode) {
         List<DataDictionary> dataDictionaries = xialakuangService.queryAllDataDictionary(typeCode);
         return JSON.toJSONString(dataDictionaries);
     }
-    //  加载下拉框品牌
-    @ResponseBody
-    @RequestMapping(value = "ajaxQueeyPinPai", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
-    public String ajaxQueeyPinPai() {
-        List<Vehicle> vehicles = xialakuangService.queryAllVehicle2();
-        return JSON.toJSONString(vehicles);
-    }
+
     //  加载根据车辆id查询下拉框车系
     @ResponseBody
     @RequestMapping(value = "ajaxQueeyCheXi", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
@@ -108,13 +102,7 @@ public class QicheguanliController {
         return integer>0?true:false;
     }*/
 
-    //  加载下拉框
-    @ResponseBody
-    @RequestMapping(value = "ajaxXiaLaKuang", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
-    public String ajaxDeleteCar(String typeCode) {
-        List<DataDictionary> dataDictionaries = xialakuangService.queryAllDataDictionary(typeCode);
-        return JSON.toJSONString(dataDictionaries);
-    }
+
     //  加载下拉框品牌
     @ResponseBody
     @RequestMapping(value = "ajaxQueeyPinPai", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
@@ -122,35 +110,8 @@ public class QicheguanliController {
         List<Vehicle> vehicles = xialakuangService.queryAllVehicle2();
         return JSON.toJSONString(vehicles);
     }
-    //  加载根据车辆id查询下拉框车系
-    @ResponseBody
-    @RequestMapping(value = "ajaxQueeyCheXi", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
-    public String ajaxQueeyPinPai(Integer vehicleID) {
-        List<Vehicle> vehicles = carQicheService.queryVehicleByVehicleName(vehicleID);
-        return JSON.toJSONString(vehicles);
-    }
-    //  加载下拉框车系
-    @ResponseBody
-    @RequestMapping(value = "ajaxQueeyCheXiQuanbu", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
-    public String ajaxQueeyCheXiQuanbu() {
-        List<Vehicle> vehicles = xialakuangService.queryAllCheXi();
-        return JSON.toJSONString(vehicles);
-    }
-    //  加载下拉框所有的员工
-    @ResponseBody
-    @RequestMapping(value = "ajaxYuanGong", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
-    public String ajaxYuanGong() {
-        List<Personnel> personnels = xialakuangService.queryAllYuanGong();
-        return JSON.toJSONString(personnels);
-    }
-    //  修改车辆信息
-    @ResponseBody
-    @RequestMapping(value = "ajaxUpdateQiche", method = RequestMethod.POST,produces = {"application/json;charset=utf-8"})
-    public boolean ajaxUpdateQiche(Car c) {
-        System.err.println(c);
-        Integer integer = carQicheService.updateCar(c);
-        return integer>0?true:false;
-    }
+
+
 
 
 }
