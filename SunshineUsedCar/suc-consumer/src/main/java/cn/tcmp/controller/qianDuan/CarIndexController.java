@@ -1,6 +1,7 @@
 package cn.tcmp.controller.qianDuan;
 
 import cn.tcmp.dto.TokenDto;
+import cn.tcmp.entity.Appointment;
 import cn.tcmp.entity.CarPictures;
 import cn.tcmp.entity.DataDictionary;
 import cn.tcmp.entity.Vehicle;
@@ -87,6 +88,17 @@ public class CarIndexController {
             }
         }
         return "qianDuan/wymc";
+    }
+
+    /**
+     * 预约汽车
+     * @param appointment
+     * @return
+     */
+    @RequestMapping(value = "yuYueQiChe")
+    public String yuYue(Appointment appointment){
+        indexCarService.addAppointment(appointment);
+        return "redirect:/";
     }
 
     /**

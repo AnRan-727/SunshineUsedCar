@@ -14,6 +14,10 @@
         <id column="t3" property="t3"></id>
     </resultMap>
 
+    <insert id="addAppointment" parameterType="cn.tcmp.entity.Appointment">
+        INSERT INTO `appointment` VALUES(NULL,NULL,#{userPhone},NULL,NOW(),2)
+    </insert>
+
     <!--关联汽车-->
     <sql id="guanLianQiChe">
         SELECT c.`carID`,c.`shelfTime`,p.`personnelID`,p.`personnelRealName`,

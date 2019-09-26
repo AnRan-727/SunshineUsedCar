@@ -1,5 +1,6 @@
 package cn.tcmp.dao;
 
+import cn.tcmp.entity.Appointment;
 import cn.tcmp.entity.CarPictures;
 import cn.tcmp.entity.Personnel;
 import cn.tcmp.entity.Vehicle;
@@ -27,6 +28,8 @@ public interface IndexCarMapper {
     List<Vehicle> queryVehicleByPinPai(Integer id);
     //查询汽车详情
     CarTestingVO detailCar(Integer id);
+    //预约
+    int addAppointment(Appointment appointment);
     //查询车图片
     List<CarPictures> queryDetailImg(Integer id);
     //查询车检测

@@ -1,6 +1,7 @@
 package cn.tcmp.service.indexCar;
 
 import cn.tcmp.dao.IndexCarMapper;
+import cn.tcmp.entity.Appointment;
 import cn.tcmp.entity.CarPictures;
 import cn.tcmp.entity.Personnel;
 import cn.tcmp.entity.Vehicle;
@@ -60,6 +61,11 @@ public class IndexCarServiceImpl implements IndexCarService {
     @Override
     public List<CarPictures> queryDetailImg(Integer id) {
         return indexCarMapper.queryDetailImg(id);
+    }
+
+    @Override
+    public int addAppointment(Appointment appointment) {
+        return indexCarMapper.addAppointment(appointment);
     }
 
     @Override

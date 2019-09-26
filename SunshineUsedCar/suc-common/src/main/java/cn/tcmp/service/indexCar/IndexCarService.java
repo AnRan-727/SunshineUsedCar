@@ -1,5 +1,6 @@
 package cn.tcmp.service.indexCar;
 
+import cn.tcmp.entity.Appointment;
 import cn.tcmp.entity.CarPictures;
 import cn.tcmp.entity.Personnel;
 import cn.tcmp.entity.Vehicle;
@@ -27,8 +28,11 @@ public interface IndexCarService {
     List<Vehicle> queryVehicleByPinPai(Integer id);
     //查询汽车信息
     CarTestingVO detailCar(Integer id);
+
     //查询车图片
     List<CarPictures> queryDetailImg(Integer id);
+    //预约
+    int addAppointment(Appointment appointment);
     //查询车检测
     List<CT1VO> queryJianCe(Integer id);
     //查看交易顾问旗下车辆

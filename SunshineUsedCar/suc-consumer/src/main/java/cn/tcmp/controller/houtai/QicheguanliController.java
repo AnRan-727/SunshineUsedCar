@@ -64,7 +64,7 @@ public class QicheguanliController {
         Integer integer = carQicheService.deleteCar(carID);
         return integer>0?true:false;
     }
-    //  加载下拉框
+    /*//  加载下拉框
     @ResponseBody
     @RequestMapping(value = "ajaxXiaLaKuang", method = RequestMethod.GET,produces = {"application/json;charset=utf-8"})
     public String ajaxDeleteCar(String typeCode) {
@@ -106,7 +106,7 @@ public class QicheguanliController {
         System.err.println(c);
         Integer integer = carQicheService.updateCar(c);
         return integer>0?true:false;
-    }
+    }*/
 
     //  加载下拉框
     @ResponseBody

@@ -228,17 +228,17 @@ $(function () {
 <div class="clear_fix"></div>
 <div class="sell_box">
   <div class="middlewrap">
-    <form class="sel-box sell_panel_maskNav">
+    <form action="/index/yuYueQiChe" class="sel-box sell_panel_maskNav">
       <div class="w-title">填写车辆信息，我们帮您卖车</div>
       <div class="write-box">
         <span th:if="${carUserName} != null">
           <input type="hidden" id="yongHuShouJi" th:value="${carUserName.userPhone}">
         </span>
-        <input type="text" class="input-phone" placeholder="请输入手机号码" id="userPhone">
-        <input type="hidden" name="source_type" value="0">
+        <input type="text" class="input-phone" name="userPhone" placeholder="请输入手机号码" id="userPhone">
+        <!--<input type="hidden" name="source_type" value="0">-->
         <p class="valid-error">请填写手机号码</p>
       </div>
-      <button class="sell-submit" data-clue-entry="01" data-role="navbtn" data-maskname="mask3" data-needpub="1"> 免费卖车 </button>
+      <input type="submit" class="sell-submit"  data-clue-entry="01" data-role="navbtn" data-maskname="mask3" value="免费卖车" data-needpub="1">
       <p class="submit-tip">免费咨询<i class="nub-org">400-877-9288</i></p>
     </form>
   </div>

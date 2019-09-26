@@ -17,7 +17,7 @@
 <script type="text/javascript">
     window.onload = function () {
         var is = $("input[name='isNo']").val();
-        console.log(is);
+
         if(is != null && is != undefined && is != ""){
             $("#sendMESStx").hide();
             $("#yiShouCang").show();
@@ -237,13 +237,13 @@ $(function () {
                             share : [{
                                 "bdSize" : 24,
                             }],
-                            
+
                             selectShare : [{
                                 "bdselectMiniList" : ['qzone','tsina','tqq','renren','weixin','tqf']
                             }]
                         }
 
-                        </script> 
+                        </script>
                         </div>
                       </div>
                       <div class="co-pan-arr" style="right:-11px;"></div>
@@ -796,7 +796,7 @@ $(function () {
     //创建地图函数：
     function createMap(){
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-        var point = new BMap.Point(117.27254,31.885679);//定义一个中心点坐标
+        var point = new BMap.Point(116.426754,39.785845);//定义一个中心点坐标
         map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
         window.map = map;//将map变量存储在全局
     }
@@ -823,7 +823,7 @@ $(function () {
     }
     
     //标注点数组
-    var markerArr = [{title:"安徽省众隆在线投资管理有限公司",content:"地址：安徽省合肥市庐阳区北一环祥源广场B座12F<br/>全国服务热线：400-090-1268<br/>联系电话：0551-63772628",point:"117.272005|31.885464",isOpen:1,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+    var markerArr = [{title:"课工场产教融合创新基地",content:"地址：广德大街20号院中科电商谷9号楼<br/>全国服务热线：010-000-00000<br/>联系电话：0000-00000000",point:"116.426754|39.785845",isOpen:1,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
 		 ];
     //创建marker
     function addMarker(){
@@ -883,10 +883,9 @@ $(function () {
 </script> 
       </div>
       <div class="lumap-right">
-        <div style="color:#000; font-size:24px;"><a target="_blank" href="#">合肥清溪服务中心</a></div>
-        <div>门店电话：<span style="color:#ee7800; font-size:18px;">400-068-5858&nbsp;&nbsp;转&nbsp;&nbsp;186409</span></div>
-        <div>门店地址：<span style="color:#202020; font-size:16px;">肥市蜀山区清溪路10号黎阳嘉苑7#商102
-          （大润发往西300米）</span></div>
+        <div style="color:#000; font-size:24px;"><a target="_blank" href="#">课工场产教融合创新基地</a></div>
+        <div>门店电话：<span style="color:#ee7800; font-size:18px;">010-000-0000&nbsp;&nbsp;转&nbsp;&nbsp;123456</span></div>
+        <div>门店地址：<span style="color:#202020; font-size:16px;">广德大街20号院中科电商谷9号楼</span></div>
         <div style="margin-top:20px;"> <img src="/images/store-map-22.jpg"> </div>
       </div>
     </div>

@@ -170,7 +170,7 @@ $(function () {
 <ul class="navmenu">
   <li class="active"><a href="/">首页</a><span></span></li>
   <li><a href="/index/toCarList">我要买车</a><span></span></li>
-  <li><a href="/index/toCarList">我要卖车</a><span></span></li>
+  <li><a href="/index/toWoYaoMaiChe">我要卖车</a><span></span></li>
   <li><a href="#">阳光联盟</a><span></span></li>
   <li><a href="#">我要加盟</a><span></span></li>
 </ul>
@@ -283,8 +283,8 @@ $(function () {
       <div class="buy-tit">我要卖车</div>
       <div class="sell-car-box">
         <form action="" class="clearfix">
-          <input type="text" class="sell-phone-input" data-role="sellPhone" placeholder="请输入手机号码">
-          <button class="sell-phone-submit">我要卖车</button>
+          <input type="text" class="sell-phone-input" data-role="sellPhone" name="userPhone" placeholder="请输入手机号码">
+          <input type="submit" class="sell-phone-submit" value="我要卖车"></input>
         </form>
         <!--提交失败-->
         <p class="sell-phone-error" style="display:none;">请填写正确的手机号码</p>
