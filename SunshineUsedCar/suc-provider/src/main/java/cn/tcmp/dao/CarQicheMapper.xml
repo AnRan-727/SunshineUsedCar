@@ -141,38 +141,37 @@
             WHERE `carID` = #{car.carID};
 
     </update>
-    <insert id="insertCar" parameterType="cn.tcmp.entity.Car">
+    <insert id="insertCar" parameterType="cn.tcmp.entity.Car" useGeneratedKeys="true" keyProperty="carID">
           INSERT INTO `sunshineusedcar`.`car` (
-  `pinpaiID`,
-  `vehicleID`,
-  `mileage`,
-  `model`,
-  `presentPrice`,
-  `originalPrice`,
-  `typeID`,
-  `seatID`,
-  `gearboxID`,
-  `displacement`,
-  `emissionID`,
-  `fuelID`,
-  `colorID`,
-  `countryID`,
-  `topCity`,
-  `placingTime`,
-  `yearlyTime`,
-  `insuranceTime`,
-  `superValue`,
-  `urgentSale`,
-  `newCar`,
-  `transitive`,
-  `personnelID`,
-  `subordinateName`,
-  `Vehicleage`,
-  `shelfTime`
+  pinpaiID,
+  vehicleID,
+  mileage,
+  model,
+  presentPrice,
+  originalPrice,
+  typeID,
+  seatID,
+  gearboxID,
+  displacement,
+  emissionID,
+  fuelID,
+  colorID,
+  countryID,
+  topCity,
+  placingTime,
+  yearlyTime,
+  insuranceTime,
+  superValue,
+  urgentSale,
+  newCar,
+  transitive,
+  personnelID,
+  subordinateName,
+  Vehicleage,
+  shelfTime
 )
 VALUES
   (
-    null,
     #{pinpaiID},
     #{vehicleID},
     #{mileage},
@@ -199,8 +198,6 @@ VALUES
     #{subordinateName},
     #{VehicleAge},
     #{shelfTime}
-  );
-
-
+  )
     </insert>
 </mapper>

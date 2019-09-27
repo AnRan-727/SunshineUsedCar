@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tcmp.dao.DetectionMapper">
+    <resultMap id="detectionMap" type="cn.tcmp.entity.Detection" autoMapping="true">
+        <id column="detectionid" property="detectionid"/>
+        <association property="vID" autoMapping="true">
+            <id column="vehicleID" property="vehicleID"/>
+        </association>
+        <association property="tid" autoMapping="true">
+            <id column="testID" property="testID"/>
+        </association>
+    </resultMap>
+    <select id="DetectionList" parameterType="Integer" resultMap="detectionMap">
+        SELECT * FROM detection d,testing t,vehicle v
+        WHERE t.testID=d.tid AND d.vID=v.vehicleID
+        AND v.vehicleID=#{vid}
+    </select>
+</mapper>

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -280,15 +279,12 @@ public class CarUserController {
     @ResponseBody
     @RequestMapping(value = "ajaxmember-list",method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
     public String ajaxmemberlist(Integer pageNum, Integer pageSize, CarUser carUser, Model model){
-        System.out.println("CarUser++++===="+carUser);
         PageUtils<CarUser> CarUserlist=this.carUserService.carUserQuery(pageNum,pageSize,carUser);
-        System.err.println(JSON.toJSONString(CarUserlist));
         return JSON.toJSONString(CarUserlist);
     }
 
     @RequestMapping("member-add")
     public String memberadd(CarUser carUser){
-
         return "member-add";
     }
     //查询客户详情
